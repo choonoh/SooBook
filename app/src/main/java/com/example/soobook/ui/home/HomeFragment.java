@@ -12,15 +12,9 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.soobook.Home;
 import com.example.soobook.R;
 
 import org.json.JSONArray;
@@ -51,7 +45,7 @@ public class HomeFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+            final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_frdlib, container, false);
 
             search_btn = rootView.findViewById(R.id.search_btn);
             search_btn.setOnClickListener(v -> {

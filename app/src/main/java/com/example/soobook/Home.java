@@ -5,7 +5,7 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
-import com.example.soobook.ui.gallery.GalleryFragment;
+import com.example.soobook.ui.gallery.MylibFragment;
 import com.example.soobook.ui.home.HomeFragment;
 import com.example.soobook.ui.slideshow.SlideshowFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,7 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallback {
 
     HomeFragment fragment1;
-    GalleryFragment fragment2;
+    MylibFragment fragment2;
     SlideshowFragment fragment3;
 
     DrawerLayout drawer;
@@ -53,7 +53,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         navigationView.setNavigationItemSelectedListener(this);
 
         fragment1 = new HomeFragment();
-        fragment2 = new GalleryFragment();
+        fragment2 = new MylibFragment();
         fragment3 = new SlideshowFragment();
 
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
