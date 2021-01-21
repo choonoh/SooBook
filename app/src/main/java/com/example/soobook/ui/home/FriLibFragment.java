@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class HomeFragment extends Fragment {
+public class FriLibFragment extends Fragment {
 
         private static String TAG = "phptest_Event";
         private static final String TAG_JSON = "webnautes";
@@ -45,17 +45,17 @@ public class HomeFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_frdlib, container, false);
+            View root = inflater.inflate(R.layout.fragment_frd_lib, container, false);
 
-            search_btn = rootView.findViewById(R.id.search_btn);
+            search_btn = root.findViewById(R.id.search_btn);
             search_btn.setOnClickListener(v -> {
             });
-            nlistView = rootView.findViewById(R.id.ListviewId);
+            nlistView = root.findViewById(R.id.ListviewId);
             nArrayList = new ArrayList<>();
 
-            HomeFragment.GetData task = new HomeFragment.GetData();
+            FriLibFragment.GetData task = new FriLibFragment.GetData();
             task.execute("https://ar8350.cafe24.com/ehfvlsqhdks20/testjson.php");
-            return rootView;
+            return root;
         }
         private class GetData extends AsyncTask<String, Void, String> {
 
@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment {
                 String title = this_item.get(TAG_title);
 
                 //Event에서 EventEdit으로 값 전달
-                Intent intent = new Intent(getActivity(), com.example.soobook.ui.home.HomeFragment.class);
+                Intent intent = new Intent(getActivity(), FriLibFragment.class);
                 intent.putExtra("owner", owner);
                 intent.putExtra("title", title);
                 startActivity(intent);

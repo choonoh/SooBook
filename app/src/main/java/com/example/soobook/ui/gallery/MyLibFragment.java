@@ -15,8 +15,9 @@ import android.widget.SimpleAdapter;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.soobook.Mylibadd;
+import com.example.soobook.My_lib_add;
 import com.example.soobook.R;
+import com.example.soobook.ui.home.FriLibFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +32,7 @@ import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class MylibFragment extends Fragment {
+public class MyLibFragment extends Fragment {
 
     private static String TAG = "phptest_Event";
     private static final String TAG_JSON = "webnautes";
@@ -46,11 +47,11 @@ public class MylibFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mylib, container, false);
+        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_my_lib, container, false);
 
         add_btn = rootView.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Mylibadd.class);
+            Intent intent = new Intent(getActivity(), My_lib_add.class);
             startActivity(intent);
 
         });
@@ -59,7 +60,7 @@ public class MylibFragment extends Fragment {
 
 
 
-        MylibFragment.GetData task = new MylibFragment.GetData();
+        MyLibFragment.GetData task = new MyLibFragment.GetData();
         task.execute("https://ar8350.cafe24.com/ehfvlsqhdks20/testjson.php");
         return rootView;
     }
@@ -158,7 +159,7 @@ public class MylibFragment extends Fragment {
             String title = this_item.get(TAG_title);
 
             //Event에서 EventEdit으로 값 전달
-            Intent intent = new Intent(getActivity(), com.example.soobook.ui.home.HomeFragment.class);
+            Intent intent = new Intent(getActivity(), FriLibFragment.class);
             intent.putExtra("owner", owner);
             intent.putExtra("title", title);
             startActivity(intent);
