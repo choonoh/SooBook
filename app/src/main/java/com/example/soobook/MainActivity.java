@@ -7,15 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+<<<<<<< HEAD
 import android.widget.EditText;
+=======
+>>>>>>> abc9b022c4507ab1bdde30508ed0b02220715ac0
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,46 +24,47 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
     private static String TAG = "phptest_Event";
     private static final String TAG_JSON="webnautes";
     private static final String TAG_owner = "owner";
     private static final String TAG_title = "title";
 
-
     ArrayList<HashMap<String, String>> nArrayList;
     ListView nlistView;
     String nJsonString;
+    ImageButton search_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        search_btn = findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+        });
         nlistView = findViewById(R.id.ListviewId);
         nArrayList = new ArrayList<>();
 
         MainActivity.GetData task = new MainActivity.GetData();
-        task.execute("https://ar8350.cafe24.com/ehfvlsqhdks20/testjson.php");  /*eventjson 실행*/
-
-
-        listView = findViewById(R.id.ListviewId);
-
-
+        task.execute("https://ar8350.cafe24.com/ehfvlsqhdks20/testjson.php");
     }
+<<<<<<< HEAD
 
 
     private class GetData extends AsyncTask<String, Void, String>{
+=======
+    private class GetData extends AsyncTask<String, Void, String> {
+>>>>>>> abc9b022c4507ab1bdde30508ed0b02220715ac0
         ProgressDialog progressDialog;
         String errorString = null;
         @Override
@@ -71,12 +72,11 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(MainActivity.this,"ㄱㄷㄱㄷ", null, true, true);
         }
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             progressDialog.dismiss();
-            Log.d(TAG, "response  - " + result);
+            Log.e(this.getClass().getName(), "response  - " + result);
             if (result == null){
             }
             else {
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 httpsURLConnection.connect();
 
                 int responseStatusCode = httpsURLConnection.getResponseCode();
-                Log.d(TAG, "response code - " + responseStatusCode);
+                Log.e(this.getClass().getName(), "response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if(responseStatusCode == HttpsURLConnection.HTTP_OK) {
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 bufferedReader.close();
                 return sb.toString().trim();
             } catch (Exception e) {
-                Log.d(TAG, "InsertData: Error ", e);
+                Log.e(TAG, "InsertData: Error ", e);
                 errorString = e.toString();
                 return null;
             }
@@ -128,12 +128,11 @@ public class MainActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(nJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-            for(int i=0;i<jsonArray.length();i++){
+            for(int i = 0; i < jsonArray.length(); i++){
 
                 JSONObject item = jsonArray.getJSONObject(i);
                 String owner = item.getString(TAG_owner);
                 String title = item.getString(TAG_title);
-
 
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put(TAG_owner, owner);
@@ -146,26 +145,21 @@ public class MainActivity extends AppCompatActivity {
                     new int[]{R.id.titletext, R.id.ownertext}
 
             );
-            Collections.reverse(nArrayList);
+            //Collections.reverse(nArrayList);
             nlistView.setAdapter(adapter);
         } catch (JSONException e) { Log.e(TAG, "showResult : ", e); }
         //리스트뷰 클릭 이벤트 처리
-        nlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        nlistView.setOnItemClickListener((parent, view, position, id) -> {
 
-                HashMap<String,String> this_item = (HashMap) parent.getAdapter().getItem(position);
-                String owner = this_item.get(TAG_owner);
-                String title = this_item.get(TAG_title);
+            HashMap<String,String> this_item = (HashMap) parent.getAdapter().getItem(position);
+            String owner = this_item.get(TAG_owner);
+            String title = this_item.get(TAG_title);
 
-
-                //Event에서 EventEdit으로 값 전달
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                intent.putExtra("owner", owner);
-                intent.putExtra("title", title);
-                startActivity(intent);
-            }
+            //Event에서 EventEdit으로 값 전달
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            intent.putExtra("owner", owner);
+            intent.putExtra("title", title);
+            startActivity(intent);
         });
     }
 }
-
