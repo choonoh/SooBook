@@ -29,8 +29,8 @@ import androidx.appcompat.widget.Toolbar;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallback {
 
-    GalleryFragment fragment1;
-    HomeFragment fragment2;
+    HomeFragment fragment1;
+    GalleryFragment fragment2;
     SlideshowFragment fragment3;
 
     DrawerLayout drawer;
@@ -53,8 +53,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        fragment1 = new GalleryFragment();
-        fragment2 = new HomeFragment();
+        fragment1 = new HomeFragment();
+        fragment2 = new GalleryFragment();
         fragment3 = new SlideshowFragment();
 
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
