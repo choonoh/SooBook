@@ -51,12 +51,10 @@ public class HomeFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_main, container, false);
+            final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
             search_btn = rootView.findViewById(R.id.search_btn);
             search_btn.setOnClickListener(v -> {
-                Intent intent = new Intent(getActivity(), Home.class);
-                startActivity(intent);
             });
             nlistView = rootView.findViewById(R.id.ListviewId);
             nArrayList = new ArrayList<>();
@@ -160,7 +158,7 @@ public class HomeFragment extends Fragment {
                 String title = this_item.get(TAG_title);
 
                 //Event에서 EventEdit으로 값 전달
-                Intent intent = new Intent(getActivity(), com.example.soobook.MainActivity.class);
+                Intent intent = new Intent(getActivity(), com.example.soobook.ui.home.HomeFragment.class);
                 intent.putExtra("owner", owner);
                 intent.putExtra("title", title);
                 startActivity(intent);
