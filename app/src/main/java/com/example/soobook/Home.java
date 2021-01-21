@@ -7,7 +7,8 @@ import android.widget.Toast;
 
 import com.example.soobook.ui.gallery.MyLibFragment;
 import com.example.soobook.ui.home.FriLibFragment;
-import com.example.soobook.ui.slideshow.SlideshowFragment;
+import com.example.soobook.ui.slideshow.FindlibFragment;
+import com.example.soobook.ui.slideshow.FindlibFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     FriLibFragment friLibFragment;
     MyLibFragment myLibFragment;
-    SlideshowFragment fragment3;
+   FindlibFragment fragment3;
 
     DrawerLayout drawer;
     Toolbar toolbar;
@@ -48,17 +49,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
-        fragment3 = new SlideshowFragment();
+        fragment3 = new FindlibFragment();
 
         fragment = getIntent().getStringExtra("fragment");
-        switch (fragment) {
+      /*  switch (fragment) {
             case "my_lib":
-                getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
+               getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
                 break;
             default:
             case "fri_lib":
                 getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
-        }
+        }*/
     }
     @Override
     public void onBackPressed() {
