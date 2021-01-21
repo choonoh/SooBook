@@ -15,8 +15,8 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="도서관 지도"
             android:gravity="center"
-            android:text="내 서재"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -34,12 +34,7 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/soo" />
-        <ImageButton
-            android:id="@+id/add_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/add" />
+
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="60dp"
@@ -47,10 +42,6 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/boogie" />
-
-
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -60,9 +51,10 @@
         android:gravity="center">
 
         <EditText
+            android:id="@+id/search_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="책 제목을 입력하세용">
+            android:hint="지역명을 입력하시오">
         </EditText>
 
         <ImageButton
@@ -72,8 +64,11 @@
             android:adjustViewBounds="true"
             android:background="@drawable/seach" />
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>
+    </FrameLayout>
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/activity_soobook_content" />
 </LinearLayout>

@@ -7,21 +7,13 @@ import android.widget.Toast;
 
 import com.example.soobook.ui.gallery.MylibFragment;
 import com.example.soobook.ui.home.HomeFragment;
-import com.example.soobook.ui.slideshow.SlideshowFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.soobook.ui.slideshow.FindlibFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentHostCallback;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,7 +22,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     HomeFragment fragment1;
     MylibFragment fragment2;
-    SlideshowFragment fragment3;
+    FindlibFragment fragment3;
 
     DrawerLayout drawer;
     Toolbar toolbar;
@@ -54,7 +46,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         fragment1 = new HomeFragment();
         fragment2 = new MylibFragment();
-        fragment3 = new SlideshowFragment();
+        fragment3 = new FindlibFragment();
 
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
     }
