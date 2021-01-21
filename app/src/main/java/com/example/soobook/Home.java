@@ -23,7 +23,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     FriLibFragment friLibFragment;
     MyLibFragment myLibFragment;
-   FindlibFragment fragment3;
+   FindlibFragment findlibFragment;
 
     DrawerLayout drawer;
     Toolbar toolbar;
@@ -49,17 +49,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
-        fragment3 = new FindlibFragment();
+        findlibFragment = new FindlibFragment();
 
         fragment = getIntent().getStringExtra("fragment");
-      /*  switch (fragment) {
+        switch (fragment) {
             case "my_lib":
                getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
                 break;
+            case "find_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
             default:
             case "fri_lib":
                 getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
-        }*/
+                break;
+        }
     }
     @Override
     public void onBackPressed() {
@@ -97,7 +100,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             curFragment = myLibFragment;
             toolbar.setTitle(("두 번째 화면"));
         } else if(position == 2) {
-            curFragment = fragment3;
+            curFragment = findlibFragment;
             toolbar.setTitle(("세 번째 화면"));
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
