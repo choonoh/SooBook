@@ -8,9 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
     private class GetData extends AsyncTask<String, Void, String>{
         ProgressDialog progressDialog;
         String errorString = null;
