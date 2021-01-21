@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.soobook.ui.home.HomeFragment"
+        android:name="com.example.soobook.ui.home.FriLibFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_frdlib" />
+        tools:layout="@layout/fragment_frd_lib" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.soobook.ui.gallery.GalleryFragment"
+        android:name="com.example.soobook.ui.gallery.MyLibFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_my_lib" />
 
     <fragment
         android:id="@+id/nav_slideshow"

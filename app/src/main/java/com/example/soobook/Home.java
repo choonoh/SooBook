@@ -5,35 +5,29 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
-import com.example.soobook.ui.gallery.MylibFragment;
-import com.example.soobook.ui.home.HomeFragment;
+import com.example.soobook.ui.gallery.MyLibFragment;
+import com.example.soobook.ui.home.FriLibFragment;
 import com.example.soobook.ui.slideshow.SlideshowFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentHostCallback;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallback {
 
-    HomeFragment fragment1;
-    MylibFragment fragment2;
+    FriLibFragment friLibFragment;
+    MyLibFragment myLibFragment;
     SlideshowFragment fragment3;
 
     DrawerLayout drawer;
     Toolbar toolbar;
+
+    String fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +46,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        fragment1 = new HomeFragment();
-        fragment2 = new MylibFragment();
+        friLibFragment = new FriLibFragment();
+        myLibFragment = new MyLibFragment();
         fragment3 = new SlideshowFragment();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment1).commit();
+        fragment = getIntent().getStringExtra("fragment");
+        switch (fragment) {
+            case "my_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
+                break;
+            default:
+            case "fri_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+        }
     }
     @Override
     public void onBackPressed() {
@@ -88,10 +90,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Fragment curFragment = null;
 
         if(position == 0) {
-            curFragment = fragment1;
+            curFragment = friLibFragment;
             toolbar.setTitle(("첫 번째 화면"));
         } else if(position == 1) {
-            curFragment = fragment2;
+            curFragment = myLibFragment;
             toolbar.setTitle(("두 번째 화면"));
         } else if(position == 2) {
             curFragment = fragment3;
