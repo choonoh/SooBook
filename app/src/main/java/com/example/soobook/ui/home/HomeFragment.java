@@ -87,7 +87,6 @@ public class HomeFragment extends Fragment {
                     showResult();
                 }
             }
-
             @Override
             protected String doInBackground(String... params) {
                 String serverURL = params[0];
