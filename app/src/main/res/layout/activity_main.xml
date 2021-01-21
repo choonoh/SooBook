@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/soobook_bg"
     tools:context=".MainActivity">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,14 +22,11 @@
             android:textSize="30sp"
             android:textStyle="bold" />
     </LinearLayout>
-
-
+    
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/imageView"
@@ -62,15 +59,13 @@
 
 
         <ImageButton
+            android:id="@+id/search_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:adjustViewBounds="true"
-            android:background="@drawable/seach"
-
-            >
+            android:background="@drawable/seach">
 
         </ImageButton>
-
 
     </LinearLayout>
 </LinearLayout>

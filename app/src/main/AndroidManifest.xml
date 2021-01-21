@@ -20,7 +20,8 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.SOOBOOK.NoActionBar"></activity>
+            android:theme="@style/Theme.SOOBOOK.NoActionBar">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
