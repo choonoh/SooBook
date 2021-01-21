@@ -51,17 +51,17 @@ public class HomeFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+            View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-            search_btn = rootView.findViewById(R.id.search_btn);
+            search_btn = root.findViewById(R.id.search_btn);
             search_btn.setOnClickListener(v -> {
             });
-            nlistView = rootView.findViewById(R.id.ListviewId);
+            nlistView = root.findViewById(R.id.ListviewId);
             nArrayList = new ArrayList<>();
 
             HomeFragment.GetData task = new HomeFragment.GetData();
             task.execute("https://ar8350.cafe24.com/ehfvlsqhdks20/testjson.php");
-            return rootView;
+            return root;
         }
         private class GetData extends AsyncTask<String, Void, String> {
 
