@@ -7,14 +7,14 @@
         <item
             android:id="@+id/menu1"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:title="친구서재" />
         <item
             android:id="@+id/menu2"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="내 서재" />
         <item
             android:id="@+id/menu3"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="도서관찾기" />
     </group>
 </menu>
