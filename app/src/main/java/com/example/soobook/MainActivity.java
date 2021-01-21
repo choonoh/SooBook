@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-<<<<<<< HEAD
-import android.widget.EditText;
-=======
->>>>>>> abc9b022c4507ab1bdde30508ed0b02220715ac0
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -58,13 +55,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.GetData task = new MainActivity.GetData();
         task.execute("https://ar8350.cafe24.com/ehfvlsqhdks20/testjson.php");
     }
-<<<<<<< HEAD
-
-
     private class GetData extends AsyncTask<String, Void, String>{
-=======
-    private class GetData extends AsyncTask<String, Void, String> {
->>>>>>> abc9b022c4507ab1bdde30508ed0b02220715ac0
         ProgressDialog progressDialog;
         String errorString = null;
         @Override
