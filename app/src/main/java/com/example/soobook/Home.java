@@ -94,13 +94,18 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         if(position == 0) {
             curFragment = friLibFragment;
-            toolbar.setTitle(("첫 번째 화면"));
+            toolbar.setTitle(("친구의 서재"));
         } else if(position == 1) {
             curFragment = myLibFragment;
-            toolbar.setTitle(("두 번째 화면"));
+            toolbar.setTitle(("내 서재"));
         } else if(position == 2) {
+<<<<<<< HEAD
+            curFragment = fragment3;
+            toolbar.setTitle(("도서관 지도"));
+=======
             curFragment = findlibFragment;
             toolbar.setTitle(("세 번째 화면"));
+>>>>>>> 94cf883465a3b5f37728481d10912dac7d811597
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
     }
