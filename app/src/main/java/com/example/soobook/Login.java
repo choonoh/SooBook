@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this, "회원가입 기능은 아직 구현을 못해써 ㅜㅜ", Toast.LENGTH_LONG).show();
         });
         login_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(Login.this, Home.class);
+            Intent intent = new Intent(Login.this, MainActivity.class);
             intent.putExtra("fragment", "fri_lib");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
