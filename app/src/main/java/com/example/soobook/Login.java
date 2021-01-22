@@ -36,7 +36,9 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this, "정보 찾기 기능은 아직 구현을 못해써 ㅜㅜ.", Toast.LENGTH_LONG).show();
         });
         sign_up.setOnClickListener(v -> {
-            Toast.makeText(this, "회원가입 기능은 아직 구현을 못해써 ㅜㅜ", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Login.this, Sign_up.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
         login_btn.setOnClickListener(v -> {
             Intent intent = new Intent(Login.this, Home.class);

@@ -5,10 +5,9 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
-import com.example.soobook.ui.gallery.MyLibFragment;
-import com.example.soobook.ui.home.FriLibFragment;
-import com.example.soobook.ui.slideshow.FindlibFragment;
-import com.example.soobook.ui.slideshow.FindlibFragment;
+import com.example.soobook.ui.MyLib.MyLibFragment;
+import com.example.soobook.ui.FriLib.FriLibFragment;
+import com.example.soobook.ui.FindLib.FindLibFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +22,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     FriLibFragment friLibFragment;
     MyLibFragment myLibFragment;
-   FindlibFragment findlibFragment;
+   FindLibFragment findlibFragment;
 
     DrawerLayout drawer;
     Toolbar toolbar;
@@ -49,7 +48,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
-        findlibFragment = new FindlibFragment();
+        findlibFragment = new FindLibFragment();
 
         fragment = getIntent().getStringExtra("fragment");
         switch (fragment) {

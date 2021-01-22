@@ -1,4 +1,4 @@
-package com.example.soobook.ui.home;
+package com.example.soobook.ui.FriLib;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
