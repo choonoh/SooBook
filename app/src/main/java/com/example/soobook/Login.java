@@ -1,50 +1,84 @@
 package com.example.soobook;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Login extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-    EditText et_email, et_pwd;
-    TextView find_email_pwd, sign_up;
-    Button login_btn;
+public class Login extends AppCompatActivity{
+    private final String TAG ="failErr";
+    private EditText et_email, et_pwd;
+    private TextView find_email_pwd, sign_up;
+    private Button login_btn;
+    private FirebaseAuth firebaseAuth;
 
-    String user_email, user_pwd;
+    public void setID(){
+        et_email=findViewById(R.id.et_email);
+        et_pwd=findViewById(R.id.et_pwd);
+        login_btn=findViewById(R.id.login_btn);
+        sign_up = findViewById(R.id.sign_up);
+        find_email_pwd = findViewById(R.id.find_email_pwd);
+        firebaseAuth= FirebaseAuth.getInstance();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        et_email = findViewById(R.id.et_email);
-        et_pwd = findViewById(R.id.et_pwd);
-        find_email_pwd = findViewById(R.id.find_email_pwd);
-        sign_up = findViewById(R.id.sign_up);
-        login_btn = findViewById(R.id.login_btn);
-
-        user_email = et_email.getText().toString();
-        user_pwd = et_pwd.getText().toString();
+        login_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(et_email.getText().toString().length()<=0 || et_pwd.getText().toString().length()<=0){
+                    Toast.makeText(Login.this,"모두 입력해주세용", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                startLogin();
+            }
+        });
 
         find_email_pwd.setOnClickListener(v -> {
             Toast.makeText(this, "정보 찾기 기능은 아직 구현을 못해써 ㅜㅜ.", Toast.LENGTH_LONG).show();
         });
         sign_up.setOnClickListener(v -> {
             Intent intent = new Intent(Login.this, Sign_up.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
-        });
-        login_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            intent.putExtra("fragment", "fri_lib");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finish();
         });
     }
+
+
+    public void startLogin(){
+        firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(Login.this,"로긴실패",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+
 }
