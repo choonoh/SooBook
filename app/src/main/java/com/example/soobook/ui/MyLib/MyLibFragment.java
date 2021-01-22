@@ -1,4 +1,4 @@
-package com.example.soobook.ui.gallery;
+package com.example.soobook.ui.MyLib;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.soobook.My_lib_add;
 import com.example.soobook.R;
-import com.example.soobook.ui.home.FriLibFragment;
+import com.example.soobook.ui.FriLib.FriLibFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;

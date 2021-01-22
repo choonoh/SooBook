@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <meta-data
         android:name="com.naver.maps.map.CLIENT_ID"
         android:value="vjckuvmnki" />
@@ -21,14 +22,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SOOBOOK">
+<<<<<<< HEAD
 
 
+=======
+        <activity android:name=".Sign_up" />
+>>>>>>> 1854c4ce166547ab5cebfbcddf2e313dd35bdf96
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.SOOBOOK.NoActionBar" />
-        <activity
-            android:name=".Login">
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
