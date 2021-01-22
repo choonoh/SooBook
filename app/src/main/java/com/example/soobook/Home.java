@@ -23,7 +23,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     FriLibFragment friLibFragment;
     MyLibFragment myLibFragment;
-   FindlibFragment fragment3;
+   FindlibFragment findlibFragment;
 
     DrawerLayout drawer;
     Toolbar toolbar;
@@ -49,17 +49,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
-        fragment3 = new FindlibFragment();
+        findlibFragment = new FindlibFragment();
 
         fragment = getIntent().getStringExtra("fragment");
-      /*  switch (fragment) {
+        switch (fragment) {
             case "my_lib":
                getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
                 break;
+            case "find_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
             default:
             case "fri_lib":
                 getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
-        }*/
+                break;
+        }
     }
     @Override
     public void onBackPressed() {
@@ -97,8 +100,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             curFragment = myLibFragment;
             toolbar.setTitle(("내 서재"));
         } else if(position == 2) {
+<<<<<<< HEAD
             curFragment = fragment3;
             toolbar.setTitle(("도서관 지도"));
+=======
+            curFragment = findlibFragment;
+            toolbar.setTitle(("세 번째 화면"));
+>>>>>>> 94cf883465a3b5f37728481d10912dac7d811597
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
     }
