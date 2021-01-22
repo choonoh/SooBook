@@ -22,12 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SOOBOOK">
-<<<<<<< HEAD
-
-
-=======
         <activity android:name=".Sign_up" />
->>>>>>> 1854c4ce166547ab5cebfbcddf2e313dd35bdf96
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
