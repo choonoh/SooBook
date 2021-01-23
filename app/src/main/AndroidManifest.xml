@@ -38,6 +38,7 @@
 
         </activity>
         <activity android:name=".My_lib_add" />
+        <activity android:name=".FindPw"/>
     </application>
 
 </manifest>

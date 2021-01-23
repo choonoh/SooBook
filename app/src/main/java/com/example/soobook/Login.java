@@ -24,39 +24,53 @@ public class Login extends AppCompatActivity{
     private Button login_btn;
     private FirebaseAuth firebaseAuth;
 
-    public void setID(){
-        et_email=findViewById(R.id.et_email);
-        et_pwd=findViewById(R.id.et_pwd);
-        login_btn=findViewById(R.id.login_btn);
-        sign_up = findViewById(R.id.sign_up);
-        find_email_pwd = findViewById(R.id.find_email_pwd);
-        firebaseAuth= FirebaseAuth.getInstance();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login_btn.setOnClickListener(new View.OnClickListener(){
+        setID();
+        setEvents();
+        find_email_pwd = (TextView) findViewById(R.id.find_email_pwd);
+        sign_up = (TextView) findViewById(R.id.sign_up);
+        sign_up.setOnClickListener(v -> {
+            Intent intent = new Intent(Login.this, Sign_up.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+
+        find_email_pwd.setOnClickListener(new View.OnClickListener() { //비밀번호 찾기 화면 이동
             @Override
-            public void onClick(View v){
-                if(et_email.getText().toString().length()<=0 || et_pwd.getText().toString().length()<=0){
-                    Toast.makeText(Login.this,"모두 입력해주세용", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                startLogin();
+            public void onClick(View v) {
+                Intent intent=new Intent(Login.this, FindPw.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
             }
         });
 
-        find_email_pwd.setOnClickListener(v -> {
-            Toast.makeText(this, "정보 찾기 기능은 아직 구현을 못해써 ㅜㅜ.", Toast.LENGTH_LONG).show();
-        });
-        sign_up.setOnClickListener(v -> {
-            Intent intent = new Intent(Login.this, Sign_up.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
+    }
+
+    public void setID() {
+        et_email = findViewById(R.id.et_email);
+        et_pwd = findViewById(R.id.et_pwd);
+        login_btn = findViewById(R.id.login_btn);
+        sign_up = findViewById(R.id.sign_up);
+        find_email_pwd = findViewById(R.id.find_email_pwd);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+    }
+    public void setEvents() {
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_email.getText().toString().length() <= 0 || et_pwd.getText().toString().length() <= 0) {
+                    Toast.makeText(Login.this, "이메일 또는 비밀번호를 입력해주세요", Toast.LENGTH_SHORT);
+                    return;
+                } else {
+                    startLogin();}
+            }
+
         });
     }
 
