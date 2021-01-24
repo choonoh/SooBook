@@ -6,7 +6,8 @@ public class User {
     private int pw;
     private String userName;
 
-    public User(){}
+    public User() {
+    }
 
     public String getProfile() {
         return profile;

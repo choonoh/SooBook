@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.soobook.My_lib_add;
 import com.example.soobook.R;
-import com.example.soobook.ui.FriLib.FriLibFragment;
+import com.example.soobook.ui.FriLib.FriLibFragmenttest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -159,7 +159,7 @@ public class MyLibFragment extends Fragment {
             String title = this_item.get(TAG_title);
 
             //Event에서 EventEdit으로 값 전달
-            Intent intent = new Intent(getActivity(), FriLibFragment.class);
+            Intent intent = new Intent(getActivity(), FriLibFragmenttest.class);
             intent.putExtra("owner", owner);
             intent.putExtra("title", title);
             startActivity(intent);
