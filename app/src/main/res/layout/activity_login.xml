@@ -104,7 +104,8 @@
             android:id="@+id/auto_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="아주 편한 자동ㅋ 로그인ㅋ" />
+            android:text="아주 편한 자동ㅋ 로그인ㅋ"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/find_email_pwd"
