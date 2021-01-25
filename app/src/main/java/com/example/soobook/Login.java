@@ -56,31 +56,6 @@ public class Login extends AppCompatActivity{
             final Toast toast;
             Handler handler = new Handler();
             if (user_email.length() <= 0) {
-<<<<<<< HEAD
-                Toast.makeText(Login.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
-                /*
-                final Toast toast = Toast.makeText(ctx,
-                "이메일을 입력해주세요", Toast.LENGTH_SHORT); toast.show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable()
-                { @Override public void run() { toast.cancel(); } }, 1000);
-
-                 */
-            } else if (user_pwd.length() <= 0)
-                Toast.makeText(Login.this, "이메일 또는 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
-            else {
-             /*   if(auto_login.isChecked()) {
-                    SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-                    //SharedPreferences.Editor 통해 login_email, login_pass 저장
-                    SharedPreferences.Editor autoLogin = auto.edit();
-                    autoLogin.putString("auto_email", null);
-                    autoLogin.putString("inputPwd", password);
-                    autoLogin.putString("inputName", name);
-                    autoLogin.putString("inputLanguage", language);
-                    autoLogin.commit();
-
-                }*/
-=======
                 toast = Toast.makeText(Login.this, "이메일을 입력하셈유", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else if (user_pwd.length() <= 0) {
@@ -95,7 +70,6 @@ public class Login extends AppCompatActivity{
                     autoLogin.putString("inputPwd", user_pwd);
                     autoLogin.apply();
                 }
->>>>>>> ffc809d57b62799afd3f6f3013b0fdc922ff864e
                 startLogin();
             }
         });
