@@ -3,10 +3,15 @@ package com.example.soobook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,83 +21,100 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Locale;
+
 public class Login extends AppCompatActivity{
-    private final String TAG ="failErr";
+
     private EditText et_email, et_pwd;
     private TextView find_email_pwd, sign_up;
     private Button login_btn;
+    private CheckBox auto_login;
     private FirebaseAuth firebaseAuth;
-
+    private String auto_email, auto_pwd, user_email, user_pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        setID();
-        setEvents();
-        find_email_pwd = (TextView) findViewById(R.id.find_email_pwd);
-        sign_up = (TextView) findViewById(R.id.sign_up);
+        setLogin();
+
+        find_email_pwd.setOnClickListener(v -> {
+            Intent intent=new Intent(Login.this, FindPw.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
         sign_up.setOnClickListener(v -> {
             Intent intent = new Intent(Login.this, Sign_up.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
+        login_btn.setOnClickListener(v -> {
+            if (user_email.length() <= 0) {
+                Toast.makeText(Login.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
+                /*
+                final Toast toast = Toast.makeText(ctx,
+                "이메일을 입력해주세요", Toast.LENGTH_SHORT); toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable()
+                { @Override public void run() { toast.cancel(); } }, 1000);
 
-        find_email_pwd.setOnClickListener(new View.OnClickListener() { //비밀번호 찾기 화면 이동
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Login.this, FindPw.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
+                 */
+            } else if (user_pwd.length() <= 0)
+                Toast.makeText(Login.this, "이메일 또는 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+            else {
+                if(auto_login.isChecked()) {
+                    SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                    //SharedPreferences.Editor 통해 login_email, login_pass 저장
+                    SharedPreferences.Editor autoLogin = auto.edit();
+                    autoLogin.putString("auto_email", null);
+                    autoLogin.putString("inputPwd", password);
+                    autoLogin.putString("inputName", name);
+                    autoLogin.putString("inputLanguage", language);
+                    autoLogin.commit();
+
+                }
+                startLogin();
             }
         });
-
     }
+    /*
+    SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+    auto_email = auto.getString("auto_email",null);
+    auto_pwd = auto.getString("auto_pwd",null);
 
-    public void setID() {
+    if(auto_email !=null && auto_pwd != null) {
+        Toast.makeText(Login.this, ("자동 로그인 완룡!"), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Login.this, Home.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+     */
+    public void setLogin() {
         et_email = findViewById(R.id.et_email);
         et_pwd = findViewById(R.id.et_pwd);
         login_btn = findViewById(R.id.login_btn);
         sign_up = findViewById(R.id.sign_up);
         find_email_pwd = findViewById(R.id.find_email_pwd);
+        auto_login = findViewById(R.id.auto_login);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        user_email = et_email.getText().toString();
+        user_pwd = et_pwd.getText().toString();
     }
-    public void setEvents() {
-        login_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et_email.getText().toString().length() <= 0 || et_pwd.getText().toString().length() <= 0) {
-                    Toast.makeText(Login.this, "이메일 또는 비밀번호를 입력해주세요", Toast.LENGTH_SHORT);
-                    return;
-                } else {
-                    startLogin();}
-            }
-
-        });
-    }
-
-
     public void startLogin(){
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Intent intent = new Intent(Login.this, Home.class);
-                            intent.putExtra("fragment","fri_lib");
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else{
-                            Toast.makeText(Login.this,"로긴실패",Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if(task.isSuccessful()){
+                        Intent intent = new Intent(Login.this, Home.class);
+                        intent.putExtra("fragment","fri_lib");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        finish();
+                    } else{
+                        Toast.makeText(Login.this,"로긴실패",Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
-
-
 }

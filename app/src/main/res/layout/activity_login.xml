@@ -99,6 +99,12 @@
                 android:textSize="20sp"
                 android:layout_weight="3"/>
         </LinearLayout>
+        
+        <CheckBox
+            android:id="@+id/auto_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아주 편한 자동ㅋ 로그인ㅋ" />
 
         <TextView
             android:id="@+id/find_email_pwd"

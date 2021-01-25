@@ -69,7 +69,6 @@ public class FriLibFragment extends Fragment {
             }
         });
 
-
         adapter = new CustomBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
         return root;
