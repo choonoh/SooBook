@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity{
             } else if (user_pwd.length() <= 0)
                 Toast.makeText(Login.this, "이메일 또는 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
             else {
-                if(auto_login.isChecked()) {
+             /*   if(auto_login.isChecked()) {
                     SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
                     //SharedPreferences.Editor 통해 login_email, login_pass 저장
                     SharedPreferences.Editor autoLogin = auto.edit();
@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity{
                     autoLogin.putString("inputLanguage", language);
                     autoLogin.commit();
 
-                }
+                }*/
                 startLogin();
             }
         });
