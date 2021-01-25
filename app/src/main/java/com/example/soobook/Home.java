@@ -42,7 +42,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
-        logout_btn = findViewById(R.layout.nav_header_main);
+//        logout_btn = findViewById(R.layout.nav_header_main);
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,14 +75,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         } catch (Exception e) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
         }
-        logout_btn.setOnClickListener(v -> {
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.signOut();
-            Intent intent=new Intent(Home.this, Login.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-        });
+//        logout_btn.setOnClickListener(v -> {
+//            firebaseAuth = FirebaseAuth.getInstance();
+//            firebaseAuth.signOut();
+//            Intent intent=new Intent(Home.this, Login.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//            startActivity(intent);
+//            finish();
+//        });
     }
     @Override
     public void onBackPressed() {
