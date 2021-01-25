@@ -78,7 +78,12 @@
             android:textSize="15sp"
             android:textColor="@color/black"
             />
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+        />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -91,7 +96,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/black" />
             <EditText
-                android:id="@+id/rcm_text"
+                android:id="@+id/evl_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
