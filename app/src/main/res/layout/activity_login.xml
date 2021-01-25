@@ -69,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="이멜요"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textColorHint="#888888"
                 android:textSize="20sp" />
@@ -94,6 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 쳐!!!"
+                android:inputType="textPassword"
                 android:textColorHint="#888888"
                 android:textColor="@color/black"
                 android:textSize="20sp"

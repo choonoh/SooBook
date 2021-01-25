@@ -1,28 +1,24 @@
 package com.example.soobook;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
+
 import android.os.Bundle;
 import android.os.Handler;
+
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Locale;
 
 public class Login extends AppCompatActivity{
 
@@ -31,6 +27,8 @@ public class Login extends AppCompatActivity{
     private Button login_btn;
     private CheckBox auto_login;
     private FirebaseAuth firebaseAuth;
+
+    private  static  boolean auto;
     private String user_email, user_pwd;
 
     @Override
@@ -39,21 +37,16 @@ public class Login extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         setLogin();
-        SharedPreferences auto_out = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-        String auto_email = auto_out.getString("auto_email", null);
-        String auto_pwd = auto_out.getString("auto_pwd", null);
-
-        if(auto_email !=null && auto_pwd != null) {
-            Toast toast = Toast.makeText(Login.this, auto_email + "님 자동로긴 완룡!", Toast.LENGTH_SHORT); toast.show();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && auto) {
+            Log.e(this.getClass().getName(), "자동로그인");
+            Intent intent = new Intent(Login.this, Home.class);
+            intent.putExtra("fragment","fri_lib");
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Toast toast = Toast.makeText(Login.this, "자동로그인 성공", Toast.LENGTH_SHORT); toast.show();
             Handler handler = new Handler();
             handler.postDelayed(toast::cancel, 1000);
-
-            Intent intent = new Intent(Login.this, Home.class);
-            intent.putExtra("user_email", auto_email);
-            intent.putExtra("user_pwd", auto_pwd);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
         }
         find_email_pwd.setOnClickListener(v -> {
             Intent intent=new Intent(Login.this, FindPw.class);
@@ -77,13 +70,6 @@ public class Login extends AppCompatActivity{
                 toast = Toast.makeText(Login.this, "비밀번호를 입력하셈유", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else {
-                if(auto_login.isChecked()) {
-                    SharedPreferences auto_in = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-                    SharedPreferences.Editor autoLogin = auto_in.edit();
-                    autoLogin.putString("auto_email", user_email);
-                    autoLogin.putString("inputPwd", user_pwd);
-                    autoLogin.apply();
-                }
                 startLogin();
             }
         });
@@ -101,14 +87,26 @@ public class Login extends AppCompatActivity{
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if(task.isSuccessful()){
+                        auto = auto_login.isChecked();
                         Intent intent = new Intent(Login.this, Home.class);
                         intent.putExtra("fragment","fri_lib");
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         finish();
                     } else{
-                        Toast.makeText(Login.this,"로긴실패",Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(Login.this, "실패", Toast.LENGTH_SHORT); toast.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(toast::cancel, 1000);
                     }
                 });
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if(currentUser != null){
+            startActivity(new Intent(Login.this, Home.class));
+            finish();
+        }
     }
 }
