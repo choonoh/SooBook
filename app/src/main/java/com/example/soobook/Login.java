@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity{
     private Button login_btn;
     private CheckBox auto_login;
     private FirebaseAuth firebaseAuth;
-    private String auto_email, auto_pwd, user_email, user_pwd;
+    private String user_email, user_pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,54 +39,56 @@ public class Login extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         setLogin();
+        SharedPreferences auto_out = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        String auto_email = auto_out.getString("auto_email", null);
+        String auto_pwd = auto_out.getString("auto_pwd", null);
 
-        find_email_pwd.setOnClickListener(v -> {
-            Intent intent=new Intent(Login.this, FindPw.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
-        sign_up.setOnClickListener(v -> {
-            Intent intent = new Intent(Login.this, Sign_up.class);
+        if(auto_email !=null && auto_pwd != null) {
+            Toast toast = Toast.makeText(Login.this, auto_email + "님 자동로긴 완룡!", Toast.LENGTH_SHORT); toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(toast::cancel, 1000);
+
+            Intent intent = new Intent(Login.this, Home.class);
+            intent.putExtra("user_email", auto_email);
+            intent.putExtra("user_pwd", auto_pwd);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        });
-        login_btn.setOnClickListener(v -> {
-            user_email = et_email.getText().toString();
-            user_pwd = et_pwd.getText().toString();
-            final Toast toast;
-            Handler handler = new Handler();
-            if (user_email.length() <= 0) {
-                toast = Toast.makeText(Login.this, "이메일을 입력하셈유", Toast.LENGTH_SHORT); toast.show();
-                handler.postDelayed(toast::cancel, 1000);
-            } else if (user_pwd.length() <= 0) {
-                toast = Toast.makeText(Login.this, "비밀번호를 입력하셈유", Toast.LENGTH_SHORT); toast.show();
-                handler.postDelayed(toast::cancel, 1000);
-            } else {
-                if(auto_login.isChecked()) {
-                    SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-                    //SharedPreferences.Editor 통해 login_email, login_pass 저장
-                    SharedPreferences.Editor autoLogin = auto.edit();
-                    autoLogin.putString("auto_email", user_email);
-                    autoLogin.putString("inputPwd", user_pwd);
-                    autoLogin.apply();
+            finish();
+        } else if (auto_email ==null && auto_pwd == null) {
+            find_email_pwd.setOnClickListener(v -> {
+                Intent intent=new Intent(Login.this, FindPw.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            });
+            sign_up.setOnClickListener(v -> {
+                Intent intent = new Intent(Login.this, Sign_up.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            });
+            login_btn.setOnClickListener(v -> {
+                user_email = et_email.getText().toString();
+                user_pwd = et_pwd.getText().toString();
+                final Toast toast;
+                Handler handler = new Handler();
+                if (user_email.length() <= 0) {
+                    toast = Toast.makeText(Login.this, "이메일을 입력하셈유", Toast.LENGTH_SHORT); toast.show();
+                    handler.postDelayed(toast::cancel, 1000);
+                } else if (user_pwd.length() <= 0) {
+                    toast = Toast.makeText(Login.this, "비밀번호를 입력하셈유", Toast.LENGTH_SHORT); toast.show();
+                    handler.postDelayed(toast::cancel, 1000);
+                } else {
+                    if(auto_login.isChecked()) {
+                        SharedPreferences auto_in = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                        SharedPreferences.Editor autoLogin = auto_in.edit();
+                        autoLogin.putString("auto_email", user_email);
+                        autoLogin.putString("inputPwd", user_pwd);
+                        autoLogin.apply();
+                    }
+                    startLogin();
                 }
-                startLogin();
-            }
-        });
+            });
+        }
     }
-    /*
-    SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-    auto_email = auto.getString("auto_email",null);
-    auto_pwd = auto.getString("auto_pwd",null);
-
-    if(auto_email !=null && auto_pwd != null) {
-        Toast.makeText(Login.this, ("자동 로그인 완룡!"), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(Login.this, Home.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
-     */
     public void setLogin() {
         et_email = findViewById(R.id.et_email);
         et_pwd = findViewById(R.id.et_pwd);
