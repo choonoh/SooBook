@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,12 @@ public class Login extends AppCompatActivity{
             startActivity(intent);
         });
         login_btn.setOnClickListener(v -> {
+            user_email = et_email.getText().toString();
+            user_pwd = et_pwd.getText().toString();
+            final Toast toast;
+            Handler handler = new Handler();
             if (user_email.length() <= 0) {
+<<<<<<< HEAD
                 Toast.makeText(Login.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
                 /*
                 final Toast toast = Toast.makeText(ctx,
@@ -74,6 +80,22 @@ public class Login extends AppCompatActivity{
                     autoLogin.commit();
 
                 }*/
+=======
+                toast = Toast.makeText(Login.this, "이메일을 입력하셈유", Toast.LENGTH_SHORT); toast.show();
+                handler.postDelayed(toast::cancel, 1000);
+            } else if (user_pwd.length() <= 0) {
+                toast = Toast.makeText(Login.this, "비밀번호를 입력하셈유", Toast.LENGTH_SHORT); toast.show();
+                handler.postDelayed(toast::cancel, 1000);
+            } else {
+                if(auto_login.isChecked()) {
+                    SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                    //SharedPreferences.Editor 통해 login_email, login_pass 저장
+                    SharedPreferences.Editor autoLogin = auto.edit();
+                    autoLogin.putString("auto_email", user_email);
+                    autoLogin.putString("inputPwd", user_pwd);
+                    autoLogin.apply();
+                }
+>>>>>>> ffc809d57b62799afd3f6f3013b0fdc922ff864e
                 startLogin();
             }
         });
@@ -99,9 +121,6 @@ public class Login extends AppCompatActivity{
         find_email_pwd = findViewById(R.id.find_email_pwd);
         auto_login = findViewById(R.id.auto_login);
         firebaseAuth = FirebaseAuth.getInstance();
-
-        user_email = et_email.getText().toString();
-        user_pwd = et_pwd.getText().toString();
     }
     public void startLogin(){
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
