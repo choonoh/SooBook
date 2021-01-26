@@ -1,6 +1,7 @@
 package com.example.soobook.ui.FindLib;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -136,7 +137,28 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             }
         });
         detail_view.setOnClickListener(v -> {
-            
+            Intent intent = new Intent(getActivity(), DetailView.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("name", library_info[0][final_marker]);
+            intent.putExtra("type", library_info[1][final_marker]);
+            intent.putExtra("close_day", library_info[2][final_marker]);
+            intent.putExtra("weekOpenTime", library_info[3][final_marker]);
+            intent.putExtra("weekCloseTime", library_info[4][final_marker]);
+
+            intent.putExtra("satOpenTime", library_info[5][final_marker]);
+            intent.putExtra("satCloseTime", library_info[6][final_marker]);
+            intent.putExtra("holidayOpenTime", library_info[7][final_marker]);
+            intent.putExtra("holidayCloseTime", library_info[8][final_marker]);
+
+            intent.putExtra("bookNum", library_info[9][final_marker]);
+            intent.putExtra("bookPosNum", library_info[10][final_marker]);
+            intent.putExtra("borPosDay", library_info[11][final_marker]);
+            intent.putExtra("address", library_info[12][final_marker]);
+
+            intent.putExtra("number", library_info[13][final_marker]);
+            intent.putExtra("homePageUrl", library_info[14][final_marker]);
+            intent.putExtra("dataTime", library_info[15][final_marker]);
+            startActivity(intent);
         });
         return rootView;
     }
