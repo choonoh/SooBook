@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Mainactivity2" />
+        <activity android:name=".Test" />
         <activity android:name=".My_lib_add" />
         <activity android:name=".FindPw" />
     </application>

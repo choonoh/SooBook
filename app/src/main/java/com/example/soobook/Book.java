@@ -4,6 +4,8 @@ public class Book {
 
     private String auth;
     private String title;
+    private String pub;
+
     public Book(){}
 
 
@@ -21,5 +23,13 @@ public class Book {
 
     public void settitle(String title) {
         this.title = title;
+    }
+
+    public String getPub() {
+        return pub;
+    }
+
+    public void setPub(String pub) {
+        this.pub = pub;
     }
 }

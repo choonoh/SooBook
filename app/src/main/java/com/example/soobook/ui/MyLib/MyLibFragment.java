@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soobook.Book;
 import com.example.soobook.CustomBookAdapter;
+import com.example.soobook.Test;
+import com.example.soobook.ui.FindLib.DetailView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +36,7 @@ public class MyLibFragment extends Fragment {
     private ArrayList<Book> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-    private ImageButton add_btn;
+    private ImageButton add_btn, search_btn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +45,12 @@ public class MyLibFragment extends Fragment {
         add_btn = root.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), My_lib_add.class);
+            startActivity(intent);
+
+        });
+        search_btn=root.findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), Test.class);
             startActivity(intent);
 
         });
