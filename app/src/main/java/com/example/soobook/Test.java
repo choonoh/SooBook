@@ -1,4 +1,5 @@
 package com.example.soobook;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -12,21 +13,21 @@ public class Test extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_view);
+        setContentView(R.layout.activity_book_detail_view);
 
         StrictMode.enableDefaults();
 
-        TextView status1 = (TextView)findViewById(R.id.result); //파싱된 결과확인!
+        TextView status1 = findViewById(R.id.result); //파싱된 결과확인!
 
-        boolean initem = false, inAddr = false, inChargeTp = false, inCpId = false;
+        boolean inAddr = false, inChargeTp = false, inCpId = false;
 
 
         String addr = null, chargeTp = null, cpId = null;
 
 
         try{
-            URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16&result_style=json&page_no=1&page_size=10&isbn=8958801077"
-            ); //검색 URL부분
+            URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
+                    "&result_style=xml&page_no=1&page_size=10&isbn=8958801077"); //검색 URL부분
 
             XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserCreator.newPullParser();
@@ -48,9 +49,7 @@ public class Test extends Activity {
                         if(parser.getName().equals("PUBLISHER")){ //mapx 만나면 내용을 받을수 있게 하자
                             inCpId = true;
                         }
-
                         break;
-
                     case XmlPullParser.TEXT://parser가 내용에 접근했을때
                         if(inAddr){ //isTitle이 true일 때 태그의 내용을 저장.
                             addr = parser.getText();
@@ -64,20 +63,19 @@ public class Test extends Activity {
                             cpId = parser.getText();
                             inCpId = false;
                         }
-
                         break;
                     case XmlPullParser.END_TAG:
-                        if(parser.getName().equals("}]}")){
-                            status1.setText(status1.getText()+"주소 : "+ addr +"\n 충전기 타입: "+ chargeTp +"\n 충전소ID : " + cpId+
-                                   "\n");
-                            initem = false;
+                        if(parser.getName().equals("docs")){
+                            String result = "주소 : " + addr + "\n 충전기 타입: " + chargeTp +"\n 충전소ID : " + cpId + "\n";
+                            status1.setText(result);
                         }
                         break;
                 }
                 parserEvent = parser.next();
             }
         } catch(Exception e){
-            status1.setText("에러가..났습니다...");
+            String result = "에러가..났습니다..." + e;
+            status1.setText(result);
         }
     }
 }
