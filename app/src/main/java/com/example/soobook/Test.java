@@ -1,175 +1,83 @@
 package com.example.soobook;
-
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.os.StrictMode;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import com.example.soobook.Login;
-import com.example.soobook.R;
-import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.CameraUpdate;
-import com.naver.maps.map.LocationTrackingMode;
-import com.naver.maps.map.MapFragment;
-import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.NaverMapSdk;
-import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.Overlay;
-import com.naver.maps.map.overlay.OverlayImage;
-import com.naver.maps.map.util.FusedLocationSource;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 
-public class Test extends AppCompatActivity {
-
-    TextView lib_name, lib_type, lib_number;
-    String name, type, close_day, weekOpenTime, weekCloseTime, satOpenTime, satCloseTime, holidayOpenTime, holidayCloseTime;
-    EditText et_search_text;
-    ImageButton search_btn;
-    LinearLayout detail_view;
-    String requestUrl;
-    String isbn="9788926406441";
-
-    ArrayList<Book> list;
-    Book book;
-    AlertDialog dialog;
-    String[][] book_info;
+public class Test extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        lib_name = findViewById(R.id.name);
-        lib_type = findViewById(R.id.type);
-        lib_number = findViewById(R.id.number);
-        et_search_text = findViewById(R.id.search_text);
-        search_btn = findViewById(R.id.search_btn);
-        detail_view =findViewById(R.id.detail_view);
-        getIntentString();
+        setContentView(R.layout.activity_detail_view);
 
-                list = new ArrayList<>();
-                MyAsyncTask myAsyncTask = new MyAsyncTask();
-                myAsyncTask.execute();
+        StrictMode.enableDefaults();
 
-          //      Log.e(this.getClass().getName(),"돼라"+book.getAuth());
+        TextView status1 = (TextView)findViewById(R.id.result); //파싱된 결과확인!
+
+        boolean initem = false, inAddr = false, inChargeTp = false, inCpId = false;
 
 
-    }
-
-    public void getIntentString() {
-        name = getIntent().getStringExtra("name");
-        type = getIntent().getStringExtra("type");
-        close_day = getIntent().getStringExtra("close_day");}
-
-    private class MyAsyncTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
+        String addr = null, chargeTp = null, cpId = null;
 
 
+        try{
+            URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16&result_style=json&page_no=1&page_size=10&isbn=8958801077"
+            ); //검색 URL부분
 
-            Log.e(this.getClass().getName(), isbn);
-            requestUrl = "http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16&" +
-                    "result_style=xml&page_no=1&page_size=10&isbn=" +isbn;
+            XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = parserCreator.newPullParser();
 
-            try {
-                boolean name = false;
-                boolean type = false;
-                boolean closeDay = false;
+            parser.setInput(url.openStream(), null);
 
+            int parserEvent = parser.getEventType();
+            System.out.println("파싱시작합니다.");
 
-                Log.e(this.getClass().getName(), requestUrl);
+            while (parserEvent != XmlPullParser.END_DOCUMENT){
+                switch(parserEvent){
+                    case XmlPullParser.START_TAG://parser가 시작 태그를 만나면 실행
+                        if(parser.getName().equals("TITLE")){ //title 만나면 내용을 받을수 있게 하자
+                            inAddr = true;
+                        }
+                        if(parser.getName().equals("AUTHOR")){ //address 만나면 내용을 받을수 있게 하자
+                            inChargeTp = true;
+                        }
+                        if(parser.getName().equals("PUBLISHER")){ //mapx 만나면 내용을 받을수 있게 하자
+                            inCpId = true;
+                        }
 
-                URL url = new URL(requestUrl);
-                InputStream is = url.openStream();
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                XmlPullParser parser = factory.newPullParser();
-                parser.setInput(new InputStreamReader(is, "UTF-8"));
+                        break;
 
-            /*    int eventType = parser.getEventType();
-                while (eventType != XmlPullParser.END_DOCUMENT) {
-                    switch (eventType) {
-                        case XmlPullParser.START_DOCUMENT:
-                            break;
-                        case XmlPullParser.END_DOCUMENT:
-                            break;
-                        case XmlPullParser.END_TAG:
-                            if (parser.getName().equals("</e>") && book != null) {
-                                list.add(book);
-                            }
+                    case XmlPullParser.TEXT://parser가 내용에 접근했을때
+                        if(inAddr){ //isTitle이 true일 때 태그의 내용을 저장.
+                            addr = parser.getText();
+                            inAddr = false;
+                        }
+                        if(inChargeTp){ //isAddress이 true일 때 태그의 내용을 저장.
+                            chargeTp = parser.getText();
+                            inChargeTp = false;
+                        }
+                        if(inCpId){ //isMapx이 true일 때 태그의 내용을 저장.
+                            cpId = parser.getText();
+                            inCpId = false;
+                        }
 
-                        case XmlPullParser.START_TAG:
-                            if (parser.getName().equals("<o>")) {
-                                book = new Book();
-                            }
-
-                            if (parser.getName().equals("<TITLE type=\"string\">")) name = true;
-                            if (parser.getName().equals("<AUTHOR type=\"string\">")) type = true;
-                            if (parser.getName().equals("<PUBLISHER type=\"string\">")) closeDay = true;
-
-                            break;
-                        case XmlPullParser.TEXT:
-*/
-                            if (parser.getName().equals("<TITLE")) name = true;
-                            if (parser.getName().equals("<AUTHOR")) type = true;
-                            if (parser.getName().equals("<PUBLISHER")) closeDay = true;
-                            if (name) {
-                                book.settitle(parser.getText());
-                                name = false;
-                            } else if (type) {
-                                book.setAuth(parser.getText());
-                                type = false;
-                            } else if (closeDay) {
-                                book.setPub(parser.getText());
-                                closeDay = false;
-                            }
-                      //      break;
-              //      }
-
-               //     eventType = parser.next();
-
-               // }
-            } catch (Exception e) { Log.e(this.getClass().getName(), "에러!!! : " + e); }
-            return null;
-        }
-
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            lib_name.setText(book_info[0][0]);
-            lib_type.setText(book_info[1][1]);
-            lib_number.setText(book_info[2][2]);
+                        break;
+                    case XmlPullParser.END_TAG:
+                        if(parser.getName().equals("}]}")){
+                            status1.setText(status1.getText()+"주소 : "+ addr +"\n 충전기 타입: "+ chargeTp +"\n 충전소ID : " + cpId+
+                                   "\n");
+                            initem = false;
+                        }
+                        break;
+                }
+                parserEvent = parser.next();
+            }
+        } catch(Exception e){
+            status1.setText("에러가..났습니다...");
         }
     }
 }
-
