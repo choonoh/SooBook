@@ -11,30 +11,32 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class FirebasePost {
+    public String isbn;
     public String title;
     public String auth;
     public Long star;
-    public String gender;
+    public String rec;
 
     public FirebasePost(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
 
-    public FirebasePost(String title, String auth, Long star, String gender) {
-
+    public FirebasePost(String isbn, String title, String auth, Long star, String rec) {
+        this.isbn = isbn;
         this.title = title;
         this.auth = auth;
         this.star = star;
-        this.gender = gender;
+        this.rec = rec;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("isbn",isbn);
         result.put("title", title);
         result.put("auth", auth);
         result.put("star", star);
-        result.put("gender", gender);
+        result.put("rec", rec);
         return result;
     }
 }

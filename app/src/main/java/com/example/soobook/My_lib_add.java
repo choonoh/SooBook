@@ -32,26 +32,25 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     private DatabaseReference mPostReference;
 
 
-
-    Button btn_Update;
     Button btn_Insert;
-    Button btn_Select;
+    Button btn_Search;
+    EditText edit_Isbn;
     EditText edit_ID;
     EditText edit_Name;
     EditText edit_Age;
     TextView text_ID;
     TextView text_Name;
     TextView text_Age;
-    TextView text_Gender;
-    CheckBox check_Man;
-    CheckBox check_Woman;
-
+    TextView text_rec;
+    CheckBox check_good;
+    CheckBox check_bad;
+    String isbn;
     String ID;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String Email = user.getEmail();
     String name;
     long age;
-    String gender = "";
+    String rec = "";
 
 
     ArrayAdapter<String> arrayAdapter;
@@ -69,20 +68,19 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
         btn_Insert = (Button) findViewById(R.id.btn_insert);
         btn_Insert.setOnClickListener(this);
-
+        btn_Search=(Button)findViewById(R.id.search_btn);
         edit_ID = (EditText) findViewById(R.id.edit_id);
         edit_Name = (EditText) findViewById(R.id.edit_named);
         edit_Age = (EditText) findViewById(R.id.edit_age);
+        edit_Isbn = (EditText)findViewById(R.id.edit_isbn);
         text_ID = (TextView) findViewById(R.id.text_idd);
         text_Name = (TextView) findViewById(R.id.text_name);
         text_Age = (TextView) findViewById(R.id.text_age);
-        text_Gender= (TextView) findViewById(R.id.text_gender);
-        check_Man = (CheckBox) findViewById(R.id.check_man);
-        check_Man.setOnClickListener(this);
-        check_Woman = (CheckBox) findViewById(R.id.check_woman);
-        check_Woman.setOnClickListener(this);
-
-
+        text_rec= (TextView) findViewById(R.id.text_rec);
+        check_bad = (CheckBox) findViewById(R.id.check_bad);
+        check_bad.setOnClickListener(this);
+        check_good = (CheckBox) findViewById(R.id.check_good);
+        check_good.setOnClickListener(this);
 
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
@@ -96,11 +94,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     }
 
     public void setInsertMode(){
+        edit_Isbn.setText("");
         edit_ID.setText("");
         edit_Name.setText("");
         edit_Age.setText("");
-        check_Man.setChecked(false);
-        check_Woman.setChecked(false);
+        check_bad.setChecked(false);
+        check_good.setChecked(false);
         btn_Insert.setEnabled(true);
 
     }
@@ -112,19 +111,20 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             Log.e("On Click", "Data: " + arrayData.get(position));
             String[] tempData = arrayData.get(position).split("\\s+");
             Log.e("On Click", "Split Result = " + tempData);
-            edit_ID.setText(tempData[0].trim());
-            edit_Name.setText(tempData[1].trim());
-            edit_Age.setText(tempData[2].trim());
-            if(tempData[3].trim().equals("Man")){
-                check_Man.setChecked(true);
-                gender = "추천";
+            edit_Isbn.setText(tempData[0].trim());
+            edit_ID.setText(tempData[1].trim());
+            edit_Name.setText(tempData[2].trim());
+            edit_Age.setText(tempData[3].trim());
+            if(tempData[4].trim().equals("good")){
+                check_good.setChecked(true);
+                rec = "추천";
             }else{
-                check_Woman.setChecked(true);
-                gender = "비추천";
+                check_bad.setChecked(true);
+                rec = "비추천";
             }
             edit_ID.setEnabled(false);
             btn_Insert.setEnabled(false);
-            btn_Update.setEnabled(true);
+
         }
     };
 
@@ -134,7 +134,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             Log.d("Long Click", "position = " + position);
             final String[] nowData = arrayData.get(position).split("\\s+");
             ID = nowData[0];
-            String viewData = nowData[0] + ", " + nowData[1] + ", " + nowData[2] + ", " + nowData[3];
+            String viewData = nowData[0] + ", " + nowData[1] + ", " + nowData[2] + ", " + nowData[3]+ ", " + nowData[4];
             AlertDialog.Builder dialog = new AlertDialog.Builder(My_lib_add.this);
             dialog.setTitle("데이터 삭제")
                     .setMessage("해당 데이터를 삭제 하시겠습니까?" + "\n" + viewData)
@@ -172,7 +172,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            FirebasePost post = new FirebasePost(ID, name, age, gender);
+            FirebasePost post = new FirebasePost(isbn,ID, name, age, rec);
             postValues = post.toMap();
         }
         childUpdates.put("/Book/"+ ID, postValues);
@@ -189,12 +189,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     FirebasePost get = postSnapshot.getValue(FirebasePost.class);
-                    String[] info = {get.title, get.auth, String.valueOf(get.star), get.gender};
-                    String Result = setTextLength(info[0],10) + setTextLength(info[1],10) + setTextLength(info[2],10) + setTextLength(info[3],10);
+                    String[] info = {get.isbn, get.title, get.auth, String.valueOf(get.star), get.rec};
+                    String Result = setTextLength(info[0],10) + setTextLength(info[1],10) + setTextLength(info[2],10) + setTextLength(info[3],10)+ setTextLength(info[4],10);
                     arrayData.add(Result);
                     arrayIndex.add(key);
                     Log.d("getFirebaseDatabase", "key: " + key);
-                    Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2] + info[3]);
+                    Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2] + info[3] + info[4]);
                 }
                 arrayAdapter.clear();
                 arrayAdapter.addAll(arrayData);
@@ -224,6 +224,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_insert:
+                isbn = edit_Isbn.getText().toString();
                 ID = edit_ID.getText().toString();
                 name = edit_Name.getText().toString();
                 age = Long.parseLong(edit_Age.getText().toString());
@@ -238,30 +239,18 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 edit_ID.setCursorVisible(true);
                 break;
 
-            case R.id.btn_update:
-                ID = edit_ID.getText().toString();
-                name = edit_Name.getText().toString();
-                age = Long.parseLong(edit_Age.getText().toString());
-                postFirebaseDatabase(true);
-                getFirebaseDatabase();
-                setInsertMode();
-                edit_ID.setEnabled(true);
-                edit_ID.requestFocus();
-                edit_ID.setCursorVisible(true);
-                break;
-
             case R.id.btn_select:
                 getFirebaseDatabase();
                 break;
 
-            case R.id.check_man:
-                check_Woman.setChecked(false);
-                gender = "추천";
+            case R.id.check_good:
+                check_bad.setChecked(false);
+                rec = "추천";
                 break;
 
-            case R.id.check_woman:
-                check_Man.setChecked(false);
-                gender = "비추천";
+            case R.id.check_bad:
+                check_good.setChecked(false);
+                rec = "비추천";
                 break;
 
 

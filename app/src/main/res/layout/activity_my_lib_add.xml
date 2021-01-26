@@ -5,6 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.soobook.My_lib_add">
+    <TextView
+        android:id="@+id/text_isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ISBN: "
+        android:textSize="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        />
+
+    <EditText
+        android:id="@+id/edit_isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLength="10"
+        android:inputType="textPersonName"
+        android:layout_toRightOf="@+id/text_isbn"
+        />
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/edit_isbn"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/sooBook_bg"
+        android:text="검색"
+        />
 
     <TextView
         android:id="@+id/text_idd"
@@ -14,6 +42,7 @@
         android:textSize="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
+        android:layout_below="@id/text_isbn"
         />
 
     <EditText
@@ -23,6 +52,7 @@
         android:ems="10"
         android:maxLength="10"
         android:inputType="textPersonName"
+        android:layout_below="@id/edit_isbn"
         android:layout_toRightOf="@+id/text_idd"
         />
 
@@ -69,11 +99,11 @@
         android:inputType="textPersonName"
         android:layout_alignBaseline="@+id/text_age"
         android:layout_alignBottom="@+id/text_age"
-        android:layout_alignRight="@+id/check_woman"
+        android:layout_alignRight="@+id/check_bad"
         android:layout_toRightOf="@+id/text_age" />
 
     <TextView
-        android:id="@+id/text_gender"
+        android:id="@+id/text_rec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="추천: "
@@ -88,22 +118,22 @@
         android:layout_height="wrap_content"
         android:text="왕추천"
         android:textSize="15dp"
-        android:id="@+id/check_man"
-        android:layout_toRightOf="@+id/text_gender"
-        android:layout_alignBottom="@+id/text_gender"
+        android:id="@+id/check_good"
+        android:layout_toRightOf="@+id/text_rec"
+        android:layout_alignBottom="@+id/text_rec"
         android:layout_marginLeft="10dp"
-        android:layout_alignTop="@+id/text_gender" />
+        android:layout_alignTop="@+id/text_rec" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="그닥.."
         android:textSize="15dp"
-        android:id="@+id/check_woman"
-        android:layout_toRightOf="@+id/check_man"
-        android:layout_alignBottom="@+id/text_gender"
+        android:id="@+id/check_bad"
+        android:layout_toRightOf="@+id/check_good"
+        android:layout_alignBottom="@+id/text_rec"
         android:layout_marginLeft="10dp"
-        android:layout_alignTop="@+id/text_gender" />
+        android:layout_alignTop="@+id/text_rec" />
 
 
 
@@ -132,8 +162,8 @@
         android:text="서재추가"
         android:backgroundTint="@color/sooBook_bg"
         android:textColor="@color/black"
-        android:layout_below="@+id/text_gender"
-        android:layout_alignRight="@+id/check_woman" />
+        android:layout_below="@+id/text_rec"
+        android:layout_alignRight="@+id/check_bad" />
 
 
 </RelativeLayout>
