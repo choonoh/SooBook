@@ -2,7 +2,6 @@ package com.example.soobook.ui.FindLib;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,17 +22,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.soobook.Login;
 import com.example.soobook.R;
 import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
-import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
@@ -42,17 +42,17 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class FindLibFragment extends Fragment implements OnMapReadyCallback {
 
+    TextView lib_name, lib_type, lib_number;
     EditText et_search_text;
     ImageButton search_btn;
+    LinearLayout detail_view;
 
     boolean marker_exist = false;
     int only_zero = 0;
@@ -63,11 +63,12 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
     ArrayList<Library> list;
     Marker[] markers;
     Library library;
+    AlertDialog dialog;
     String[][] library_info;
-    // name, close_day, week(open, close), holiday(open, close), bookNum, bookPosNum, borPosDay, address, number, homePageUrl, dataTime
+    // name, close_day, week(open, close), sat(open, close) holiday(open, close), bookNum, bookPosNum, borPosDay, address, number, homePageUrl, dataTime
 
     private FusedLocationSource mLocationSource;
-    private NaverMap mnaverMap;
+    private NaverMap naverMap;
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final String[] PERMISSIONS = {
@@ -94,8 +95,12 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
+        lib_name = rootView.findViewById(R.id.name);
+        lib_type = rootView.findViewById(R.id.type);
+        lib_number = rootView.findViewById(R.id.number);
         et_search_text = rootView.findViewById(R.id.search_text);
         search_btn = rootView.findViewById(R.id.search_btn);
+        detail_view = rootView.findViewById(R.id.detail_view);
 
         search_btn.setOnClickListener(v -> {
             search_location = et_search_text.getText().toString();
@@ -130,14 +135,17 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                 myAsyncTask.execute();
             }
         });
+        detail_view.setOnClickListener(v -> {
+            
+        });
         return rootView;
     }
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        mnaverMap = naverMap;
-        mnaverMap.setLocationSource(mLocationSource);
-        mnaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-        mnaverMap.addOnLocationChangeListener(location -> {
+        this.naverMap = naverMap;
+        this.naverMap.setLocationSource(mLocationSource);
+        this.naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+        this.naverMap.addOnLocationChangeListener(location -> {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
             if(only_zero == 0) {
@@ -168,7 +176,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mnaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+                naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
             }
         }
     }
@@ -179,59 +187,45 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             Log.e(this.getClass().getName(), String.valueOf(longitude));
 
             Log.e(this.getClass().getName(), "0 or 1 : " + cur_or_se);
-            StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api");
-            try {
-                urlBuilder.append("?").append(URLEncoder.encode("ServiceKey", "UTF-8")).append("=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D");
-                urlBuilder.append("&").append(URLEncoder.encode("pageNo", "UTF-8")).append("=").append(URLEncoder.encode("0", "UTF-8")); /*페이지 번호*/
-                urlBuilder.append("&").append(URLEncoder.encode("numOfRows", "UTF-8")).append("=").append(URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
-                urlBuilder.append("&").append(URLEncoder.encode("type", "UTF-8")).append("=").append(URLEncoder.encode("xml", "UTF-8")); /*XML/JSON 여부*/
+            String requestUrl = "";
                 switch (cur_or_se) {
                     case 0:
-//                    Log.e(this.getClass().getName(), current_location_si + " " + current_location_dong);
-                        // TODO: 2021-01-25 "링크 이것저것 추가하기(0이면 geocoding에서 값 받아서, 1이면 해당 장소 받아서)"
+                        Log.e(this.getClass().getName(), current_location_si + " " + current_location_dong);
+                        requestUrl = "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api"
+                                + "?serviceKey=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D"
+                                + "&pageNo=0&numOfRows=100&type=xml" + "&ctprvnNm=" + current_location_si + "&signguNm=" + current_location_dong;
                         break;
                     case 1:
                         Log.e(this.getClass().getName(), search_location);
 
                         break;
                 }
+                try {
                 boolean name = false;
+                boolean type = false;
                 boolean closeDay = false;
                 boolean weekOpenTime = false;
                 boolean weekCloseTime = false;
 
+                boolean satOpenTime = false;
+                boolean satCloseTime = false;
                 boolean holidayOpenTime = false;
                 boolean holidayCloseTime = false;
+
                 boolean bookNum = false;
                 boolean borPosNum = false;
-
                 boolean borPosDay = false;
                 boolean address = false;
+
                 boolean number = false;
                 boolean homePageUrl = false;
                 boolean dataTime = false;
 
-                URL url = new URL(urlBuilder.toString());
-//                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//                conn.setRequestMethod("GET");
-//                conn.setRequestProperty("Content-type", "application/json");
-//                BufferedReader rd;
-//                if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-//                    rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//                } else {
-//                    rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-//                }
-//                StringBuilder sb = new StringBuilder();
-//                String line;
-//                while ((line = rd.readLine()) != null) {
-//                    sb.append(line);
-//                }
-//                rd.close();
-//                conn.disconnect();
-//                System.out.println(sb.toString());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+                boolean latitude_tf = false;
+                boolean longitude_tf = false;
+
+                Log.e(this.getClass().getName(), requestUrl);
+                URL url = new URL(requestUrl);
                 InputStream is = url.openStream();
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = factory.newPullParser();
@@ -256,83 +250,156 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                             if (parser.getName().equals("item")) {
                                 library = new Library();
                             }
-//                            if (parser.getName().equals("dutyAddr")) address = true;
-//                            if (parser.getName().equals("dutyDivNam")) divNam = true;
+                            if (parser.getName().equals("lbrryNm")) name = true;
+                            if (parser.getName().equals("lbrrySe")) type = true;
+                            if (parser.getName().equals("closeDay")) closeDay = true;
+                            if (parser.getName().equals("weekdayOperOpenHhmm")) weekOpenTime = true;
+                            if (parser.getName().equals("weekdayOperColseHhmm")) weekCloseTime = true;
+
+                            if (parser.getName().equals("satOperOperOpenHhmm")) satOpenTime = true;
+                            if (parser.getName().equals("satOperCloseHhmm")) satCloseTime = true;
+                            if (parser.getName().equals("holidayOperOpenHhmm")) holidayOpenTime = true;
+                            if (parser.getName().equals("holidayCloseOpenHhmm")) holidayCloseTime = true;
+
+                            if (parser.getName().equals("bookCo")) bookNum = true;
+                            if (parser.getName().equals("lonCo")) borPosNum = true;
+                            if (parser.getName().equals("lonDaycnt")) borPosDay = true;
+                            if (parser.getName().equals("rdnmadr")) address = true;
+
+                            if (parser.getName().equals("phoneNumber")) number = true;
+                            if (parser.getName().equals("homepageUrl")) homePageUrl = true;
+                            if (parser.getName().equals("referenceDate")) dataTime = true;
+
+                            if (parser.getName().equals("latitude")) latitude_tf = true;
+                            if (parser.getName().equals("longitude")) longitude_tf = true;
                             break;
                         case XmlPullParser.TEXT:
-//                            if (address) {
-//                                hospital.setAddress(parser.getText());
-//                                address = false;
-//                            } else if (divNam) {
-//                                hospital.setDivNam(parser.getText());
-//                                divNam = false;
-//                            }
+                            if (name) {
+                                library.setName(parser.getText());
+                                name = false;
+                            } else if (type) {
+                                library.setType(parser.getText());
+                                type = false;
+                            } else if (closeDay) {
+                                library.setCloseDay(parser.getText());
+                                closeDay = false;
+                            } else if (weekOpenTime) {
+                                library.setWeekOpenTime(parser.getText());
+                                weekOpenTime = false;
+                            } else if (weekCloseTime) {
+                                library.setWeekCloseTime(parser.getText());
+                                weekCloseTime = false;
+                            } else if (satOpenTime) {
+                                library.setSatOpenTime(parser.getText());
+                                satOpenTime = false;
+                            } else if (satCloseTime) {
+                                library.setSatCloseTime(parser.getText());
+                                satCloseTime = false;
+                            } else if (holidayOpenTime) {
+                                library.setHolidayOpenTime(parser.getText());
+                                holidayOpenTime = false;
+                            } else if (holidayCloseTime) {
+                                library.setHolidayCloseTime(parser.getText());
+                                holidayCloseTime = false;
+                            } else if (bookNum) {
+                                library.setBookNum(parser.getText());
+                                bookNum = false;
+                            } else if (borPosNum) {
+                                library.setBorPosNum(parser.getText());
+                                borPosNum = false;
+                            } else if (borPosDay) {
+                                library.setBorPosDay(parser.getText());
+                                borPosDay = false;
+                            } else if (address) {
+                                library.setAddress(parser.getText());
+                                address = false;
+                            } else if (number) {
+                                library.setNumber(parser.getText());
+                                number = false;
+                            } else if (homePageUrl) {
+                                library.setHomePageUrl(parser.getText());
+                                homePageUrl = false;
+                            } else if (latitude_tf) {
+                                library.setLatitude(parser.getText());
+                                latitude_tf = false;
+                            } else if (longitude_tf) {
+                                library.setLongitude(parser.getText());
+                                longitude_tf = false;
+                            } else if (dataTime) {
+                                library.setDataTime(parser.getText());
+                                dataTime = false;
+                            }
                             break;
                     }
                     eventType = parser.next();
                 }
-            } catch (Exception e) { e.printStackTrace(); }
+            } catch (Exception e) { Log.e(this.getClass().getName(), "에러!!! : " + e); }
             return null;
         }
         @Override
         protected void onPostExecute(String s) {
-            Log.e(this.getClass().getName(), "len" + marker_len);
+            Log.e(this.getClass().getName(), "len : " + marker_len);
             if(marker_len != 0) {
                 super.onPostExecute(s);
                 Log.e(this.getClass().getName(), "onPostExecute len : " + marker_len);
                 Log.e(this.getClass().getName(), "onPostExecute list_size() : " + list.size());
 
-                // TODO: 2021-01-25 받을 정보 갯수 정해지면 여기 바꿔주기
-                library_info = new String[13][marker_len];
+                library_info = new String[16][marker_len];
                 markers = new Marker[marker_len];
-                double latitude = 0;
-                double longitude = 0;
+                double latitude_marker = 0;
+                double longitude_marker = 0;
                 marker_exist = true;
                 for (int i = 0; i < marker_len; i++) {
-// name, close_day, week(open, close), holiday(open, close), bookNum, bookPosNum, borPosDay, address, number, homePageUrl, dataTime
-//                    library_info[0][i] = list.get(i).getAddress();
-//                    library_info[1][i] = list.get(i).getName();
-//                    library_info[2][i] = list.get(i).getTel();
-//
-//                    library_info[3][i] = list.get(i).getStartTime1();
-//                    library_info[4][i] = list.get(i).getStartTime2();
-//                    library_info[5][i] = list.get(i).getStartTime3();
-//                    library_info[6][i] = list.get(i).getStartTime4();
-//                    library_info[7][i] = list.get(i).getStartTime5();
-//                    isEmpty(list.get(i).getStartTime6(), 8, i);
-//                    isEmpty(list.get(i).getStartTime7(), 9, i);
-//                    isEmpty(list.get(i).getStartTime8(), 10, i);
-//
-//                    library_info[11][i] = list.get(i).getEndTime1();
-//                    library_info[12][i] = list.get(i).getEndTime2();
-//                    library_info[13][i] = list.get(i).getEndTime3();
-//
-//                    latitude = Double.parseDouble(list.get(i).getLatitude());
-//                    longitude = Double.parseDouble(list.get(i).getLongitude());
+// name, type, close_day, weekOpenTime, weekCloseTime, satOpenTime, satCloseTime, holidayOpenTime, holidayCloseTime
+// bookNum, bookPosNum, borPosDay, address, number, homePageUrl, dataTime
+                    isEmpty(list.get(i).getName(), 0, i);
+                    isEmpty(list.get(i).getType(), 1, i);
+                    isEmpty(list.get(i).getCloseDay(), 2, i);
+                    isEmpty(list.get(i).getWeekOpenTime(), 3, i);
+                    isEmpty(list.get(i).getWeekCloseTime(), 4, i);
+
+                    isEmpty(list.get(i).getSatOpenTime(), 5, i);
+                    isEmpty(list.get(i).getSatCloseTime(), 6, i);
+                    isEmpty(list.get(i).getHolidayOpenTime(), 7, i);
+                    isEmpty(list.get(i).getHolidayCloseTime(), 8, i);
+
+                    isEmpty(list.get(i).getBookNum(), 9, i);
+                    isEmpty(list.get(i).getBorPosNum(), 10, i);
+                    isEmpty(list.get(i).getBorPosDay(), 11, i);
+                    isEmpty(list.get(i).getAddress(), 12, i);
+
+                    isEmpty(list.get(i).getNumber(), 13, i);
+                    isEmpty(list.get(i).getHomePageUrl(), 14, i);
+                    isEmpty(list.get(i).getDataTime(), 15, i);
+
+                    latitude_marker = Double.parseDouble(list.get(i).getLatitude());
+                    longitude_marker = Double.parseDouble(list.get(i).getLongitude());
                     Marker marker = new Marker();
                     markers[i] = marker;
-                    setMarker(markers[i], latitude, longitude, 0);
+                    setMarker(markers[i], latitude_marker, longitude_marker);
                     final int finalI = i;
-                    marker.setOnClickListener(new Overlay.OnClickListener() {
-                        @Override
-                        public boolean onClick(@NonNull Overlay overlay) {
-//                            hos_name.setText(hos_info[1][finalI]);
-//                            hos_tel.setText(hos_info[2][finalI]);
-//                            hos_layout.setVisibility(View.VISIBLE);
-                            final_marker = finalI;
-                            return true;
-                        }
+                    marker.setOnClickListener(overlay -> {
+                        Log.e(this.getClass().getName(), library_info[0][finalI]);
+                        lib_name.setText(library_info[0][finalI]);
+                        lib_type.setText(library_info[1][finalI]);
+                        lib_number.setText(library_info[13][finalI]);
+                        detail_view.setVisibility(View.VISIBLE);
+                        final_marker = finalI;
+                        return true;
                     });
                 }
-                CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(latitude, longitude));
-                mnaverMap.moveCamera(cameraUpdate);
+                Log.e(this.getClass().getName(), "파싱 후 카메라 옮기기 전 lat, long : " + latitude_marker + ", " + longitude_marker);
+                CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(latitude_marker, longitude_marker));
+                naverMap.moveCamera(cameraUpdate);
+                Toast toast = Toast.makeText(getContext(), "총" + marker_len + "개의 도서관을 찾아썽^^", Toast.LENGTH_SHORT); toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(toast::cancel, 1500);
             } else {
-                AlertDialog dialog;
-//                AlertDialog.Builder builder = new AlertDialog.Builder(Clinic_find_map.this);
-//                builder.setMessage((getResources().getString(R.string.cli_find_home_no_cli)));
-//                builder.setPositiveButton(getResources().getString(R.string.cli_my_chart_saved_ok_btn), null);
-//                dialog = builder.create();
-//                dialog.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("주변에 도서관이 업써...");
+                builder.setPositiveButton("ㅇㅋ", null);
+                dialog = builder.create();
+                dialog.show();
             }
         }
         private  void isEmpty(String str, int num, int i) {
@@ -341,16 +408,14 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             else
                 library_info[num][i] = str;
         }
-        private void setMarker(Marker marker,  double lat, double lng, int zIndex)
-        {
-            marker.setWidth(100);
-            marker.setHeight(100);
+        private void setMarker(Marker marker,  double lat, double lng) {
+            marker.setWidth(70);
+            marker.setHeight(70);
             marker.setIconPerspectiveEnabled(true);     //원근감 표시
             marker.setIcon(OverlayImage.fromResource(R.drawable.marker));   //아이콘 지정
             marker.setAlpha(0.8f);  //마커의 투명도
             marker.setPosition(new LatLng(lat, lng));   //마커 위치
-            marker.setZIndex(zIndex);   //마커 우선순위
-            marker.setMap(mnaverMap);   //마커 표시
+            marker.setMap(naverMap);   //마커 표시
         }
     }
     private class GeoCoding extends AsyncTask<String, Void, String> {
@@ -360,26 +425,23 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             Log.e(this.getClass().getName(), String.valueOf(longitude));
             if (latitude == 0 && longitude == 0) {
                 Handler mHandler = new Handler(Looper.getMainLooper());
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(Clinic_find_map.this);
-//                        builder.setMessage((getResources().getString(R.string.fail_loc)));
-//                        builder.setPositiveButton(getResources().getString(R.string.cha_pw_ok_btn), null);
-//                        dialog = builder.create();
-//                        dialog.show();
-                    }
+                mHandler.postDelayed(() -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("주변 도서관을 찾을 수 없습니다유 ㅠㅠ");
+                        builder.setPositiveButton("확인이용", null);
+                        dialog = builder.create();
+                        dialog.show();
                 }, 0);
 
             } else {
                 String requestUrl = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr" +
-//                        "&coords=" + lng + "," + lat +
-//                        "&sourcecrs=epsg:4326&orders=admcode,legalcode,addr,roadaddr&output=xml" +
-                        "&X-NCP-APIGW-API-KEY-ID=98bjke0ogk&X-NCP-APIGW-API-KEY=ugGOxqyWRiEw5H53vcvI7wE8mBFO1uWVx09ZyKYp";
+                        "&coords=" + longitude + "," + latitude +
+                        "&sourcecrs=epsg:4326&orders=admcode,legalcode,addr,roadaddr&output=xml" +
+                        "&X-NCP-APIGW-API-KEY-ID=vjckuvmnki&X-NCP-APIGW-API-KEY=lpGVBI7LLYdJFSw4fo080h60axwkh5VkGlQdrZ4L";
                 Log.e(this.getClass().getName(), requestUrl);
                 try {
                     boolean area1 = false;
-                    boolean area3 = false;
+                    boolean area2 = false;
                     boolean name = false;
 
                     URL url = new URL(requestUrl);
@@ -399,7 +461,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                                 break;
                             case XmlPullParser.START_TAG:
                                 if (parser.getName().equals("area1")) area1 = true;
-                                if (parser.getName().equals("area3")) area3 = true;
+                                if (parser.getName().equals("area2")) area2 = true;
                                 if (parser.getName().equals("name")) name = true;
                                 break;
                             case XmlPullParser.TEXT:
@@ -408,9 +470,9 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                                     area1 = false;
                                     name = false;
                                 }
-                                if (area3 && name) {
+                                if (area2 && name) {
                                     current_location_dong = parser.getText();
-                                    area3 = false;
+                                    area2 = false;
                                     name = false;
                                 }
                                 break;

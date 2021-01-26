@@ -97,13 +97,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         int id = item.getItemId();
 
         if(id == R.id.menu1) {
-            Toast.makeText(this, "첫 번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             onFragmentSelected(0, null);
         } else if(id == R.id.menu2) {
-            Toast.makeText(this, "두 번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             onFragmentSelected(1, null);
         } else if(id == R.id.menu3) {
-            Toast.makeText(this, "세 번째 메뉴 선택됨.", Toast.LENGTH_LONG).show();
             onFragmentSelected(2, null);
         }
         drawer.closeDrawer(GravityCompat.START);

@@ -210,7 +210,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         sortbyAge.addListenerForSingleValueEvent(postListener);
     }
 
-    public String setTextLength(String text, int length){
+    public String setTextLength(String text, int length) {
         if(text.length()<length){
             int gap = length - text.length();
             for (int i=0; i<gap; i++){

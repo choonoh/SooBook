@@ -21,7 +21,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SOOBOOK">
+        android:theme="@style/Theme.SOOBOOK"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.FindLib.DetailView"></activity>
         <activity android:name=".Sign_up" />
         <activity
             android:name=".Home"
@@ -30,15 +32,14 @@
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".Mainactivity2"/>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Mainactivity2" />
         <activity android:name=".My_lib_add" />
-        <activity android:name=".FindPw"/>
-
+        <activity android:name=".FindPw" />
     </application>
 
 </manifest>
