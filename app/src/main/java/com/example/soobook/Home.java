@@ -29,22 +29,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private MyLibFragment myLibFragment;
     private FindLibFragment findlibFragment;
 
-    private FirebaseAuth firebaseAuth;
     private DrawerLayout drawer;
     private Toolbar toolbar;
-
-    private Button logout_btn;
-    private String fragment, user_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        fragment = getIntent().getStringExtra("fragment");
-        user_email = getIntent().getStringExtra("user_email");
+        String fragment = getIntent().getStringExtra("fragment");
+        String user_email = getIntent().getStringExtra("user_email");
         Log.e(this.getClass().getName(), user_email);
-
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,8 +57,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         myLibFragment = new MyLibFragment();
         findlibFragment = new FindLibFragment();
 
-
-
         switch (fragment) {
             case "my_lib":
                 getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
@@ -76,10 +69,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
                 break;
         }
-//        } catch (Exception e) {
-//            getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
-//        }
-
     }
     @Override
     public void onBackPressed() {
@@ -94,28 +83,25 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         } else if(id == R.id.action_logOut) {
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.signOut(); //로그아웃
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signOut();
+
             Intent intent=new Intent(Home.this, Login.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         if(id == R.id.menu1) {
             onFragmentSelected(0, null);
         } else if(id == R.id.menu2) {
@@ -128,8 +114,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
     @Override
     public void onFragmentSelected(int position, Bundle bundle) {
-        Fragment curFragment = null;
-
+        Fragment curFragment;
         if (position == 0) {
             curFragment = friLibFragment;
             toolbar.setTitle(("친구의 서재"));
