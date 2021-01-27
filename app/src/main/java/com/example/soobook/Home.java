@@ -34,18 +34,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private Toolbar toolbar;
 
     private Button logout_btn;
-    private String fragment;
+    private String fragment, user_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        fragment = getIntent().getStringExtra("fragment");
+        user_email = getIntent().getStringExtra("user_email");
+        Log.e(this.getClass().getName(), user_email);
+
+
         toolbar = findViewById(R.id.toolbar);
-        drawer = findViewById(R.id.drawer_layout);
-
-
         setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -59,23 +63,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         findlibFragment = new FindLibFragment();
 
 
-        fragment = getIntent().getStringExtra("fragment");
-        try{
-            switch (fragment) {
-                case "my_lib":
-                    getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
-                    break;
-                case "find_lib":
-                    getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
-                    break;
-                default:
-                case "fri_lib":
-                    getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
-                    break;
-            }
-        } catch (Exception e) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+
+        switch (fragment) {
+            case "my_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
+                break;
+            case "find_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
+                break;
+            default:
+            case "fri_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+                break;
         }
+//        } catch (Exception e) {
+//            getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+//        }
 
     }
     @Override

@@ -25,10 +25,8 @@ public class Login extends AppCompatActivity{
     private EditText et_email, et_pwd;
     private TextView find_email_pwd, sign_up;
     private Button login_btn;
-    private CheckBox auto_login;
     private FirebaseAuth firebaseAuth;
 
-    private  static  boolean auto;
     private String user_email, user_pwd;
 
     @Override
@@ -37,17 +35,7 @@ public class Login extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         setLogin();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null && auto) {
-            Log.e(this.getClass().getName(), "자동로그인");
-            Intent intent = new Intent(Login.this, Home.class);
-            intent.putExtra("fragment","fri_lib");
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            Toast toast = Toast.makeText(Login.this, "자동로그인 성공", Toast.LENGTH_SHORT); toast.show();
-            Handler handler = new Handler();
-            handler.postDelayed(toast::cancel, 1000);
-            startActivity(intent);
-        }
+
         find_email_pwd.setOnClickListener(v -> {
             Intent intent=new Intent(Login.this, FindPw.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -80,16 +68,15 @@ public class Login extends AppCompatActivity{
         login_btn = findViewById(R.id.login_btn);
         sign_up = findViewById(R.id.sign_up);
         find_email_pwd = findViewById(R.id.find_email_pwd);
-        auto_login = findViewById(R.id.auto_login);
         firebaseAuth = FirebaseAuth.getInstance();
     }
     public void startLogin(){
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if(task.isSuccessful()){
-                        auto = auto_login.isChecked();
                         Intent intent = new Intent(Login.this, Home.class);
                         intent.putExtra("fragment","fri_lib");
+                        intent.putExtra("user_email",et_email.getText().toString());
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         finish();
@@ -105,7 +92,14 @@ public class Login extends AppCompatActivity{
         super.onStart();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
-            startActivity(new Intent(Login.this, Home.class));
+            Intent intent = new Intent(Login.this, Home.class);
+            intent.putExtra("fragment","fri_lib");
+            intent.putExtra("user_email",currentUser.getEmail());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Toast toast = Toast.makeText(Login.this, "자동로그인 성공", Toast.LENGTH_SHORT); toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(toast::cancel, 1000);
+            startActivity(intent);
             finish();
         }
     }
