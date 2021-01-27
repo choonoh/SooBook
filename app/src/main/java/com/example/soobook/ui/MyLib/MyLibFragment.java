@@ -27,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 public class MyLibFragment extends Fragment {
 
     private RecyclerView.Adapter adapter;
@@ -47,7 +46,6 @@ public class MyLibFragment extends Fragment {
             intent.putExtra("user_email", user_email);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-
         });
         ImageButton search_btn = root.findViewById(R.id.search_btn);
         search_btn.setOnClickListener(v -> {
@@ -55,9 +53,7 @@ public class MyLibFragment extends Fragment {
             intent.putExtra("user_email", user_email);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-
         });
-
         RecyclerView recyclerView = root.findViewById(R.id.recyclerview); // 아디 연결
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -78,14 +74,12 @@ public class MyLibFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 디비를 가져오던중 에러 발생 시
                 Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
-
         adapter = new CustomBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
         return root;

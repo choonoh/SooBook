@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="아이디"
+                android:text="이메일"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:layout_weight="8"/>
@@ -67,20 +67,13 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="아이디 쳐!!!"
+                android:hint="이메일 쳐!!!"
+                android:inputType="textEmailAddress"
                 android:textColorHint="#888888"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:layout_weight="4"/>
 
-            <Button
-                android:id="@+id/only_one_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="중복확인"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"
-                android:layout_weight="7" />
         </LinearLayout>
 
         <LinearLayout
@@ -103,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 쳐!!!"
+                android:inputType="textPassword"
                 android:textColorHint="#888888"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -129,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 한번 더 쳐!!!"
+                android:inputType="textPassword"
                 android:textColorHint="#888888"
                 android:textColor="@color/black"
                 android:textSize="20sp"

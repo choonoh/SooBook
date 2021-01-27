@@ -31,7 +31,6 @@ public class Sign_up extends AppCompatActivity {
         et_email = findViewById(R.id.et_email);
         et_pwd = findViewById(R.id.et_pwd);
         et_pwd_check = findViewById(R.id.et_pwd_check);
-        only_one_btn = findViewById(R.id.only_one_btn);
         sign_up_btn = findViewById(R.id.sign_up_btn);
         firebaseAuth = FirebaseAuth.getInstance();
     }
@@ -39,16 +38,17 @@ public class Sign_up extends AppCompatActivity {
         sign_up_btn.setOnClickListener(v -> {
             Toast toast;
             Handler handler = new Handler();
-            if (et_email.getText().toString().length() <= 0 || et_pwd.getText().toString().length() <= 0) {
-                toast = Toast.makeText(Sign_up.this, "이메일 혹은 비밀번호 입력 ㅡㅡ", Toast.LENGTH_SHORT); toast.show();
+            if (et_email.getText().toString().length() <= 0) {
+                toast = Toast.makeText(Sign_up.this, "이메일 입력 ㅡㅡ", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
-                return;
-            }
-            if (et_pwd.getText().toString().equals(et_pwd_check.getText().toString())) {
-                startSignUp();
-            } else {
+            } else if (et_pwd.getText().toString().length() <= 0 || et_pwd_check.getText().toString().length() <= 0) {
+                toast = Toast.makeText(Sign_up.this, "비밀번호 입력 ㅡㅡ", Toast.LENGTH_SHORT); toast.show();
+                handler.postDelayed(toast::cancel, 1000);
+            } else if(!et_pwd.getText().toString().equals(et_pwd_check.getText().toString())) {
                 toast = Toast.makeText(Sign_up.this, "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
+            }else {
+                startSignUp();
             }
         });
     }
@@ -66,7 +66,7 @@ public class Sign_up extends AppCompatActivity {
                 handler.postDelayed(toast::cancel, 1000);
                 finish();
             } else {
-                toast = Toast.makeText(Sign_up.this, "Error!", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Sign_up.this, "잉 이미 있는 이메일이여", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             }
         });
