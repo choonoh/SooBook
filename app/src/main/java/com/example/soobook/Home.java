@@ -3,6 +3,7 @@ package com.example.soobook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.Button;
@@ -33,18 +34,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private Toolbar toolbar;
 
     private Button logout_btn;
-    private String fragment;
+    private String fragment, user_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        toolbar = findViewById(R.id.toolbar);
-        drawer = findViewById(R.id.drawer_layout);
-//        logout_btn = findViewById(R.layout.nav_header_main);
+        fragment = getIntent().getStringExtra("fragment");
+        user_email = getIntent().getStringExtra("user_email");
+        Log.e(this.getClass().getName(), user_email);
 
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -58,31 +63,23 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         findlibFragment = new FindLibFragment();
 
 
-        fragment = getIntent().getStringExtra("fragment");
-        try{
-            switch (fragment) {
-                case "my_lib":
-                    getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
-                    break;
-                case "find_lib":
-                    getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
-                    break;
-                default:
-                case "fri_lib":
-                    getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
-                    break;
-            }
-        } catch (Exception e) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+
+        switch (fragment) {
+            case "my_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
+                break;
+            case "find_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
+                break;
+            default:
+            case "fri_lib":
+                getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+                break;
         }
-//        logout_btn.setOnClickListener(v -> {
-//            firebaseAuth = FirebaseAuth.getInstance();
-//            firebaseAuth.signOut();
-//            Intent intent=new Intent(Home.this, Login.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//            startActivity(intent);
-//            finish();
-//        });
+//        } catch (Exception e) {
+//            getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+//        }
+
     }
     @Override
     public void onBackPressed() {
@@ -91,6 +88,29 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         } else {
             super.onBackPressed();
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        } else if(id == R.id.action_logOut) {
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signOut(); //로그아웃
+            Intent intent=new Intent(Home.this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
