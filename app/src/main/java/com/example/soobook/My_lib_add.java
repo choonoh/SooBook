@@ -1,5 +1,8 @@
 package com.example.soobook;
 
+import com.google.firebase.auth.FirebaseAuth;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +19,13 @@ import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.InputStream;
 import java.net.URL;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Guideline;
+
+import com.example.soobook.ui.MyLib.MyLibFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,9 +41,8 @@ import java.util.Map;
 public class My_lib_add  extends AppCompatActivity implements View.OnClickListener{
 
     private DatabaseReference mPostReference;
-
-
-    Button btn_Insert;
+    private FirebaseUser currentUser;
+    ImageButton btn_Insert;
     EditText edit_isbn;
     EditText edit_Age;
     TextView title;
@@ -52,7 +59,6 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
     String Title = null, Author = null, Pub = null;
 
-    ArrayAdapter<String> arrayAdapter;
 
     static ArrayList<String> arrayIndex =  new ArrayList<String>();
     static ArrayList<String> arrayData = new ArrayList<String>();
@@ -75,24 +81,14 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         edit_Age = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
 
-        btn_Insert = (Button) findViewById(R.id.btn_insert);
+        btn_Insert = (ImageButton) findViewById(R.id.btn_insert);
         btn_Insert.setOnClickListener(this);
         check_bad = (CheckBox) findViewById(R.id.check_bad);
         check_bad.setOnClickListener(this);
         check_good = (CheckBox) findViewById(R.id.check_good);
         check_good.setOnClickListener(this);
 
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-        ListView listView = (ListView) findViewById(R.id.db_list_view);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(onClickListener);
-
-        getFirebaseDatabase();
-        btn_Insert.setEnabled(true);
-
         sc.setOnClickListener(v -> {
-
-
             try{
                 URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
                         "&result_style=xml&page_no=1&page_size=10&isbn="+isbn.getText().toString()); //검색 URL부분
@@ -103,7 +99,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 parser.setInput(url.openStream(), null);
 
                 int parserEvent = parser.getEventType();
-                System.out.println("파싱시작합니다.");
+                Log.e(this.getClass().getName(), "start parsing");
 
                 while (parserEvent != XmlPullParser.END_DOCUMENT){
                     switch(parserEvent){
@@ -151,93 +147,27 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void setInsertMode(){
-        title.setText(Title);
-        author.setText(Author);
-        pub.setText(Pub);
-        edit_Age.setText("");
-        check_bad.setChecked(false);
-        check_good.setChecked(false);
-        btn_Insert.setEnabled(true);
-
-    }
-
-    private AdapterView.OnItemClickListener onClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Log.e("On Click", "position = " + position);
-            Log.e("On Click", "Data: " + arrayData.get(position));
-            String[] tempData = arrayData.get(position).split("\\s+");
-            Log.e("On Click", "Split Result = " + tempData);
-            edit_isbn.setText(tempData[0].trim());
-           title.setText(tempData[1].trim());
-            author.setText(tempData[2].trim());
-            edit_Age.setText(tempData[3].trim());
-            if(tempData[4].trim().equals("good")){
-                check_good.setChecked(true);
-                rec = "추천";
-            }else{
-                check_bad.setChecked(true);
-                rec = "비추천";
-            }
-            title.setEnabled(false);
-            btn_Insert.setEnabled(false);
-
-        }
-    };
-
     public void postFirebaseDatabase(boolean add){
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            FirebasePost post = new FirebasePost(isbn,ID, name, age, rec);
+            FirebasePost post = new FirebasePost(isbn, ID, name, age, rec);
             postValues = post.toMap();
+
         }
+
+  //      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    //        String email = user.getEmail();
+
         childUpdates.put("/Book/"+ isbn, postValues);
         mPostReference.updateChildren(childUpdates);
+
+
+
     }
 
-    public void getFirebaseDatabase(){
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("getFirebaseDatabase", "key: " + dataSnapshot.getChildrenCount());
-                arrayData.clear();
-                arrayIndex.clear();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String key = postSnapshot.getKey();
-                    FirebasePost get = postSnapshot.getValue(FirebasePost.class);
-                    String[] info = {get.isbn, get.title, get.auth, String.valueOf(get.star), get.rec};
-                    String Result = setTextLength(info[0], 10) + setTextLength(info[1], 10) + setTextLength(info[2], 10) + setTextLength(info[3], 10) + setTextLength(info[4], 10);
-                    arrayData.add(Result);
-                    arrayIndex.add(key);
-                    Log.d("getFirebaseDatabase", "key: " + key);
-                    Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2] + info[3] + info[4]);
-                }
-                arrayAdapter.clear();
-                arrayAdapter.addAll(arrayData);
-                arrayAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("getFirebaseDatabase","loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        Query sortbyAge = FirebaseDatabase.getInstance().getReference().child("/Book/");
-        sortbyAge.addListenerForSingleValueEvent(postListener);
-    }
-
-    public String setTextLength(String text, int length) {
-        if(text.length()<length){
-            int gap = length - text.length();
-            for (int i=0; i<gap; i++){
-                text = text + " ";
-            }
-        }
-        return text;
-    }
     public boolean IsExistID(){
         boolean IsExist = arrayIndex.contains(isbn);
         return IsExist;
@@ -257,17 +187,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
                 if(!IsExistID()){
                     postFirebaseDatabase(true);
-                    getFirebaseDatabase();
-                    setInsertMode();
+
                 }else{
                     Toast.makeText(My_lib_add.this, "이미 존재하는 책 입니다. 다른 책등록하셈.", Toast.LENGTH_LONG).show();
                 }
                 edit_isbn.requestFocus();
                 edit_isbn.setCursorVisible(true);
-                break;
-
-            case R.id.btn_select:
-                getFirebaseDatabase();
                 break;
 
             case R.id.check_good:
