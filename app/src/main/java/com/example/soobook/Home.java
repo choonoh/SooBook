@@ -32,13 +32,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
+    private  String user_email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         String fragment = getIntent().getStringExtra("fragment");
-        String user_email = getIntent().getStringExtra("user_email");
+        user_email = getIntent().getStringExtra("user_email");
         Log.e(this.getClass().getName(), user_email);
 
         toolbar = findViewById(R.id.toolbar);
@@ -123,6 +125,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             curFragment = myLibFragment;
             toolbar.setTitle(("내 서재"));
             getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
+            Bundle toMyLibFrag = new Bundle();
+            toMyLibFrag.putString("user_email",user_email);
+            myLibFragment.setArguments(toMyLibFrag);
         } else if (position == 2) {
             curFragment = findlibFragment;
             toolbar.setTitle(("도서관 지도"));

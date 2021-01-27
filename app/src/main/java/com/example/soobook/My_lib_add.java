@@ -42,28 +42,21 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
     private DatabaseReference mPostReference;
     private FirebaseUser currentUser;
+
     ImageButton btn_Insert;
-    EditText edit_isbn;
-    EditText edit_Age;
-    TextView title;
-    TextView author;
-    TextView pub ;
+    EditText edit_isbn, edit_Age;
+    TextView title, author, pub ;
     CheckBox check_good;
     CheckBox check_bad;
-    String isbn;
-    String ID;
-    String name;
+
     long age;
     String rec = "";
+    String isbn, ID, name, user_email;
+    String Title = null, Author = null, Pub = null;
     boolean inTitle = false, inAuthor = false, inPub = false;
 
-    String Title = null, Author = null, Pub = null;
-
-
     static ArrayList<String> arrayIndex =  new ArrayList<String>();
-    static ArrayList<String> arrayData = new ArrayList<String>();
-
-
+//    static ArrayList<String> arrayData = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,27 +64,26 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_my_lib_add);
 
         StrictMode.enableDefaults();
-        EditText isbn = findViewById(R.id.isbn_txt);
 
         ImageButton sc = findViewById(R.id.isbn_sc);
-
         title = findViewById(R.id.book_title_add);
         author = findViewById(R.id.book_author_add);
         pub = findViewById(R.id.book_pub_add);
         edit_Age = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
+        user_email = getIntent().getStringExtra("user_email");
+        Log.e(this.getClass().getName(), user_email);
 
-        btn_Insert = (ImageButton) findViewById(R.id.btn_insert);
+        btn_Insert = findViewById(R.id.btn_insert);
         btn_Insert.setOnClickListener(this);
-        check_bad = (CheckBox) findViewById(R.id.check_bad);
+        check_bad = findViewById(R.id.check_bad);
         check_bad.setOnClickListener(this);
-        check_good = (CheckBox) findViewById(R.id.check_good);
+        check_good = findViewById(R.id.check_good);
         check_good.setOnClickListener(this);
-
         sc.setOnClickListener(v -> {
             try{
                 URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
-                        "&result_style=xml&page_no=1&page_size=10&isbn="+isbn.getText().toString()); //검색 URL부분
+                        "&result_style=xml&page_no=1&page_size=10&isbn="+edit_isbn.getText().toString()); //검색 URL부분
 
                 XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
                 XmlPullParser parser = parserCreator.newPullParser();
@@ -133,7 +125,6 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                                 title.setText(Title);
                                 author.setText(Author);
                                 pub.setText(Pub);
-
                             }
                             break;
                     }
@@ -142,11 +133,8 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             } catch(Exception e){
                 Log.e(this.getClass().getName(), "error", e);
             }
-
         });
-
     }
-
     public void postFirebaseDatabase(boolean add){
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> childUpdates = new HashMap<>();
@@ -162,12 +150,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
         childUpdates.put("/Book/"+ isbn, postValues);
         mPostReference.updateChildren(childUpdates);
-
-
-
     }
-
-
     public boolean IsExistID(){
         boolean IsExist = arrayIndex.contains(isbn);
         return IsExist;
@@ -204,8 +187,6 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 check_good.setChecked(false);
                 rec = "비추천";
                 break;
-
-
         }
     }
 }

@@ -30,40 +30,43 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MyLibFragment extends Fragment {
 
-    private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Book> arrayList;
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
-    private ImageButton add_btn, search_btn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_my_lib, container, false);
 
-        add_btn = root.findViewById(R.id.add_btn);
+        String user_email = getArguments().getString("user_email");
+        Log.e(this.getClass().getName(), user_email);
+
+        ImageButton add_btn = root.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), My_lib_add.class);
+            intent.putExtra("user_email", user_email);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
 
         });
-        search_btn=root.findViewById(R.id.search_btn);
+        ImageButton search_btn = root.findViewById(R.id.search_btn);
         search_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Test.class);
+            intent.putExtra("user_email", user_email);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
 
         });
 
-        recyclerView = root.findViewById(R.id.recyclerview); // 아디 연결
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerview); // 아디 연결
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
 
-        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+        FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
-        databaseReference = database.getReference("Book"); // DB 테이블 연결
+        DatabaseReference databaseReference = database.getReference("Book"); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
