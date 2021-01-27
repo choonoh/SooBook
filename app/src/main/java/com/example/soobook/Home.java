@@ -3,6 +3,7 @@ package com.example.soobook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
-//        logout_btn = findViewById(R.layout.nav_header_main);
+
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,14 +76,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         } catch (Exception e) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
         }
-//        logout_btn.setOnClickListener(v -> {
-//            firebaseAuth = FirebaseAuth.getInstance();
-//            firebaseAuth.signOut();
-//            Intent intent=new Intent(Home.this, Login.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//            startActivity(intent);
-//            finish();
-//        });
+
     }
     @Override
     public void onBackPressed() {
@@ -91,6 +85,29 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         } else {
             super.onBackPressed();
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        } else if(id == R.id.action_logOut) {
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signOut(); //로그아웃
+            Intent intent=new Intent(Home.this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
