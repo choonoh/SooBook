@@ -34,7 +34,16 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/soo" />
-
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="칭\n구"
+        android:textColor="@color/black"/>
+        <ImageButton
+            android:id="@+id/add_frnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add"/>
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="60dp"

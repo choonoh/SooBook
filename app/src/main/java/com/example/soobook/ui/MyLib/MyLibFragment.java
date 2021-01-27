@@ -38,12 +38,15 @@ public class MyLibFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_my_lib, container, false);
 
         String user_email = getArguments().getString("user_email");
+        String user_UID = getArguments().getString("user_UID");
+
         Log.e(this.getClass().getName(), user_email);
 
         ImageButton add_btn = root.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), My_lib_add.class);
             intent.putExtra("user_email", user_email);
+            intent.putExtra("user_UID", user_UID);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
@@ -51,6 +54,7 @@ public class MyLibFragment extends Fragment {
         search_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Test.class);
             intent.putExtra("user_email", user_email);
+            intent.putExtra("user_UID", user_UID);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
@@ -62,7 +66,7 @@ public class MyLibFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
-        DatabaseReference databaseReference = database.getReference("Book"); // DB 테이블 연결
+        DatabaseReference databaseReference = database.getReference("Book/"+user_UID+"/"); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

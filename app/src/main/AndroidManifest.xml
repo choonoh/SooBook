@@ -40,6 +40,7 @@
         <activity android:name=".Test" />
         <activity android:name=".My_lib_add" />
         <activity android:name=".FindPw" />
+        <activity android:name=".Add_frnd"/>
     </application>
 
 </manifest>

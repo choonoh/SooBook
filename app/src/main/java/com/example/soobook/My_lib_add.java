@@ -51,7 +51,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
     long age;
     String rec = "";
-    String isbn, ID, name, user_email;
+    String isbn, ID, name, user_email, user_UID;
     String Title = null, Author = null, Pub = null;
     boolean inTitle = false, inAuthor = false, inPub = false;
 
@@ -72,7 +72,8 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         edit_Age = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
         user_email = getIntent().getStringExtra("user_email");
-        Log.e(this.getClass().getName(), user_email);
+        user_UID =getIntent().getStringExtra("user_UID");
+        Log.e(this.getClass().getName(), user_UID+"&"+user_email);
 
         btn_Insert = findViewById(R.id.btn_insert);
         btn_Insert.setOnClickListener(this);
@@ -147,8 +148,8 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
   //      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     //        String email = user.getEmail();
-
-        childUpdates.put("/Book/"+ isbn, postValues);
+        String root ="/Book/"+user_UID+"/"+isbn;
+        childUpdates.put(root, postValues);
         mPostReference.updateChildren(childUpdates);
     }
     public boolean IsExistID(){

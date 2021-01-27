@@ -58,6 +58,7 @@ public class Login extends AppCompatActivity{
                 toast = Toast.makeText(Login.this, "비밀번호를 입력하셈유", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else {
+
                 startLogin();
             }
         });
@@ -71,6 +72,7 @@ public class Login extends AppCompatActivity{
         firebaseAuth = FirebaseAuth.getInstance();
     }
     public void startLogin(){
+
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if(task.isSuccessful()){
@@ -95,6 +97,7 @@ public class Login extends AppCompatActivity{
             Intent intent = new Intent(Login.this, Home.class);
             intent.putExtra("fragment","fri_lib");
             intent.putExtra("user_email",currentUser.getEmail());
+            intent.putExtra("user_UID",currentUser.getUid());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             Toast toast = Toast.makeText(Login.this, "자동로그인 성공", Toast.LENGTH_SHORT); toast.show();
             Handler handler = new Handler();

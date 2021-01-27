@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.soobook.Add_frnd;
 import com.example.soobook.Book;
 import com.example.soobook.CustomBookAdapter;
 import com.example.soobook.R;
+import com.example.soobook.ui.FindLib.DetailView;
+import com.example.soobook.ui.FindLib.FindLibFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,12 +38,20 @@ public class FriLibFragment extends Fragment {
     private ArrayList<Book> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private ImageButton addFrnd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_frd_lib, container, false);
 
+        addFrnd = root.findViewById(R.id.add_frnd);
+
+
+        addFrnd.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), Add_frnd.class);
+            startActivity(intent);
+                });
 
         recyclerView = root.findViewById(R.id.recyclerview); // 아디 연결
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화

@@ -32,7 +32,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
-    private  String user_email;
+    private  String user_email, user_UID,user_UID_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         String fragment = getIntent().getStringExtra("fragment");
         user_email = getIntent().getStringExtra("user_email");
+        user_UID = getIntent().getStringExtra("user_UID");
+    /*    user_UID_login= getIntent().getStringExtra("user_UID_login");
+        if(user_UID=="null"){
+            user_UID=user_UID_login;
+        }
+*/
         Log.e(this.getClass().getName(), user_email);
 
         toolbar = findViewById(R.id.toolbar);
@@ -127,6 +133,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
             Bundle toMyLibFrag = new Bundle();
             toMyLibFrag.putString("user_email",user_email);
+            toMyLibFrag.putString("user_UID",user_UID);
             myLibFragment.setArguments(toMyLibFrag);
         } else if (position == 2) {
             curFragment = findlibFragment;
