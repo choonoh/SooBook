@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="칭구하고싶은살암아이디"
+        android:text="칭구하고싶은살암이멜"
         android:textColor="@color/black"
         android:textSize="20sp"/>
 
@@ -35,6 +35,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+
+    <Button
+        android:id="@+id/seach_frnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구검색"
+        android:backgroundTint="@color/sooBook_bg"
+        android:textColor="@color/black"
+
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <ImageButton
         android:id="@+id/make_frnd"
         android:layout_width="wrap_content"

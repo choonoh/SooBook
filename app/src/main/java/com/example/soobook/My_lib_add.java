@@ -55,12 +55,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     private FirebaseUser currentUser;
 
     ImageButton btn_Insert;
-    EditText edit_isbn, edit_Age;
+    EditText edit_isbn, edit_star;
     TextView title, author, pub ;
     CheckBox check_good;
     CheckBox check_bad;
 
-    long age;
+    long star;
     String rec = "";
     String isbn, ID, name, user_email, user_UID;
     String Title = null, Author = null, Pub = null;
@@ -80,7 +80,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         title = findViewById(R.id.book_title_add);
         author = findViewById(R.id.book_author_add);
         pub = findViewById(R.id.book_pub_add);
-        edit_Age = findViewById(R.id.edit_age);
+        edit_star = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
         user_email = getIntent().getStringExtra("user_email");
         user_UID =getIntent().getStringExtra("user_UID");
@@ -167,7 +167,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            FirebasePost post = new FirebasePost(isbn, ID, name, age, rec);
+            FirebasePost post = new FirebasePost(isbn, ID, name, star, rec);
             postValues = post.toMap();
         }
         String root ="/Book/"+user_UID+"/"+isbn;
@@ -186,7 +186,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                isbn = edit_isbn.getText().toString();
                 ID = title.getText().toString();
                 name = author.getText().toString();
-                age = Long.parseLong(edit_Age.getText().toString());
+                star = Long.parseLong(edit_star.getText().toString());
 
                 title.requestFocus();
                 title.setCursorVisible(true);

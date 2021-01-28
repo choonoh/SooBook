@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        adapter = new CustomAdapter(arrayList, this);
+        adapter = new CustomUserAdapter(arrayList, this);
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
     }
