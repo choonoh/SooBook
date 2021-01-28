@@ -56,6 +56,8 @@ public class Add_frnd extends AppCompatActivity {
         user_email = getIntent().getStringExtra("user_email");
         user_UID = getIntent().getStringExtra("user_UID");
 
+        Log.e(this.getClass().getName(), user_email + ", " + user_UID);
+
 
         search_frnd = findViewById(R.id.seach_frnd);
         search_frnd.setOnClickListener(v -> {
