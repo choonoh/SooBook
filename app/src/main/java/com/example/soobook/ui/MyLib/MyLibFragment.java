@@ -40,7 +40,7 @@ public class MyLibFragment extends Fragment {
         String user_email = getArguments().getString("user_email");
         String user_UID = getArguments().getString("user_UID");
 
-        Log.e(this.getClass().getName(), user_email);
+        Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
         ImageButton add_btn = root.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(v -> {

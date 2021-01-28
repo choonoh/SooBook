@@ -35,8 +35,8 @@ public class Add_frnd extends AppCompatActivity {
     private ImageButton make_frnd;
     private EditText email_frnd;
     String email_frnd_text = email_frnd.getText().toString();
-    private String user_UID ="11111111"; //test
-    static ArrayList<String> arrayIndex =  new ArrayList<String>();
+    private String user_UID = "11111111"; //test
+    static ArrayList<String> arrayIndex = new ArrayList<String>();
 
 
     @Override
@@ -46,6 +46,7 @@ public class Add_frnd extends AppCompatActivity {
         make_frnd = findViewById(R.id.make_frnd);
 
     }
+}
 
 /*
     public void postFirebaseDatabase(boolean add){

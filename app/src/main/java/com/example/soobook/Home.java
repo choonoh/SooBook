@@ -47,7 +47,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             user_UID=user_UID_login;
         }
 */
-        Log.e(this.getClass().getName(), user_email);
+        Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
