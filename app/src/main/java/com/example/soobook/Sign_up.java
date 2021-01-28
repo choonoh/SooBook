@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -58,6 +59,7 @@ public class Sign_up extends AppCompatActivity {
             Handler handler = new Handler();
             if (task.isSuccessful()) {
                 currentUser = firebaseAuth.getCurrentUser();
+                Log.e(this.getClass().getName(), currentUser.getUid());
                 firebaseAuth.signOut();
                 Intent intent = new Intent(Sign_up.this, Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
