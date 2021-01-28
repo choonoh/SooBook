@@ -47,7 +47,6 @@ public class Add_frnd extends AppCompatActivity {
 
     }
 }
-
 /*
     public void postFirebaseDatabase(boolean add){
         mPostReference = FirebaseDatabase.getInstance().getReference();
