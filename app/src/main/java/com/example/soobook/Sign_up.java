@@ -12,6 +12,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sign_up extends AppCompatActivity {
 
@@ -19,7 +24,7 @@ public class Sign_up extends AppCompatActivity {
     private Button only_one_btn, sign_up_btn;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
-
+    private DatabaseReference mPostReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +58,34 @@ public class Sign_up extends AppCompatActivity {
             }
         });
     }
+
+
+
+
     public void startSignUp() {
         firebaseAuth.createUserWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString()).addOnCompleteListener(this, task -> {
             Toast toast;
             Handler handler = new Handler();
             if (task.isSuccessful()) {
                 currentUser = firebaseAuth.getCurrentUser();
+                String user_UID = currentUser.getUid();
+                String user_email =currentUser.getEmail();
                 Log.e(this.getClass().getName(), currentUser.getUid());
-                firebaseAuth.signOut();
+
+               //db에 user 추가
+                mPostReference = FirebaseDatabase.getInstance().getReference();
+                Map<String, Object> childUpdates = new HashMap<>();
+                Map<String, Object> postValues = null;
+                if(true){
+                    FirebaseuserPost post = new FirebaseuserPost(user_email, user_UID);
+                    postValues = post.toMap();}
+                String root ="/User/"+user_UID;
+                childUpdates.put(root, postValues);
+                mPostReference.updateChildren(childUpdates);
+
+
+
+                    firebaseAuth.signOut();
                 Intent intent = new Intent(Sign_up.this, Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);

@@ -125,10 +125,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     public void onFragmentSelected(int position, Bundle bundle) {
         Fragment curFragment;
+
         if (position == 0) {
             curFragment = friLibFragment;
             toolbar.setTitle(("친구의 서재"));
             getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
+            Bundle toFrndLibFrag = new Bundle();
+            toFrndLibFrag.putString("user_email",user_email);
+            toFrndLibFrag.putString("user_UID",user_UID);
+            myLibFragment.setArguments(toFrndLibFrag);
         } else if (position == 1) {
             curFragment = myLibFragment;
             toolbar.setTitle(("내 서재"));
@@ -141,6 +146,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             curFragment = findlibFragment;
             toolbar.setTitle(("도서관 지도"));
             getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
+            Bundle toMyLibFrag = new Bundle();
+            toMyLibFrag.putString("user_email",user_email);
+            toMyLibFrag.putString("user_UID",user_UID);
+            myLibFragment.setArguments(toMyLibFrag);
         }
     }
 }

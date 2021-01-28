@@ -10,15 +10,15 @@ import java.util.Map;
  */
 
 @IgnoreExtraProperties
-public class FirebaseuserPost {
+public class FirebasefreindPost {
     public String email;
     public String uid;
 
-    public FirebaseuserPost(){
+    public FirebasefreindPost(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
 
-    public FirebaseuserPost(String email, String uid) {
+    public FirebasefreindPost(String email, String uid) {
         this.email=email;
         this.uid=uid;
     }
