@@ -76,7 +76,6 @@ public class Login extends AppCompatActivity{
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if(task.isSuccessful()){
-
                         Intent intent = new Intent(Login.this, Home.class);
                         intent.putExtra("fragment","fri_lib");
                         FirebaseUser currentUser = firebaseAuth.getCurrentUser();

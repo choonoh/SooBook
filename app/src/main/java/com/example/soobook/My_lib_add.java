@@ -1,5 +1,6 @@
 package com.example.soobook;
 
+import com.example.soobook.ui.FriLib.FriLibFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.annotation.SuppressLint;
@@ -189,6 +190,13 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
                 if(!IsExistID()){
                     postFirebaseDatabase(true);
+                    Intent intent = new Intent(this, Home.class);
+                    intent.putExtra("user_email", user_email);
+                    intent.putExtra("user_UID", user_UID);
+                    intent.putExtra("fragment", "my_lib");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(My_lib_add.this, "이미 존재하는 책 입니다. 다른 책등록하셈.", Toast.LENGTH_LONG).show();
                 }

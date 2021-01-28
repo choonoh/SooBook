@@ -44,11 +44,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         String fragment = getIntent().getStringExtra("fragment");
         user_email = getIntent().getStringExtra("user_email");
         user_UID = getIntent().getStringExtra("user_UID");
-    /*    user_UID_login= getIntent().getStringExtra("user_UID_login");
-        if(user_UID=="null"){
-            user_UID=user_UID_login;
-        }
-*/
+
         Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
         toolbar = findViewById(R.id.toolbar);
@@ -70,13 +66,25 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         switch (fragment) {
             case "my_lib":
                 getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
+                Bundle toFriendLibFrag = new Bundle();
+                toFriendLibFrag.putString("user_email",user_email);
+                toFriendLibFrag.putString("user_UID",user_UID);
+                myLibFragment.setArguments(toFriendLibFrag);
                 break;
             case "find_lib":
                 getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
+                Bundle toFindLibFrag = new Bundle();
+                toFindLibFrag.putString("user_email",user_email);
+                toFindLibFrag.putString("user_UID",user_UID);
+                findlibFragment.setArguments(toFindLibFrag);
                 break;
             default:
             case "fri_lib":
                 getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
+                Bundle toFirLibFrag = new Bundle();
+                toFirLibFrag.putString("user_email",user_email);
+                toFirLibFrag.putString("user_UID",user_UID);
+                friLibFragment.setArguments(toFirLibFrag);
                 break;
         }
     }
