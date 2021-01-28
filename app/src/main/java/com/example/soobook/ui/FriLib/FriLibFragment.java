@@ -47,9 +47,10 @@ public class FriLibFragment extends Fragment {
 
         addFrnd = root.findViewById(R.id.add_frnd);
 
-      // String user_email = getArguments().getString("user_email");
-    //    String user_UID = getArguments().getString("user_UID");
+        String user_email = getArguments().getString("user_email");
+        String user_UID = getArguments().getString("user_UID");
 
+        Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
         addFrnd.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Add_frnd.class);
