@@ -1,8 +1,12 @@
 package com.example.soobook;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +26,12 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.InputStream;
 import java.net.URL;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageProxy;
 import androidx.constraintlayout.widget.Guideline;
 
 import com.example.soobook.ui.MyLib.MyLibFragment;
@@ -34,12 +43,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-public class My_lib_add  extends AppCompatActivity implements View.OnClickListener{
-
+public class My_lib_add  extends AppCompatActivity implements View.OnClickListener {
+//, ImageAnalysis.Analyzer
     private DatabaseReference mPostReference;
     private FirebaseUser currentUser;
 
@@ -81,6 +92,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         check_bad.setOnClickListener(this);
         check_good = findViewById(R.id.check_good);
         check_good.setOnClickListener(this);
+
         sc.setOnClickListener(v -> {
             try{
                 URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
@@ -136,6 +148,20 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             }
         });
     }
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    @SuppressLint("UnsafeExperimentalUsageError")
+//    @Override
+//    public void analyze(@NonNull ImageProxy imageproxy) {
+//        if (imageproxy.getImage() == null) {
+//            return;
+//        }
+//        Image mediaImage = imageproxy.getImage();
+//        int rotation = degreesToFirebaseRotation(degrees);
+//        FirebaseVisionImage image =
+//                FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
+//// Pass image to an ML Kit Vision API
+//// ...
+//    }
     public void postFirebaseDatabase(boolean add){
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> childUpdates = new HashMap<>();
@@ -143,11 +169,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         if(add){
             FirebasePost post = new FirebasePost(isbn, ID, name, age, rec);
             postValues = post.toMap();
-
         }
-
-  //      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    //        String email = user.getEmail();
         String root ="/Book/"+user_UID+"/"+isbn;
         childUpdates.put(root, postValues);
         mPostReference.updateChildren(childUpdates);
@@ -171,7 +193,6 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
                 if(!IsExistID()){
                     postFirebaseDatabase(true);
-
                 }else{
                     Toast.makeText(My_lib_add.this, "이미 존재하는 책 입니다. 다른 책등록하셈.", Toast.LENGTH_LONG).show();
                 }
@@ -183,7 +204,6 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 check_bad.setChecked(false);
                 rec = "추천";
                 break;
-
             case R.id.check_bad:
                 check_good.setChecked(false);
                 rec = "비추천";
