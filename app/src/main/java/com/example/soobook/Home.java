@@ -14,6 +14,7 @@ import com.example.soobook.ui.FriLib.FriLibFragment;
 import com.example.soobook.ui.FindLib.FindLibFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -28,16 +29,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private FriLibFragment friLibFragment;
     private MyLibFragment myLibFragment;
     private FindLibFragment findlibFragment;
-
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
     private  String user_email, user_UID,user_UID_login;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
         String fragment = getIntent().getStringExtra("fragment");
         user_email = getIntent().getStringExtra("user_email");
