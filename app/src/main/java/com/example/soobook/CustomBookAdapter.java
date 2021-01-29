@@ -33,6 +33,7 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
+        holder.tv_owner.setText(arrayList.get(position).getOwner());
         holder.tv_auth.setText(arrayList.get(position).getAuth());
         holder.tv_title.setText(arrayList.get(position).gettitle());
     }
@@ -44,12 +45,14 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-
+        TextView tv_owner;
         TextView tv_auth;
         TextView tv_title;
 
+
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.tv_owner = itemView.findViewById(R.id.tv_owner);
             this.tv_auth = itemView.findViewById(R.id.tv_auth);
             this.tv_title = itemView.findViewById(R.id.tv_title);
         }

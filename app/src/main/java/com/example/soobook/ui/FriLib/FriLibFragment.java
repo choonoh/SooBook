@@ -7,22 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.soobook.Add_frnd;
+import com.example.soobook.AdminFrnd;
 import com.example.soobook.Book;
 import com.example.soobook.CustomBookAdapter;
 import com.example.soobook.R;
 import com.example.soobook.User;
-import com.example.soobook.ui.FindLib.DetailView;
-import com.example.soobook.ui.FindLib.FindLibFragment;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,8 +50,8 @@ public class FriLibFragment extends Fragment {
 
         Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
-        addFrnd.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Add_frnd.class);
+     addFrnd.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AdminFrnd.class);
             intent.putExtra("user_email", user_email);
             intent.putExtra("user_UID", user_UID);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

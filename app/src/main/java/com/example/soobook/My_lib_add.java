@@ -164,7 +164,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            FirebasePost post = new FirebasePost(isbn, ID, name, star, rec);
+            FirebasePost post = new FirebasePost(user_email ,isbn, ID, name, star, rec);
             postValues = post.toMap();
         }
         String root ="/Book/"+user_UID+"/"+isbn;

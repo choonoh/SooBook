@@ -15,8 +15,8 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="친구의 서재"
             android:gravity="center"
+            android:text="내칭구"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -43,7 +43,7 @@
             android:id="@+id/add_frnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/admin"/>
+            android:background="@drawable/add"/>
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="60dp"
@@ -62,8 +62,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="보고싶은 친구 id나 책 제목을 입력하세용">
-        </EditText>
+            android:hint="보고싶은 친구 id"></EditText>
 
         <ImageButton
             android:id="@+id/search_btn"
@@ -71,6 +70,14 @@
             android:layout_height="40dp"
             android:adjustViewBounds="true"
             android:background="@drawable/seach" />
+
+        <Button
+            android:id="@+id/del_frnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:text="초기화" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

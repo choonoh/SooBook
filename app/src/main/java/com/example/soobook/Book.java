@@ -2,10 +2,10 @@ package com.example.soobook;
 
 public class Book {
 
+    private String owner;
     private String auth;
     private String title;
     private String pub;
-
     public Book(){}
 
 
@@ -31,5 +31,14 @@ public class Book {
 
     public void setPub(String pub) {
         this.pub = pub;
+    }
+
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
