@@ -42,6 +42,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +53,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     private DatabaseReference mPostReference;
     private FirebaseUser currentUser;
 
-    ImageButton btn_Insert;
+    ImageButton btn_Insert, btn_barcode;
     EditText edit_isbn, edit_star;
     TextView title, author, pub ;
     CheckBox check_good;
@@ -73,12 +75,20 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
 
         StrictMode.enableDefaults();
 
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setPrompt("");
+        intentIntegrator.setBeepEnabled(true);
+        intentIntegrator.setCaptureActivity(QrReaderActivity.class);
+        intentIntegrator.initiateScan();
+
+
         ImageButton sc = findViewById(R.id.isbn_sc);
         title = findViewById(R.id.book_title_add);
         author = findViewById(R.id.book_author_add);
         pub = findViewById(R.id.book_pub_add);
         edit_star = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
+        btn_barcode = findViewById(R.id.barcode_bt);
         user_email = getIntent().getStringExtra("user_email");
         user_UID =getIntent().getStringExtra("user_UID");
         Log.e(this.getClass().getName(), user_UID+"&"+user_email);
@@ -89,6 +99,14 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         check_bad.setOnClickListener(this);
         check_good = findViewById(R.id.check_good);
         check_good.setOnClickListener(this);
+
+        btn_barcode.setOnClickListener(v -> {
+            Intent intent = new Intent(My_lib_add.this, QrReaderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+
+
 
         sc.setOnClickListener(v -> {
             try{
@@ -145,20 +163,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             }
         });
     }
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    @SuppressLint("UnsafeExperimentalUsageError")
-//    @Override
-//    public void analyze(@NonNull ImageProxy imageproxy) {
-//        if (imageproxy.getImage() == null) {
-//            return;
-//        }
-//        Image mediaImage = imageproxy.getImage();
-//        int rotation = degreesToFirebaseRotation(degrees);
-//        FirebaseVisionImage image =
-//                FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
-//// Pass image to an ML Kit Vision API
-//// ...
-//    }
+
     public void postFirebaseDatabase(boolean add){
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> childUpdates = new HashMap<>();
@@ -216,5 +221,15 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/recImage_bad.png?alt=media&token=cdde2cc7-dce8-452e-887a-a31710fc11f9";
                 break;
         }
+    }  @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        TextView isbn = findViewById(R.id.isbn_txt);
+        // QR코드/ 바코드를 스캔한 결과
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        // result.getFormatName() : 바코드 종류
+        // result.getContents() : 바코드 값
+        isbn.setText( result.getContents() );
     }
 }

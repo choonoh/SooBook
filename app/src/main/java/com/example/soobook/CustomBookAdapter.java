@@ -33,27 +33,7 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_book, parent, false);
         CustomViewHolder holder = new CustomViewHolder(view);
 
-       view.setOnClickListener(v ->  {
 
-           String title = arrayList.get(0).gettitle();
-           String Isbn = arrayList.get(0).getIsbn();
-           String Auth = arrayList.get(0).getAuth();
-           String Rec = arrayList.get(0).getRec();
-           String Pub = arrayList.get(0).getPub();
-           String Star = arrayList.get(0).getStar();
-           String Owner = arrayList.get(0).getOwner();
-
-           Intent intent = new Intent(context,BookDetailView.class);
-           intent.putExtra("title", title);
-           intent.putExtra("isbn",Isbn);
-           intent.putExtra("auth", Auth);
-           intent.putExtra("rec",Rec);
-           intent.putExtra("pub", Pub);
-           intent.putExtra("star",Star);
-           intent.putExtra("owner",Owner.toString());
-           context.startActivity(intent);
-
-       });
         return holder;
 
 
@@ -69,7 +49,27 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
         holder.tv_owner.setText(arrayList.get(position).getOwner());
         holder.tv_auth.setText(arrayList.get(position).getAuth());
         holder.tv_title.setText(arrayList.get(position).gettitle());
+        holder.itemView.setOnClickListener(v ->  {
 
+            String title = arrayList.get(position).gettitle();
+            String Isbn = arrayList.get(position).getIsbn();
+            String Auth = arrayList.get(position).getAuth();
+            String Rec = arrayList.get(position).getRec();
+            String Pub = arrayList.get(position).getPub();
+            String Star = arrayList.get(position).getStar();
+            String Owner = arrayList.get(position).getOwner();
+
+            Intent intent = new Intent(context,BookDetailView.class);
+            intent.putExtra("title", title);
+            intent.putExtra("isbn",Isbn);
+            intent.putExtra("auth", Auth);
+            intent.putExtra("rec",Rec);
+            intent.putExtra("pub", Pub);
+            intent.putExtra("star",Star);
+            intent.putExtra("owner",Owner.toString());
+            context.startActivity(intent);
+
+        });
 
 
     }
@@ -92,6 +92,7 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
             this.tv_owner = itemView.findViewById(R.id.tv_owner);
             this.tv_auth = itemView.findViewById(R.id.tv_auth);
             this.tv_title = itemView.findViewById(R.id.tv_title);
+
         }
 
     }

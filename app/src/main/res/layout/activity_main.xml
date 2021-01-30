@@ -19,7 +19,13 @@
         android:text="책추가"
         android:layout_margin="20dp"
         />
-
+    <TextView
+        android:id="@+id/book_isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="isbn"
+        android:layout_margin="20dp"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"

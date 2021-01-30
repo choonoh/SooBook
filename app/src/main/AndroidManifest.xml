@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.soobook">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -10,7 +12,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
     <meta-data
         android:name="com.naver.maps.map.CLIENT_ID"
         android:value="vjckuvmnki" />
@@ -22,7 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SOOBOOK"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="true">
+
+
         <activity android:name=".ui.FindLib.DetailView"></activity>
         <activity android:name=".Sign_up" />
         <activity
@@ -43,6 +48,10 @@
         <activity android:name=".Add_frnd"/>
         <activity android:name=".AdminFrnd"/>
         <activity android:name=".BookDetailView"/>
+        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation"/>
+        <activity android:name=".QrReaderActivity"/>
     </application>
 
 </manifest>
