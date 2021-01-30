@@ -56,10 +56,10 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     TextView title, author, pub ;
     CheckBox check_good;
     CheckBox check_bad;
-
-    long star;
+    String recImage="";
+    String star;
     String rec = "";
-    String isbn, ID, name, user_email, user_UID;
+    String isbn, TITLE, AUTH, PUB, user_email, user_UID;
     String Title = null, Author = null, Pub = null;
     boolean inTitle = false, inAuthor = false, inPub = false;
 
@@ -164,7 +164,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            FirebasePost post = new FirebasePost(user_email ,isbn, ID, name, star, rec);
+            FirebasePost post = new FirebasePost(user_email ,isbn, TITLE, PUB, AUTH, star, rec, recImage);
             postValues = post.toMap();
         }
         String root ="/Book/"+user_UID+"/"+isbn;
@@ -181,9 +181,10 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             case R.id.btn_insert:
 
                isbn = edit_isbn.getText().toString();
-                ID = title.getText().toString();
-                name = author.getText().toString();
-                star = Long.parseLong(edit_star.getText().toString());
+                TITLE = title.getText().toString();
+                AUTH = author.getText().toString();
+                star = edit_star.getText().toString();
+                PUB = pub.getText().toString();
 
                 title.requestFocus();
                 title.setCursorVisible(true);
@@ -207,10 +208,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             case R.id.check_good:
                 check_bad.setChecked(false);
                 rec = "추천";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/recImage_good.png?alt=media&token=ccbafa6f-cc59-466c-97a0-ad9d706e3382";
                 break;
             case R.id.check_bad:
                 check_good.setChecked(false);
                 rec = "비추천";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/recImage_bad.png?alt=media&token=cdde2cc7-dce8-452e-887a-a31710fc11f9";
                 break;
         }
     }

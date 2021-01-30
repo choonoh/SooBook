@@ -1,11 +1,16 @@
 package com.example.soobook;
 
-public class Book {
+import android.widget.Toast;
 
+public class Book {
+    private String isbn;
     private String owner;
     private String auth;
     private String title;
     private String pub;
+    private String rec;
+    private String star;
+    private String recImage;
     public Book(){}
 
 
@@ -40,5 +45,38 @@ public class Book {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getRec() {
+      return rec;
+    }
+
+    public void setRec(String rec) {
+        this.rec = rec;
+    }
+
+    public String getRecImage() {
+        return recImage;
+    }
+
+    public void setRecImage(String recImage) {
+        this.recImage = recImage;
+    }
+
+
+    public String getStar() {
+        return star;
+    }
+
+    public void setStar(String star) {
+        this.star = star;
     }
 }

@@ -22,7 +22,7 @@ public class Test extends Activity {
         StrictMode.enableDefaults();
         EditText isbn = findViewById(R.id.isbn_txt);
         TextView title = findViewById(R.id.book_title);
-        TextView author = findViewById(R.id.book_author);
+        TextView author = findViewById(R.id.book_auth);
         TextView pub = findViewById(R.id.book_pub);
         ImageButton sc = findViewById(R.id.isbn_sc);
 
