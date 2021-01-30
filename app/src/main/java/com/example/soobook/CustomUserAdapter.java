@@ -1,5 +1,6 @@
 package com.example.soobook;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,15 @@ public class CustomUserAdapter extends RecyclerView.Adapter<CustomUserAdapter.Cu
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         holder.tv_email.setText(arrayList.get(position).getEmail());
         holder.tv_uid.setText(arrayList.get(position).getUid());
+
+        holder.itemView.setOnClickListener(v -> {
+            String email= arrayList.get(position).getEmail();
+            String uid = arrayList.get(position).getUid();
+            Intent intent = new Intent(context,BookDetailView.class);
+            intent.putExtra("uid", uid);
+            context.startActivity(intent);
+
+        });
 
     }
 

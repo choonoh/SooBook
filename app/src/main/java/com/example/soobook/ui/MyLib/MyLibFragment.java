@@ -1,5 +1,6 @@
 package com.example.soobook.ui.MyLib;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +10,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.soobook.BookDetailView;
+import com.example.soobook.CustomMyBookAdapter;
 import com.example.soobook.My_lib_add;
 import com.example.soobook.R;
 
@@ -92,8 +96,7 @@ public class MyLibFragment extends Fragment{
             });
 
 
-
-        adapter = new CustomBookAdapter(arrayList, getActivity());
+        adapter = new CustomMyBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
         return root;

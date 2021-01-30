@@ -3,6 +3,7 @@ package com.example.soobook;
 import android.widget.Toast;
 
 public class Book {
+    private String uid;
     private String isbn;
     private String owner;
     private String auth;
@@ -78,5 +79,13 @@ public class Book {
 
     public void setStar(String star) {
         this.star = star;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

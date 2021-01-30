@@ -48,6 +48,7 @@
         <activity android:name=".Add_frnd"/>
         <activity android:name=".AdminFrnd"/>
         <activity android:name=".BookDetailView"/>
+        <activity android:name=".MyBookDetailView"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation"/>

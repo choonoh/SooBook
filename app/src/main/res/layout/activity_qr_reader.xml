@@ -22,24 +22,22 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textColor="#ffffff"
+            android:textColor="@color/black"
             android:textSize="18dp"
-            android:text="QR 코드 촬영"/>
-        <ImageView
-            android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/add"
+            android:text="책 ISBN 바코드를 읽혀주세요"
+          />
 
-            />
     </RelativeLayout>
+
     <Button
         android:id="@+id/btn_skip_qr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/sooBook_bg"
+        android:text="직접입력"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="skip"/>
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

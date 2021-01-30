@@ -1,33 +1,26 @@
 package com.example.soobook;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.wifi.p2p.WifiP2pManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.CustomViewHolder> {
+public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapter.CustomViewHolder> {
     FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
     private ArrayList<Book> arrayList;
     private Context context;
 
-    public CustomBookAdapter(ArrayList<Book> arrayList, Context context) {
+    public CustomMyBookAdapter(ArrayList<Book> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -56,7 +49,7 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
         holder.tv_title.setText(arrayList.get(position).gettitle());
 
         holder.itemView.setOnClickListener(v ->  {
-
+            String uid = arrayList.get(position).getUid();
             String title = arrayList.get(position).gettitle();
             String Isbn = arrayList.get(position).getIsbn();
             String Auth = arrayList.get(position).getAuth();
@@ -64,7 +57,8 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
             String Pub = arrayList.get(position).getPub();
             String Star = arrayList.get(position).getStar();
             String Owner = arrayList.get(position).getOwner();
-            Intent intent = new Intent(context,BookDetailView.class);
+            Intent intent = new Intent(context,MyBookDetailView.class);
+            intent.putExtra("uid",uid);
             intent.putExtra("title", title);
             intent.putExtra("isbn",Isbn);
             intent.putExtra("auth", Auth);

@@ -89,6 +89,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         edit_star = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
         btn_barcode = findViewById(R.id.barcode_bt);
+
         user_email = getIntent().getStringExtra("user_email");
         user_UID =getIntent().getStringExtra("user_UID");
         Log.e(this.getClass().getName(), user_UID+"&"+user_email);
@@ -169,7 +170,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            FirebasePost post = new FirebasePost(user_email ,isbn, TITLE, PUB, AUTH, star, rec, recImage);
+            FirebasePost post = new FirebasePost(user_UID,user_email ,isbn, TITLE, PUB, AUTH, star, rec, recImage);
             postValues = post.toMap();
         }
         String root ="/Book/"+user_UID+"/"+isbn;

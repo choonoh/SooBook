@@ -29,7 +29,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="칭구 서재 책"
+        android:text="내 서재 책"
         android:textSize="30sp"
         android:textColor="@color/black" />
 
@@ -194,29 +194,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:text="주인"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/book_owner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/result"
+            android:orientation="horizontal"/>
+        <ImageButton
+            android:id="@+id/del_btn"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/del"
             android:textColor="@color/black"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
