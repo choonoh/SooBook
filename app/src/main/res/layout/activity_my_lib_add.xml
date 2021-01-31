@@ -46,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="책 isbn 입력하세여"
+                    android:text=""
                     android:textColorHint="@color/purple_200"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
