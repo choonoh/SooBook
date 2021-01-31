@@ -191,13 +191,17 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                         startActivity(intent);
                         finish();
                     }else{
-                        Toast.makeText(My_lib_add.this, "이봐요 ㅡㅡ isbn 바코드로 등록하삼", Toast.LENGTH_LONG).show();
+                        Toast toast = Toast.makeText(My_lib_add.this, "어디서 이미 등록한 책을!!", Toast.LENGTH_SHORT); toast.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(toast::cancel, 1000);
                     }
                     edit_isbn.requestFocus();
                     edit_isbn.setCursorVisible(true);
                     break;
                 } else {
-
+                    Toast toast = Toast.makeText(My_lib_add.this, "저기여 바코드로 isbn 입력하세여 ㅡ.ㅡ", Toast.LENGTH_SHORT); toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(toast::cancel, 1000);
                 }
             case R.id.check_good:
                 check_bad.setChecked(false);
