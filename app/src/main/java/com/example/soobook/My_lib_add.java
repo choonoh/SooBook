@@ -72,17 +72,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         check_good = findViewById(R.id.check_good);
         check_good.setOnClickListener(this);
 
-<<<<<<< HEAD
 
-
-
-=======
-        btn_barcode.setOnClickListener(v -> {
-            Intent intent = new Intent(My_lib_add.this, QrReaderActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
->>>>>>> 6539d312a78b471c1f6034c83e365bb9bea58dc4
         sc.setOnClickListener(v -> {
             try{
                 URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
