@@ -101,4 +101,5 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
         }
 
     }
+
 }

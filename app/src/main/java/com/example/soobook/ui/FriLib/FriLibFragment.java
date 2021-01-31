@@ -2,10 +2,14 @@ package com.example.soobook.ui.FriLib;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -37,13 +41,17 @@ public class FriLibFragment extends Fragment {
 
     private DatabaseReference databaseReference;
     private ImageButton addFrnd;
+    private EditText ed_sc;
+    private Button sc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_frd_lib, container, false);
 
         addFrnd = root.findViewById(R.id.add_frnd);
+
 
         String user_email = getArguments().getString("user_email");
         String user_UID = getArguments().getString("user_UID");
@@ -63,6 +71,8 @@ public class FriLibFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
+        ed_sc = root.findViewById(R.id.ed_sc);
+        sc = root.findViewById(R.id.search_btn);
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
         bookdatabase = FirebaseDatabase.getInstance();
@@ -109,5 +119,6 @@ public class FriLibFragment extends Fragment {
         adapter = new CustomBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
         return root;
+
     }
 }

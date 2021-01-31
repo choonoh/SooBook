@@ -58,7 +58,6 @@ public class Add_frnd extends AppCompatActivity {
 
         Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
-
         search_frnd = findViewById(R.id.seach_frnd);
         search_frnd.setOnClickListener(v -> {
                     RecyclerView recyclerView = findViewById(R.id.recyclerview); // 아디 연결
@@ -66,6 +65,7 @@ public class Add_frnd extends AppCompatActivity {
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Add_frnd.this);
                     recyclerView.setLayoutManager(layoutManager);
                     arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
+
                     FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
                     DatabaseReference databaseReference = database.getReference("User/"); // DB 테이블 연결
                     databaseReference.orderByChild("email").equalTo(email_frnd.getText().toString()).addValueEventListener(new ValueEventListener() {
@@ -84,7 +84,7 @@ public class Add_frnd extends AppCompatActivity {
                                 Map<String, Object> childUpdates = new HashMap<>();
                                 Map<String, Object> postValues = null;
                                 if(true){
-                                    FirebaseuserPost post = new FirebaseuserPost(frnd_email, frnd_uid);
+                                    FirebasefriendPost post = new FirebasefriendPost(user_UID,frnd_email, frnd_uid);
                                     postValues = post.toMap();}
                                 String root ="/Friend/"+user_UID+"/"+frnd_uid+"/";
                                 childUpdates.put(root, postValues);
@@ -108,8 +108,7 @@ public class Add_frnd extends AppCompatActivity {
                         Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
                     }
                 });
-                adapter = new CustomUserAdapter(arrayList, Add_frnd.this);
-
+                adapter = new CustomAddfrndAdapter(arrayList, Add_frnd.this);
                 recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
             });
