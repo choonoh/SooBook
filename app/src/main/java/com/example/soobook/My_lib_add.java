@@ -1,57 +1,28 @@
 package com.example.soobook;
 
-import com.example.soobook.ui.FriLib.FriLibFragment;
-import com.google.firebase.auth.FirebaseAuth;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.os.StrictMode;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.InputStream;
 import java.net.URL;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.Guideline;
-
-import com.example.soobook.ui.MyLib.MyLibFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 public class My_lib_add  extends AppCompatActivity implements View.OnClickListener {
-//, ImageAnalysis.Analyzer
-    private DatabaseReference mPostReference;
-    private FirebaseUser currentUser;
 
     ImageButton btn_Insert;
     EditText edit_isbn, edit_star;
@@ -64,9 +35,9 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     String isbn, TITLE, AUTH, PUB, user_email, user_UID;
     String Title = null, Author = null, Pub = null;
     boolean inTitle = false, inAuthor = false, inPub = false;
+    int is_result_exist = 0;
 
     static ArrayList<String> arrayIndex =  new ArrayList<String>();
-//    static ArrayList<String> arrayData = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +72,17 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         check_good = findViewById(R.id.check_good);
         check_good.setOnClickListener(this);
 
+<<<<<<< HEAD
 
 
 
+=======
+        btn_barcode.setOnClickListener(v -> {
+            Intent intent = new Intent(My_lib_add.this, QrReaderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+>>>>>>> 6539d312a78b471c1f6034c83e365bb9bea58dc4
         sc.setOnClickListener(v -> {
             try{
                 URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
@@ -132,9 +111,9 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                             break;
                         case XmlPullParser.TEXT://parser가 내용에 접근했을때
                             if (inTitle) { //isTitle이 true일 때 태그의 내용을 저장.
+                                is_result_exist++;
                                 Title = parser.getText();
                                 inTitle = false;
-
                             }
                             if (inAuthor) { //isAddress이 true일 때 태그의 내용을 저장.
                                 Author = parser.getText();
@@ -146,10 +125,26 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                             }
                             break;
                         case XmlPullParser.END_TAG:
+                            /*
+                            case XmlPullParser.END_TAG:
+                            if (parser.getName().equals("item") && hospital != null) {
+                                if(len < 20) {
+                                    len++;
+                                    list.add(hospital);
+                                }
+                            }
+                            break;
+                             */
                             if (parser.getName().equals("docs")) {
-                                title.setText(Title);
-                                author.setText(Author);
-                                pub.setText(Pub);
+                                if(is_result_exist == 1) {
+                                    title.setText(Title);
+                                    author.setText(Author);
+                                    pub.setText(Pub);
+                                } else {
+                                    Toast toast = Toast.makeText(My_lib_add.this, "책이 없슴요 ㅜ.ㅜ", Toast.LENGTH_SHORT); toast.show();
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(toast::cancel, 1000);
+                                }
                             }
                             break;
                     }
@@ -163,7 +158,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     }
 
     public void postFirebaseDatabase(boolean add){
-        mPostReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
@@ -182,32 +177,38 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_insert:
+                if(!edit_isbn.getText().toString().equals("")) {
+                    isbn = edit_isbn.getText().toString();
+                    TITLE = title.getText().toString();
+                    AUTH = author.getText().toString();
+                    star = edit_star.getText().toString();
+                    PUB = pub.getText().toString();
 
-               isbn = edit_isbn.getText().toString();
-                TITLE = title.getText().toString();
-                AUTH = author.getText().toString();
-                star = edit_star.getText().toString();
-                PUB = pub.getText().toString();
+                    title.requestFocus();
+                    title.setCursorVisible(true);
 
-                title.requestFocus();
-                title.setCursorVisible(true);
-
-                if(!IsExistID()){
-                    postFirebaseDatabase(true);
-                    Intent intent = new Intent(this, Home.class);
-                    intent.putExtra("user_email", user_email);
-                    intent.putExtra("user_UID", user_UID);
-                    intent.putExtra("fragment", "my_lib");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Toast.makeText(My_lib_add.this, "이미 존재하는 책 입니다. 다른 책등록하셈.", Toast.LENGTH_LONG).show();
+                    if(!IsExistID()){
+                        postFirebaseDatabase(true);
+                        Intent intent = new Intent(this, Home.class);
+                        intent.putExtra("user_email", user_email);
+                        intent.putExtra("user_UID", user_UID);
+                        intent.putExtra("fragment", "my_lib");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Toast toast = Toast.makeText(My_lib_add.this, "어디서 이미 등록한 책을!!", Toast.LENGTH_SHORT); toast.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(toast::cancel, 1000);
+                    }
+                    edit_isbn.requestFocus();
+                    edit_isbn.setCursorVisible(true);
+                    break;
+                } else {
+                    Toast toast = Toast.makeText(My_lib_add.this, "저기여 바코드로 isbn 입력하세여 ㅡ.ㅡ", Toast.LENGTH_SHORT); toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(toast::cancel, 1000);
                 }
-                edit_isbn.requestFocus();
-                edit_isbn.setCursorVisible(true);
-                break;
-
             case R.id.check_good:
                 check_bad.setChecked(false);
                 rec = "추천";
@@ -229,6 +230,5 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         // result.getFormatName() : 바코드 종류
         // result.getContents() : 바코드 값
             isbn.setText( result.getContents() );
-
     }
-    }
+}

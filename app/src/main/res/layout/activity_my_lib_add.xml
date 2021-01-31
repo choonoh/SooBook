@@ -40,6 +40,11 @@
                     android:id="@+id/isbn_txt"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
+<<<<<<< HEAD
+=======
+                    android:hint="책 isbn 입력하세여"
+                    android:text=""
+>>>>>>> 6539d312a78b471c1f6034c83e365bb9bea58dc4
                     android:textColorHint="@color/purple_200"
                     android:maxLines="1"
                     android:textColor="@color/black"
@@ -185,6 +190,7 @@
             </LinearLayout>
 
 
+<<<<<<< HEAD
             <ImageButton
                 android:id="@+id/btn_insert"
                 android:layout_width="40dp"
@@ -193,6 +199,16 @@
                 android:background="@drawable/save"
                 android:clickable="true"
                 android:gravity="bottom"/>
+=======
+                <ImageButton
+                    android:id="@+id/btn_insert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/add"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+>>>>>>> 6539d312a78b471c1f6034c83e365bb9bea58dc4
         </LinearLayout>
 
     </ScrollView>

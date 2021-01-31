@@ -23,12 +23,10 @@ public class CustomUserAdapter extends RecyclerView.Adapter<CustomUserAdapter.Cu
     private ArrayList<User> arrayList;
     private Context context;
 
-
     public CustomUserAdapter(ArrayList<User> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
-
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,7 +43,7 @@ public class CustomUserAdapter extends RecyclerView.Adapter<CustomUserAdapter.Cu
         holder.itemView.setOnClickListener(v -> {
 
             String uid = arrayList.get(position).getUid();
-            String user_uid =arrayList.get(position).getUser_uid();
+            String user_uid =arrayList.get(position).getUid();
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
             dialog.setTitle("친구 삭제")
                     .setMessage("정말 이 친구를 친구목록에서 삭제하시겠습니까?")
@@ -70,20 +68,13 @@ public class CustomUserAdapter extends RecyclerView.Adapter<CustomUserAdapter.Cu
                     })
                     .create()
                     .show();
-
-
-
-
         });
-
     }
-
     @Override
     public int getItemCount() {
         // 삼항 연산자
         return (arrayList != null ? arrayList.size() : 0);
     }
-
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_email;
