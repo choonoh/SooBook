@@ -34,8 +34,6 @@ public class MyBookDetailView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybook_detail_view);
        del_btn = findViewById(R.id.del_btn);
-
-
         del_btn.setOnClickListener(v -> {
             FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 

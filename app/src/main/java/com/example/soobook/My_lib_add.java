@@ -76,7 +76,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         StrictMode.enableDefaults();
 
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setPrompt("");
+        intentIntegrator.setPrompt("   ");
         intentIntegrator.setBeepEnabled(true);
         intentIntegrator.setCaptureActivity(QrReaderActivity.class);
         intentIntegrator.initiateScan();
@@ -122,35 +122,36 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 int parserEvent = parser.getEventType();
                 Log.e(this.getClass().getName(), "start parsing");
 
-                while (parserEvent != XmlPullParser.END_DOCUMENT){
-                    switch(parserEvent){
+                while (parserEvent != XmlPullParser.END_DOCUMENT) {
+                    switch (parserEvent) {
                         case XmlPullParser.START_TAG://parser가 시작 태그를 만나면 실행
-                            if(parser.getName().equals("TITLE")){ //title 만나면 내용을 받을수 있게 하자
+                            if (parser.getName().equals("TITLE")) { //title 만나면 내용을 받을수 있게 하자
                                 inTitle = true;
                             }
-                            if(parser.getName().equals("AUTHOR")){ //address 만나면 내용을 받을수 있게 하자
+                            if (parser.getName().equals("AUTHOR")) { //address 만나면 내용을 받을수 있게 하자
                                 inAuthor = true;
                             }
-                            if(parser.getName().equals("PUBLISHER")){ //mapx 만나면 내용을 받을수 있게 하자
+                            if (parser.getName().equals("PUBLISHER")) { //mapx 만나면 내용을 받을수 있게 하자
                                 inPub = true;
                             }
                             break;
                         case XmlPullParser.TEXT://parser가 내용에 접근했을때
-                            if(inTitle){ //isTitle이 true일 때 태그의 내용을 저장.
+                            if (inTitle) { //isTitle이 true일 때 태그의 내용을 저장.
                                 Title = parser.getText();
                                 inTitle = false;
+
                             }
-                            if(inAuthor){ //isAddress이 true일 때 태그의 내용을 저장.
+                            if (inAuthor) { //isAddress이 true일 때 태그의 내용을 저장.
                                 Author = parser.getText();
                                 inAuthor = false;
                             }
-                            if(inPub){ //isMapx이 true일 때 태그의 내용을 저장.
+                            if (inPub) { //isMapx이 true일 때 태그의 내용을 저장.
                                 Pub = parser.getText();
                                 inPub = false;
                             }
                             break;
                         case XmlPullParser.END_TAG:
-                            if(parser.getName().equals("docs")){
+                            if (parser.getName().equals("docs")) {
                                 title.setText(Title);
                                 author.setText(Author);
                                 pub.setText(Pub);
@@ -162,6 +163,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             } catch(Exception e){
                 Log.e(this.getClass().getName(), "error", e);
             }
+
         });
     }
 
@@ -231,6 +233,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         // result.getFormatName() : 바코드 종류
         // result.getContents() : 바코드 값
-        isbn.setText( result.getContents() );
+            isbn.setText( result.getContents() );
+
     }
-}
+    }

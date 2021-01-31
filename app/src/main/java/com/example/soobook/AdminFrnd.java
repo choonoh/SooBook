@@ -1,15 +1,19 @@
 package com.example.soobook;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,16 +34,13 @@ import java.util.ArrayList;
 public class AdminFrnd extends AppCompatActivity {
 
     private DatabaseReference mPostReference;
-
     private ImageButton add_frnd;
-
     private Button del_frnd;
     private ArrayList<User> arrayList;
     static ArrayList<String> arrayIndex = new ArrayList<String>();
     private RecyclerView.Adapter adapter;
     String frnd_email, frnd_uid;
     private String user_email, user_UID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,7 @@ public class AdminFrnd extends AppCompatActivity {
         user_UID = getIntent().getStringExtra("user_UID");
         add_frnd = findViewById(R.id.add_frnd);
         add_frnd.setOnClickListener(v -> {
-
+            user_UID = getIntent().getStringExtra("user_UID");
             Intent intent = new Intent(AdminFrnd.this, Add_frnd.class);
             intent.putExtra("user_email", user_email);
             intent.putExtra("user_UID", user_UID);
@@ -85,6 +86,7 @@ public class AdminFrnd extends AppCompatActivity {
                             User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
                             frnd_email = user.getEmail();
                             frnd_uid = user.getUid();
+
                             arrayList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                         }
                         adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침

@@ -24,7 +24,6 @@ public class QrReaderActivity extends AppCompatActivity implements DecoratedBarc
         findViewById(R.id.btn_skip_qr).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
                 finish();
@@ -34,7 +33,7 @@ public class QrReaderActivity extends AppCompatActivity implements DecoratedBarc
         decoratedBarcodeView.setTorchListener(this);
         m_captureManager = new CaptureManager(this, decoratedBarcodeView);
         m_captureManager.initializeFromIntent(getIntent(), savedInstanceState);
-         m_captureManager.decode();
+        m_captureManager.decode();
     }
     @Override
     public void onTorchOn() {

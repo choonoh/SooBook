@@ -30,8 +30,6 @@ public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapte
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_book, parent, false);
         CustomViewHolder holder = new CustomViewHolder(view);
-
-
         return holder;
 
 
