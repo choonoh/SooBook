@@ -1,4 +1,4 @@
-package com.example.soobook.ui.FindLib;
+package com.example.soobook;
 
 public class Library {
     private String name;

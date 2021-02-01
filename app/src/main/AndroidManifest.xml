@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.soobook">
 
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,28 +14,23 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <meta-data
         android:name="com.naver.maps.map.CLIENT_ID"
         android:value="vjckuvmnki" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SOOBOOK.NoActionBar"
-        android:usesCleartextTraffic="true"
-        android:hardwareAccelerated="true">
-
-
-        <activity android:name=".ui.FindLib.DetailView"></activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Home"></activity>
+        <activity android:name=".DetailView" />
         <activity android:name=".Sign_up" />
-        <activity
-            android:name=".Home"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.SOOBOOK.NoActionBar" />
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,18 +38,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".Test" />
         <activity android:name=".My_lib_add" />
         <activity android:name=".FindPw" />
-        <activity android:name=".Add_frnd"/>
-        <activity android:name=".AdminFrnd"/>
-        <activity android:name=".BookDetailView"/>
-        <activity android:name=".MyBookDetailView"/>
-        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+        <activity android:name=".Add_frnd" />
+        <activity android:name=".AdminFrnd" />
+        <activity android:name=".BookDetailView" />
+        <activity android:name=".MyBookDetailView" />
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation"/>
-        <activity android:name=".QrReaderActivity"/>
+            tools:replace="screenOrientation" />
+        <activity android:name=".QrReaderActivity" />
     </application>
 
 </manifest>

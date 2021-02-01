@@ -1,4 +1,4 @@
-package com.example.soobook.ui.FriLib;
+package com.example.soobook;
 
 import android.content.Intent;
 import android.os.Bundle;

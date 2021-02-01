@@ -1,163 +1,131 @@
 package com.example.soobook;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.example.soobook.ui.MyLib.MyLibFragment;
-import com.example.soobook.ui.FriLib.FriLibFragment;
-import com.example.soobook.ui.FindLib.FindLibFragment;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCallback {
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-    private FriLibFragment friLibFragment;
-    private MyLibFragment myLibFragment;
-    private FindLibFragment findlibFragment;
-    private DrawerLayout drawer;
-    private Toolbar toolbar;
+public class Home extends AppCompatActivity {
+    FriLibFragment friLibFragment;
+    MyLibFragment myLibFragment;
 
-    private  String user_email, user_UID,user_UID_login;
-
+    FindLibFragment findLibFragment;
+    MyPageFragment myPageFragment;
+    FloatingActionButton add_book_btn;
+    String user_email, user_UID,user_UID_login;
+    String bottom_frag = "fri_lib";
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-        String fragment = getIntent().getStringExtra("fragment");
+        bottom_frag = getIntent().getStringExtra("fragment");
         user_email = getIntent().getStringExtra("user_email");
         user_UID = getIntent().getStringExtra("user_UID");
 
         Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        add_book_btn = findViewById(R.id.add_book_btn);
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
-        findlibFragment = new FindLibFragment();
+        findLibFragment = new FindLibFragment();
+        myPageFragment = new MyPageFragment();
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        switch (fragment) {
-            case "my_lib":
-                getSupportFragmentManager().beginTransaction().add(R.id.container, myLibFragment).commit();
-                Bundle toFriendLibFrag = new Bundle();
-                toFriendLibFrag.putString("user_email",user_email);
-                toFriendLibFrag.putString("user_UID",user_UID);
-                myLibFragment.setArguments(toFriendLibFrag);
-                break;
-            case "find_lib":
-                getSupportFragmentManager().beginTransaction().add(R.id.container, findlibFragment).commit();
-                Bundle toFindLibFrag = new Bundle();
-                toFindLibFrag.putString("user_email",user_email);
-                toFindLibFrag.putString("user_UID",user_UID);
-                findlibFragment.setArguments(toFindLibFrag);
-                break;
-            default:
+        switch(bottom_frag) {
             case "fri_lib":
-                getSupportFragmentManager().beginTransaction().add(R.id.container, friLibFragment).commit();
-                Bundle toFirLibFrag = new Bundle();
-                toFirLibFrag.putString("user_email",user_email);
-                toFirLibFrag.putString("user_UID",user_UID);
-                friLibFragment.setArguments(toFirLibFrag);
-                break;
-        }
-    }
-    @Override
-    public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        } else if(id == R.id.action_logOut) {
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.signOut();
-
-            Intent intent=new Intent(Home.this, Login.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.menu1) {
-            onFragmentSelected(0, null);
-        } else if(id == R.id.menu2) {
-            onFragmentSelected(1, null);
-        } else if(id == R.id.menu3) {
-            onFragmentSelected(2, null);
-        }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-    @Override
-    public void onFragmentSelected(int position, Bundle bundle) {
-        Fragment curFragment;
-
-        if (position == 0) {
-            curFragment = friLibFragment;
-            toolbar.setTitle(("친구의 서재"));
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
+                /*
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
             Bundle toFriendLibFrag = new Bundle();
             toFriendLibFrag.putString("user_email",user_email);
             toFriendLibFrag.putString("user_UID",user_UID);
             friLibFragment.setArguments(toFriendLibFrag);
-        } else if (position == 1) {
-            curFragment = myLibFragment;
-            toolbar.setTitle(("내 서재"));
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
-            Bundle toMyLibFrag = new Bundle();
-            toMyLibFrag.putString("user_email",user_email);
-            toMyLibFrag.putString("user_UID",user_UID);
-            myLibFragment.setArguments(toMyLibFrag);
-        } else if (position == 2) {
-            curFragment = findlibFragment;
-            toolbar.setTitle(("도서관 지도"));
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
-            Bundle toMyLibFrag = new Bundle();
-            toMyLibFrag.putString("user_email",user_email);
-            toMyLibFrag.putString("user_UID",user_UID);
-            findlibFragment.setArguments(toMyLibFrag);
+                 */
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
+                Bundle toFriendLibFrag = new Bundle();
+                toFriendLibFrag.putString("user_email",user_email);
+                toFriendLibFrag.putString("user_UID",user_UID);
+                friLibFragment.setArguments(toFriendLibFrag);
+                bottomNavigationView.setSelectedItemId(R.id.fri_lib);
+                break;
+            case "my_lib":
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myLibFragment).commit();
+                Bundle toMyLibFrag = new Bundle();
+                toMyLibFrag.putString("user_email",user_email);
+                toMyLibFrag.putString("user_UID",user_UID);
+                myLibFragment.setArguments(toMyLibFrag);
+                bottomNavigationView.setSelectedItemId(R.id.my_lib);
+                break;
+            case "find_lib":
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
+                Bundle findLibFrag = new Bundle();
+                findLibFrag.putString("user_email",user_email);
+                findLibFrag.putString("user_UID",user_UID);
+                findLibFragment.setArguments(findLibFrag);
+                bottomNavigationView.setSelectedItemId(R.id.find_lib);
+                break;
+            case "myPage":
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();
+                bottomNavigationView.setSelectedItemId(R.id.my_page);
+                break;
         }
+//        add_book_btn.setOnClickListener((View.OnClickListener) view -> {
+//            add_book_btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF0000")));
+//            bottomNavigationView.setSelectedItemId(R.id.blank);
+//            getSupportFragmentManager().beginTransaction().replace(R.id.container, sosMainFragment).commit();
+//        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                menuItem -> {
+                    switch (menuItem.getItemId()) {
+                        case R.id.fri_lib:
+//                            sos_btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4472C4")));
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
+                            Bundle toFirLibFrag = new Bundle();
+                            toFirLibFrag.putString("user_email",user_email);
+                            toFirLibFrag.putString("user_UID",user_UID);
+                            friLibFragment.setArguments(toFirLibFrag);
+                            return true;
+                        case R.id.my_lib:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, myLibFragment).commit();
+                            Bundle toFriendLibFrag = new Bundle();
+                            toFriendLibFrag.putString("user_email",user_email);
+                            toFriendLibFrag.putString("user_UID",user_UID);
+                            myLibFragment.setArguments(toFriendLibFrag);
+                            return true;
+//                        case R.id.blank:
+//                            getSupportFragmentManager().beginTransaction().replace(R.id.container, sosMainFragment).commit();
+                        case R.id.find_lib:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
+                            Bundle toFindLibFrag = new Bundle();
+                            toFindLibFrag.putString("user_email",user_email);
+                            toFindLibFrag.putString("user_UID",user_UID);
+                            findLibFragment.setArguments(toFindLibFrag);
+                            return true;
+                        case R.id.my_page:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();
+                            return true;
+                    }
+                    return false;
+                }
+        );
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+        builder.setMessage("리얼루 나갈거임??");
+        builder.setPositiveButton("나갈건디", (dialog, id) -> {
+            moveTaskToBack(true);
+            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        });
+        builder.setNegativeButton("최소 ㅋ", null);
+        dialog = builder.create();
+        dialog.show();
     }
 }

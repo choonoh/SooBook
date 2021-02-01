@@ -1,34 +1,20 @@
-package com.example.soobook.ui.MyLib;
+package com.example.soobook;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
-import com.example.soobook.BookDetailView;
-import com.example.soobook.CustomMyBookAdapter;
-import com.example.soobook.My_lib_add;
-import com.example.soobook.R;
 
 import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.soobook.Book;
-import com.example.soobook.CustomBookAdapter;
-import com.example.soobook.Test;
-import com.example.soobook.ui.FindLib.DetailView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

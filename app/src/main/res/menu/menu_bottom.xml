@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fri_lib"
+        app:showAsAction="always"
+        android:icon="@drawable/soo"
+        android:title="칭구 도서관"
+         />
+    <!--
+    android:title="▬▬▬"
+    -->
+
+    <item
+        android:id="@+id/my_lib"
+        app:showAsAction="always"
+        android:icon="@drawable/boogie"
+        android:title="내 도서관" />
+
+    <item
+        android:id="@+id/blank"
+        app:showAsAction="always"
+        android:enabled="false"
+        android:title="" />
+
+    <item
+        android:id="@+id/find_lib"
+        app:showAsAction="always"
+        android:icon="@drawable/boogie"
+        android:title="주위 도서관" />
+
+    <item
+        android:id="@+id/my_page"
+        app:showAsAction="always"
+        android:icon="@drawable/soo"
+        android:title="마이 페이징" />
+</menu>
