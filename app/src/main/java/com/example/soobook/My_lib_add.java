@@ -194,12 +194,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             case R.id.check_good:
                 check_bad.setChecked(false);
                 rec = "추천";
-                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/Thumbs_up.png?alt=media&token=9c069e6e-d5ac-4bba-97b0-c36f9dcdb46e";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/good.png?alt=media&token=b76c8629-7912-4bdd-b24d-8366ca046498";
                 break;
             case R.id.check_bad:
                 check_good.setChecked(false);
                 rec = "비추천";
-                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/Thumbs-down.png?alt=media&token=3e850566-cd4e-4c6b-8a94-150791299868";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/bad.png?alt=media&token=d59075c0-39dd-4325-99b4-7d633fe64deb";
                 break;
         }
     }
