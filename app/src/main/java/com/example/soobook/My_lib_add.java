@@ -1,5 +1,6 @@
 package com.example.soobook;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -119,17 +120,8 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                             }
                             break;
                         case XmlPullParser.END_TAG:
-                            /*
-                            case XmlPullParser.END_TAG:
-                            if (parser.getName().equals("item") && hospital != null) {
-                                if(len < 20) {
-                                    len++;
-                                    list.add(hospital);
-                                }
-                            }
-                            break;
-                             */
                             if (parser.getName().equals("docs")) {
+                                Log.e(this.getClass().getName(), String.valueOf(is_result_exist));
                                 if(is_result_exist == 1) {
                                     title.setText(Title);
                                     author.setText(Author);
@@ -214,15 +206,39 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/recImage_bad.png?alt=media&token=cdde2cc7-dce8-452e-887a-a31710fc11f9";
                 break;
         }
-    }  @Override
+    }
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         TextView isbn = findViewById(R.id.isbn_txt);
+        if (resultCode == Activity.RESULT_OK) {
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            isbn.setText( result.getContents() );
+            String re = result.getContents();
+            Log.e("onActivityResult", "onActivityResult: ." + re);
+            try {
+                if(re.equals("null")) {
+                    Toast toast = Toast.makeText(My_lib_add.this, "그 바코드가 안먹네요.. 나갔다 들어와서 해주세용 ^_^", Toast.LENGTH_SHORT); toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(toast::cancel, 1000);
+                } else {
+                    Toast toast = Toast.makeText(My_lib_add.this, "isbn : " + re, Toast.LENGTH_SHORT); toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(toast::cancel, 1000);
+                }
+            } catch (Exception e) {
+                Toast toast = Toast.makeText(My_lib_add.this, "그 바코드가 안먹네요.. 나갔다 들어와서 해주세용 ^_^", Toast.LENGTH_SHORT); toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(toast::cancel, 1000);
+            }
+
+        }
+
         // QR코드/ 바코드를 스캔한 결과
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
         // result.getFormatName() : 바코드 종류
         // result.getContents() : 바코드 값
-            isbn.setText( result.getContents() );
+
     }
 }

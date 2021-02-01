@@ -4,6 +4,7 @@ package com.example.soobook;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,13 +22,10 @@ public class QrReaderActivity extends AppCompatActivity implements DecoratedBarc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_reader);
 
-        findViewById(R.id.btn_skip_qr).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                setResult(Activity.RESULT_OK, intent);
-                finish();
-            }
+        findViewById(R.id.btn_skip_qr).setOnClickListener(view -> {
+            Intent intent = new Intent();
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         });
         DecoratedBarcodeView decoratedBarcodeView = findViewById(R.id.qr_reader_view);
         decoratedBarcodeView.setTorchListener(this);
@@ -61,7 +59,4 @@ public class QrReaderActivity extends AppCompatActivity implements DecoratedBarc
         super.onDestroy();
         m_captureManager.onDestroy();
     }
-
-
-
 }

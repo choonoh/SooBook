@@ -23,9 +23,8 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/black"
-            android:textSize="18dp"
-            android:text="책 ISBN 바코드를 읽혀주세요"
-          />
+            android:textSize="18sp"
+            android:text="책 ISBN 바코드를 읽혀주세요" />
 
     </RelativeLayout>
 
