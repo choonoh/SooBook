@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 public class My_lib_add  extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton btn_Insert, btn_barcode;
+    ImageButton btn_Insert;
     EditText edit_isbn, edit_star;
     TextView title, author, pub ;
     CheckBox check_good;
@@ -60,7 +60,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         pub = findViewById(R.id.book_pub_add);
         edit_star = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
-        btn_barcode = findViewById(R.id.barcode_bt);
+
 
         user_email = getIntent().getStringExtra("user_email");
         user_UID =getIntent().getStringExtra("user_UID");
@@ -73,11 +73,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         check_good = findViewById(R.id.check_good);
         check_good.setOnClickListener(this);
 
-        btn_barcode.setOnClickListener(v -> {
-            Intent intent = new Intent(My_lib_add.this, QrReaderActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
+
         sc.setOnClickListener(v -> {
             try{
                 URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
@@ -198,12 +194,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             case R.id.check_good:
                 check_bad.setChecked(false);
                 rec = "추천";
-                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/recImage_good.png?alt=media&token=ccbafa6f-cc59-466c-97a0-ad9d706e3382";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/Thumbs_up.png?alt=media&token=9c069e6e-d5ac-4bba-97b0-c36f9dcdb46e";
                 break;
             case R.id.check_bad:
                 check_good.setChecked(false);
                 rec = "비추천";
-                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/recImage_bad.png?alt=media&token=cdde2cc7-dce8-452e-887a-a31710fc11f9";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/Thumbs-down.png?alt=media&token=3e850566-cd4e-4c6b-8a94-150791299868";
                 break;
         }
     }

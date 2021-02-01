@@ -45,7 +45,7 @@ public class AdminFrnd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_frnd);
-        del_frnd = findViewById(R.id.del_frnd);
+
         user_email = getIntent().getStringExtra("user_email");
         user_UID = getIntent().getStringExtra("user_UID");
         add_frnd = findViewById(R.id.add_frnd);
@@ -60,12 +60,6 @@ public class AdminFrnd extends AppCompatActivity {
 
         });
 
-
-        del_frnd.setOnClickListener(v -> {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = database.getReference("Friend/"+user_UID+"/");
-            databaseReference.removeValue();
-        });
 
         Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
