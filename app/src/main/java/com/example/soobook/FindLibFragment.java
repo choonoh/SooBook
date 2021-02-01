@@ -424,8 +424,8 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                 library_info[num][i] = str;
         }
         private void setMarker(Marker marker,  double lat, double lng) {
-            marker.setWidth(70);
-            marker.setHeight(70);
+            marker.setWidth(100);
+            marker.setHeight(120);
             marker.setIconPerspectiveEnabled(true);     //원근감 표시
             marker.setIcon(OverlayImage.fromResource(R.drawable.marker));   //아이콘 지정
             marker.setAlpha(0.8f);  //마커의 투명도

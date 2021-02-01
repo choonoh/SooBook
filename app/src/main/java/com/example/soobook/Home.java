@@ -31,7 +31,7 @@ public class Home extends AppCompatActivity {
 
         Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
-        add_book_btn = findViewById(R.id.add_book_btn);
+       // add_book_btn = findViewById(R.id.add_book_btn);
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
         findLibFragment = new FindLibFragment();
@@ -72,6 +72,10 @@ public class Home extends AppCompatActivity {
                 break;
             case "myPage":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();
+        //        Bundle mypageFrag = new Bundle();
+         //       mypageFrag.putString("user_email",user_email);
+          //      mypageFrag.putString("user_UID",user_UID);
+          //      findLibFragment.setArguments(mypageFrag);
                 bottomNavigationView.setSelectedItemId(R.id.my_page);
                 break;
         }
@@ -109,6 +113,10 @@ public class Home extends AppCompatActivity {
                             return true;
                         case R.id.my_page:
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();
+                //            Bundle toMypageFrag = new Bundle();
+                 //           toMypageFrag.putString("user_email",user_email);
+                   //         toMypageFrag.putString("user_UID",user_UID);
+                     //       findLibFragment.setArguments(toMypageFrag);
                             return true;
                     }
                     return false;
@@ -124,7 +132,7 @@ public class Home extends AppCompatActivity {
             finish();
             android.os.Process.killProcess(android.os.Process.myPid());
         });
-        builder.setNegativeButton("최소 ㅋ", null);
+        builder.setNegativeButton("취소 ㅋ", null);
         dialog = builder.create();
         dialog.show();
     }

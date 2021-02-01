@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/sooBook_bg"
 >
 
 
@@ -30,14 +29,14 @@
             android:background="@drawable/search" />
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/white"
-        app:srcCompat="@drawable/add_book"
+        android:background="@color/sooBook_bg"
+        app:srcCompat="@drawable/add"
         />
 
     <androidx.recyclerview.widget.RecyclerView

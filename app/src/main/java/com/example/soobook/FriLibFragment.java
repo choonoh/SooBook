@@ -40,7 +40,7 @@ public class FriLibFragment extends Fragment {
     private FirebaseDatabase bookdatabase;
 
     private DatabaseReference databaseReference;
-    private ImageButton addFrnd;
+
     private EditText ed_sc;
     private Button sc;
 
@@ -50,7 +50,7 @@ public class FriLibFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_frd_lib, container, false);
 
-        addFrnd = root.findViewById(R.id.add_frnd);
+
 
 
         String user_email = getArguments().getString("user_email");
@@ -58,13 +58,6 @@ public class FriLibFragment extends Fragment {
 
         Log.e(this.getClass().getName(), user_email + ", " + user_UID);
 
-     addFrnd.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AdminFrnd.class);
-            intent.putExtra("user_email", user_email);
-            intent.putExtra("user_UID", user_UID);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-                });
 
         recyclerView = root.findViewById(R.id.recyclerview); // 아디 연결
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
@@ -76,7 +69,7 @@ public class FriLibFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
         bookdatabase = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Friend/"+user_UID+"/"); // DB 테이블 연결
+       databaseReference = database.getReference("Friend/"+user_UID+"/"); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
