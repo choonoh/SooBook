@@ -77,7 +77,7 @@ public class Add_frnd extends AppCompatActivity {
                                 String root ="/Friend/"+user_UID+"/"+frnd_uid+"/";
                                 childUpdates.put(root, postValues);
                                 mPostReference.updateChildren(childUpdates);
-                                Intent intent = new Intent(Add_frnd.this, AdminFrnd.class);
+                                Intent intent = new Intent(Add_frnd.this, MyPageFragment.class);
                                 intent.putExtra("user_email", user_email);
                                 intent.putExtra("user_UID", user_UID);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -12,32 +12,34 @@
         android:layout_height="match_parent">
     </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/sooBook_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/Theme.SOOBOOK.PopupOverlay">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:text="책 ISBN 바코드를 읽혀주세요" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="ISBN 바코드를 인식시켜주세요."
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_skip_qr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:text="직접입력"
-        android:textColor="@color/black"
+        android:backgroundTint="@color/sooBook_background"
+        android:text="직접입력하기"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

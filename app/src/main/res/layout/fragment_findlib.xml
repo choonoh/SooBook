@@ -24,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="30dp"
                 android:paddingLeft="30dp"
-                android:hint="지역명을 입력하시오">
+                android:hint="지역명을 입력해주세요."
+                android:textColorHint="@color/more_light_grey">
             </EditText>
 
             <ImageButton
@@ -32,7 +33,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/search" />
+                android:background="@drawable/sc_white" />
         </LinearLayout>
 
         <fragment
