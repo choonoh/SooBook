@@ -41,13 +41,6 @@ public class Home extends AppCompatActivity {
 
         switch(bottom_frag) {
             case "fri_lib":
-                /*
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, curFragment).commit();
-            Bundle toFriendLibFrag = new Bundle();
-            toFriendLibFrag.putString("user_email",user_email);
-            toFriendLibFrag.putString("user_UID",user_UID);
-            friLibFragment.setArguments(toFriendLibFrag);
-                 */
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
                 Bundle toFriendLibFrag = new Bundle();
                 toFriendLibFrag.putString("user_email",user_email);
@@ -73,23 +66,17 @@ public class Home extends AppCompatActivity {
                 break;
             case "myPage":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();
-        //        Bundle mypageFrag = new Bundle();
-         //       mypageFrag.putString("user_email",user_email);
-          //      mypageFrag.putString("user_UID",user_UID);
-          //      findLibFragment.setArguments(mypageFrag);
+                Bundle myPage = new Bundle();
+                myPage.putString("user_email",user_email);
+                myPage.putString("user_UID",user_UID);
+                findLibFragment.setArguments(myPage);
                 bottomNavigationView.setSelectedItemId(R.id.my_page);
                 break;
         }
-//        add_book_btn.setOnClickListener((View.OnClickListener) view -> {
-//            add_book_btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFF0000")));
-//            bottomNavigationView.setSelectedItemId(R.id.blank);
-//            getSupportFragmentManager().beginTransaction().replace(R.id.container, sosMainFragment).commit();
-//        });
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 menuItem -> {
                     switch (menuItem.getItemId()) {
                         case R.id.fri_lib:
-//                            sos_btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4472C4")));
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
                             Bundle toFirLibFrag = new Bundle();
                             toFirLibFrag.putString("user_email",user_email);
@@ -103,8 +90,6 @@ public class Home extends AppCompatActivity {
                             toFriendLibFrag.putString("user_UID",user_UID);
                             myLibFragment.setArguments(toFriendLibFrag);
                             return true;
-//                        case R.id.blank:
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.container, sosMainFragment).commit();
                         case R.id.find_lib:
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
                             Bundle toFindLibFrag = new Bundle();
@@ -114,10 +99,10 @@ public class Home extends AppCompatActivity {
                             return true;
                         case R.id.my_page:
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();
-                //            Bundle toMypageFrag = new Bundle();
-                 //           toMypageFrag.putString("user_email",user_email);
-                   //         toMypageFrag.putString("user_UID",user_UID);
-                     //       findLibFragment.setArguments(toMypageFrag);
+                            Bundle toMyPageFrag = new Bundle();
+                            toMyPageFrag.putString("user_email",user_email);
+                            toMyPageFrag.putString("user_UID",user_UID);
+                            myPageFragment.setArguments(toMyPageFrag);
                             return true;
                     }
                     return false;
