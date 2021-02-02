@@ -1,5 +1,5 @@
 package com.example.soobook;
-
+//수정 전
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,7 +58,7 @@ public class FriLibFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
         bookdatabase = FirebaseDatabase.getInstance();
-       databaseReference = database.getReference("Friend/"+user_UID+"/"); // DB 테이블 연결
+        databaseReference = database.getReference("Friend/"+user_UID+"/"); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -67,27 +67,26 @@ public class FriLibFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반ㅔ복문으로 데이터 List를 추출해냄
                     User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
 
-                       String frnd = user.getUid();
-                       databaseReference = bookdatabase.getReference("Book/" + frnd+ "/");
-                       databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                           @Override
-                           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                               // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                    String frnd = user.getUid();
+                    databaseReference = bookdatabase.getReference("Book/" + frnd+ "/");
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
                             //   arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
-                               for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                                   Book book = snapshot.getValue(Book.class); // 만들어뒀던 User 객체에 데이터를 담는다.
-                                   arrayList.add(book); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-                               }
-                               adapter.notifyDataSetChanged();  // 리스트 저장 및 새로고침
-                           }
-                           @Override
-                           public void onCancelled(@NonNull DatabaseError databaseError) {
-                               // 디비를 가져오던중 에러 발생 시
-                               Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
-                           }
-                       });
-                   }
-
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                                Book book = snapshot.getValue(Book.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                                arrayList.add(book); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                            }
+                            adapter.notifyDataSetChanged();  // 리스트 저장 및 새로고침
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // 디비를 가져오던중 에러 발생 시
+                            Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                        }
+                    });
+                }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
 
@@ -97,10 +96,8 @@ public class FriLibFragment extends Fragment {
                 Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
-
         adapter = new CustomBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
         return root;
-
     }
 }
