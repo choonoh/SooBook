@@ -47,11 +47,9 @@ public class FriLibFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_frd_lib, container, false);
 
         addFrnd = root.findViewById(R.id.add_frnd);
-
 
         String user_email = getArguments().getString("user_email");
         String user_UID = getArguments().getString("user_UID");

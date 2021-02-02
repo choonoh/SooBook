@@ -10,13 +10,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Home extends AppCompatActivity {
+
     FriLibFragment friLibFragment;
     MyLibFragment myLibFragment;
-
     FindLibFragment findLibFragment;
     MyPageFragment myPageFragment;
+
     FloatingActionButton add_book_btn;
-    String user_email, user_UID,user_UID_login;
+    String user_email, user_UID;
     String bottom_frag = "fri_lib";
     AlertDialog dialog;
 
