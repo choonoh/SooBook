@@ -13,8 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MyBookDetailView extends AppCompatActivity {
 
-    TextView isbn, title, auth, pub, star, rec, owner;
-    String isbn_txt, title_txt, auth_txt, pub_txt, star_txt, rec_txt, owner_txt,uid;
+    TextView isbn, title, auth, pub, star, rec, owner, time;
+    String isbn_txt, title_txt, auth_txt, pub_txt, star_txt, rec_txt, owner_txt, uid, time_txt;
     ImageButton del_btn;
     private FirebaseAuth firebaseAuth;
 
@@ -25,7 +25,6 @@ public class MyBookDetailView extends AppCompatActivity {
        del_btn = findViewById(R.id.del_btn);
         del_btn.setOnClickListener(v -> {
             FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-
                     DatabaseReference data = database.getReference("Book/"+uid+"/"+isbn_txt);
                     data.removeValue();
 
@@ -49,7 +48,7 @@ public class MyBookDetailView extends AppCompatActivity {
        pub = findViewById(R.id.book_pub);
        star = findViewById(R.id.book_star);
        rec = findViewById(R.id.book_rec);
-
+       time = findViewById(R.id.book_time);
 
     }
     public void getIntentString() {
@@ -61,6 +60,7 @@ public class MyBookDetailView extends AppCompatActivity {
         pub_txt= getIntent().getStringExtra("pub");
         star_txt= getIntent().getStringExtra("star");
         rec_txt= getIntent().getStringExtra("rec");
+        time_txt= getIntent().getStringExtra("time");
 
     }
     public void setTextViews() {
@@ -70,6 +70,6 @@ public class MyBookDetailView extends AppCompatActivity {
         pub.setText(pub_txt);
         star.setText(star_txt);
         rec.setText(rec_txt);
-
+        time.setText(time_txt);
     }
 }

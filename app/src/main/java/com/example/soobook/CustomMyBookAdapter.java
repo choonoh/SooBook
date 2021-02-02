@@ -55,6 +55,8 @@ public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapte
             String Pub = arrayList.get(position).getPub();
             String Star = arrayList.get(position).getStar();
             String Owner = arrayList.get(position).getOwner();
+            String Time = arrayList.get(position).getTime();
+
             Intent intent = new Intent(context,MyBookDetailView.class);
             intent.putExtra("uid",uid);
             intent.putExtra("title", title);
@@ -64,6 +66,7 @@ public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapte
             intent.putExtra("pub", Pub);
             intent.putExtra("star",Star);
             intent.putExtra("owner",Owner.toString());
+            intent.putExtra("time",Time);
             context.startActivity(intent);
 
         });

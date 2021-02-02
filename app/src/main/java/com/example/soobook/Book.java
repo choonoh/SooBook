@@ -12,8 +12,9 @@ public class Book {
     private String rec;
     private String star;
     private String recImage;
-    public Book(){}
+    private String time;
 
+    public Book(){}
 
     public String getAuth() {
         return auth;
@@ -87,5 +88,13 @@ public class Book {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
