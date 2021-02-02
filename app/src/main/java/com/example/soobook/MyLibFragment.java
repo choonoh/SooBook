@@ -43,14 +43,14 @@ public class MyLibFragment extends Fragment{
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
-        ImageButton search_btn = root.findViewById(R.id.search_btn);
+       /* ImageButton search_btn = root.findViewById(R.id.search_btn);
         search_btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), Test.class);
             intent.putExtra("user_email", user_email);
             intent.putExtra("user_UID", user_UID);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        });
+        });*/
         RecyclerView recyclerView = root.findViewById(R.id.recyclerview); // 아디 연결
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -71,6 +71,7 @@ public class MyLibFragment extends Fragment{
                     arrayList.add(book); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                     String  rec= book.getRec();
                 }
+
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
             @Override
