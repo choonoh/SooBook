@@ -1,27 +1,18 @@
 package com.example.soobook;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.soobook.AdminFrnd;
-import com.example.soobook.Book;
-import com.example.soobook.CustomBookAdapter;
-import com.example.soobook.R;
-import com.example.soobook.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +24,7 @@ import java.util.ArrayList;
 public class FriLibFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private CustomBookAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Book> arrayList;
     private FirebaseDatabase database;

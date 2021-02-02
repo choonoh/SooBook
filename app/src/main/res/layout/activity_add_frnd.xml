@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/sooBook_bg">
+    android:background="@color/sooBook_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,9 @@
         android:id="@+id/email_frnd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:hint="이메일 입력"
+        android:textColorHint="@color/light_grey"
+        android:textColor="@color/black"/>
 
 
     <Button
@@ -44,7 +46,6 @@
         android:text="친구검색"
         android:backgroundTint="@color/sooBook_bg"
         android:textColor="@color/black"
-
         />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -50,7 +50,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
     LinearLayout detail_view;
 
     boolean marker_exist = false;
-    int only_zero = 0;
+    int only_zero;
     int cur_or_se, marker_len, final_marker;
     double latitude, longitude;
     String search_location, current_location_si, current_location_dong;
@@ -157,6 +157,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
     }
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+        only_zero = 0;
         this.naverMap = naverMap;
         this.naverMap.setLocationSource(mLocationSource);
         this.naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
