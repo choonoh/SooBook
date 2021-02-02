@@ -96,7 +96,7 @@ public class Add_frnd extends AppCompatActivity {
                         Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
                     }
                 });
-//                adapter = new CustomAddfrndAdapter(arrayList, Add_frnd.this);
-//                recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
+                adapter = new CustomAddfrndAdapter(arrayList, Add_frnd.this);
+                recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
             }); }
 }

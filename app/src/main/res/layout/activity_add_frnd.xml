@@ -36,7 +36,8 @@
         android:layout_height="wrap_content"
         android:hint="이메일 입력"
         android:textColorHint="@color/light_grey"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:inputType="textEmailAddress"/>
 
 
     <Button

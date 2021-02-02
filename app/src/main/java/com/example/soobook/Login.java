@@ -58,7 +58,6 @@ public class Login extends AppCompatActivity{
                 toast = Toast.makeText(Login.this, "비밀번호를 입력하셈유", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else {
-
                 startLogin();
             }
         });
@@ -72,7 +71,6 @@ public class Login extends AppCompatActivity{
         firebaseAuth = FirebaseAuth.getInstance();
     }
     public void startLogin(){
-
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if(task.isSuccessful()){

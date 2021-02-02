@@ -15,4 +15,10 @@
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@android:color/white"
         app:srcCompat="@drawable/add_frnd" />
+
+    <ImageButton
+        android:id="@+id/logout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logout" />
 </LinearLayout>

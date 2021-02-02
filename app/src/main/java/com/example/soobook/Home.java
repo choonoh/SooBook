@@ -16,7 +16,6 @@ public class Home extends AppCompatActivity {
     FindLibFragment findLibFragment;
     MyPageFragment myPageFragment;
 
-    FloatingActionButton add_book_btn;
     String user_email, user_UID;
     String bottom_frag = "fri_lib";
     AlertDialog dialog;
@@ -30,9 +29,8 @@ public class Home extends AppCompatActivity {
         user_email = getIntent().getStringExtra("user_email");
         user_UID = getIntent().getStringExtra("user_UID");
 
-        Log.e(this.getClass().getName(), user_email + ", " + user_UID);
+        Log.e(this.getClass().getName(), user_email + ", " + user_UID + ", " + bottom_frag);
 
-       // add_book_btn = findViewById(R.id.add_book_btn);
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
         findLibFragment = new FindLibFragment();
@@ -40,14 +38,6 @@ public class Home extends AppCompatActivity {
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         switch(bottom_frag) {
-            case "fri_lib":
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
-                Bundle toFriendLibFrag = new Bundle();
-                toFriendLibFrag.putString("user_email",user_email);
-                toFriendLibFrag.putString("user_UID",user_UID);
-                friLibFragment.setArguments(toFriendLibFrag);
-                bottomNavigationView.setSelectedItemId(R.id.fri_lib);
-                break;
             case "my_lib":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, myLibFragment).commit();
                 Bundle toMyLibFrag = new Bundle();
@@ -71,6 +61,15 @@ public class Home extends AppCompatActivity {
                 myPage.putString("user_UID",user_UID);
                 findLibFragment.setArguments(myPage);
                 bottomNavigationView.setSelectedItemId(R.id.my_page);
+                break;
+            default:
+            case "fri_lib":
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
+                Bundle toFriendLibFrag = new Bundle();
+                toFriendLibFrag.putString("user_email",user_email);
+                toFriendLibFrag.putString("user_UID",user_UID);
+                friLibFragment.setArguments(toFriendLibFrag);
+                bottomNavigationView.setSelectedItemId(R.id.fri_lib);
                 break;
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(
