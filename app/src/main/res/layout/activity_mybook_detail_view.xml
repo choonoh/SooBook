@@ -68,7 +68,7 @@
             android:text="dddd"
             android:layout_marginLeft="20dp"
             android:textSize="16sp"
-            android:textColor="@color/light_grey"/>
+            android:textColor="@color/soobook_black"/>
 
         <TextView
             android:id="@+id/book_pub"
@@ -78,15 +78,15 @@
             android:layout_marginLeft="20dp"
             android:textSize="16sp"
             android:layout_marginBottom="50dp"
-            android:textColor="@color/light_grey" />
+            android:textColor="@color/soobook_black" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="책 소개"
+            android:text="기록"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/soobook_black"
             android:textSize="16sp"/>
 
         <TextView
@@ -95,12 +95,40 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:textSize="16dp"
             android:padding="5dp"
-            android:lines="5"
             android:background="@color/white"
             android:textColor="@color/black"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginRight="20dp"
+    android:gravity="end">
+        <TextView
+            android:id="@+id/book_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="시간"
 
+            android:layout_gravity="right"
+            android:maxLength="12"
+            android:ellipsize="none"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="의 기록"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right"
+            android:maxLength="13"
+            android:ellipsize="none"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"/>
+
+</LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

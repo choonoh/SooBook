@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,11 +21,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-public class My_lib_add  extends AppCompatActivity implements View.OnClickListener {
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import static android.view.View.VISIBLE;
+
+public class My_lib_add  extends AppCompatActivity implements View.OnClickListener {
+    TextView title_view, auth_view, pub_view, star_view;
     ImageButton btn_Insert;
     EditText edit_isbn, edit_star;
     TextView title, author, pub ;
@@ -60,8 +68,10 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         pub = findViewById(R.id.book_pub_add);
         edit_star = findViewById(R.id.edit_age);
         edit_isbn = findViewById(R.id.isbn_txt);
-
-
+        title_view = findViewById(R.id.book_title_view);
+        auth_view = findViewById(R.id.book_auth_view);
+        pub_view = findViewById(R.id.book_pub_view);
+        star_view = findViewById(R.id.text_age);
         user_email = getIntent().getStringExtra("user_email");
         user_UID =getIntent().getStringExtra("user_UID");
         Log.e(this.getClass().getName(), user_UID+"&"+user_email);
@@ -74,7 +84,16 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
         check_good.setOnClickListener(this);
 
 
+
         sc.setOnClickListener(v -> {
+            title_view.setVisibility(VISIBLE);
+            auth_view.setVisibility(VISIBLE);
+            pub_view.setVisibility(VISIBLE);
+            star_view.setVisibility(VISIBLE);
+            edit_star.setVisibility(VISIBLE);
+            check_good.setVisibility(VISIBLE);
+            check_bad.setVisibility(VISIBLE);
+            btn_Insert.setVisibility(VISIBLE);
             try{
                 URL url = new URL("http://seoji.nl.go.kr/landingPage/SearchApi.do?cert_key=1af3f780faeed316e48de8f0e2541d43eecf78d212859aed298460eddff2bd16" +
                         "&result_style=xml&page_no=1&page_size=10&isbn="+edit_isbn.getText().toString()); //검색 URL부분
@@ -140,11 +159,17 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     }
 
     public void postFirebaseDatabase(boolean add){
+        SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월dd일 HH시mm분", Locale.KOREA);
+
+        Date time = new Date();
+        String time2 = format.format(time);
+
+
         DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference();
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            FirebasePost post = new FirebasePost(user_UID,user_email ,isbn, TITLE, PUB, AUTH, star, rec, recImage);
+            FirebasePost post = new FirebasePost(user_UID, user_email ,isbn, TITLE, PUB, AUTH, star, rec, recImage, time2);
             postValues = post.toMap();
         }
         String root ="/Book/"+user_UID+"/"+isbn;

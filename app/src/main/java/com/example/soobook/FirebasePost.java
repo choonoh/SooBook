@@ -20,11 +20,13 @@ public class FirebasePost {
     public String star;
     public String rec;
     public String recImage;
+    public String time;
+
     public FirebasePost(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
 
-    public FirebasePost(String uid, String owner ,String isbn, String title,String pub, String auth, String star, String rec, String recImage) {
+    public FirebasePost(String uid, String owner ,String isbn, String title,String pub, String auth, String star, String rec, String recImage, String time) {
         this.uid = uid;
         this.owner = owner;
         this.isbn = isbn;
@@ -34,6 +36,7 @@ public class FirebasePost {
         this.star = star;
         this.rec = rec;
         this.recImage = recImage;
+        this.time = time;
     }
 
     @Exclude
@@ -48,6 +51,7 @@ public class FirebasePost {
         result.put("star", star);
         result.put("rec", rec);
         result.put("recImage",recImage);
+        result.put("time",time);
         return result;
     }
 }
