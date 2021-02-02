@@ -27,6 +27,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="ar8350@naver.com"
                 android:textColor="@color/soobook_black" />
 

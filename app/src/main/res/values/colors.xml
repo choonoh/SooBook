@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -9,7 +10,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="sooBook_bg">#F6FBEF</color>
     <color name="soobook_black">#3B3838</color>
-    <color name="soobook_green">#548235</color>
+    <color name="soobook_green">#24B62B</color>
     <color name="light_grey">#8E8E8E</color>
     <color name="more_light_grey">#F2F2F2</color>
+
+
 </resources>
+
