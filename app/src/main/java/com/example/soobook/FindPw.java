@@ -40,7 +40,7 @@ public class FindPw extends AppCompatActivity{
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(FindPw.this,"이멜로 비번 재설정 링크를 보내씀미다",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FindPw.this,"해당 이메일로 비밀번호 재설정 링크를 보냈습니다.",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(FindPw.this, Login.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

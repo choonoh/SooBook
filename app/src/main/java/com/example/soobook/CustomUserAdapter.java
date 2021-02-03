@@ -42,17 +42,19 @@ public class CustomUserAdapter extends RecyclerView.Adapter<CustomUserAdapter.Cu
 
         holder.itemView.setOnClickListener(v -> {
 
-            String uid = arrayList.get(position).getUid();
-            String user_uid =arrayList.get(position).getUid();
+            String uid = arrayList.get(position).getUid(); //친구uid
+            String user_uid =arrayList.get(position).getUser_uid(); //본인 uid
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
             dialog.setTitle("친구 삭제")
-                    .setMessage("정말 이 친구를 친구목록에서 삭제하시겠습니까?")
+                    .setMessage("이 친구를 친구목록에서 삭제하시겠습니까?")
                     .setPositiveButton("네", (dialog1, which) -> {
                         FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
                         DatabaseReference data = database.getReference("Friend/"+user_uid+"/"+uid);
                         data.removeValue();
 
-                        Intent intent= new Intent(context, AdminFrnd.class);
+                        Intent intent= new Intent(context, Home.class);
+                        intent.putExtra("fragment","myPage");
+                        intent.putExtra("user_UID",user_uid);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                         Toast.makeText(context, "친구를 삭제하였습니다", Toast.LENGTH_SHORT).show();

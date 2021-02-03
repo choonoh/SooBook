@@ -405,12 +405,12 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                 Log.e(this.getClass().getName(), "파싱 후 카메라 옮기기 전 lat, long : " + latitude_marker + ", " + longitude_marker);
                 CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(latitude_marker, longitude_marker));
                 naverMap.moveCamera(cameraUpdate);
-                Toast toast = Toast.makeText(getContext(), "총" + marker_len + "개의 도서관을 찾아썽^^", Toast.LENGTH_SHORT); toast.show();
+                Toast toast = Toast.makeText(getContext(), "총" + marker_len + "개의 도서관을 찾았어요.", Toast.LENGTH_SHORT); toast.show();
                 Handler handler = new Handler();
                 handler.postDelayed(toast::cancel, 1500);
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("주변에 도서관이 업써...");
+                builder.setMessage("주변 도서관이 검색되지 않습니다.");
                 builder.setPositiveButton("ㅇㅋ", null);
                 dialog = builder.create();
                 dialog.show();
@@ -423,11 +423,11 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                 library_info[num][i] = str;
         }
         private void setMarker(Marker marker,  double lat, double lng) {
-            marker.setWidth(100);
-            marker.setHeight(120);
+            marker.setWidth(80);
+            marker.setHeight(110);
             marker.setIconPerspectiveEnabled(true);     //원근감 표시
             marker.setIcon(OverlayImage.fromResource(R.drawable.marker));   //아이콘 지정
-            marker.setAlpha(0.8f);  //마커의 투명도
+            marker.setAlpha(0.9f);  //마커의 투명도
             marker.setPosition(new LatLng(lat, lng));   //마커 위치
             marker.setMap(naverMap);   //마커 표시
         }
@@ -441,8 +441,8 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                 Handler mHandler = new Handler(Looper.getMainLooper());
                 mHandler.postDelayed(() -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage("주변 도서관을 찾을 수 없습니다유 ㅠㅠ");
-                        builder.setPositiveButton("확인이용", null);
+                        builder.setMessage("주변 도서관을 찾을 수 없습니다.");
+                        builder.setPositiveButton("확인", null);
                         dialog = builder.create();
                         dialog.show();
                 }, 0);

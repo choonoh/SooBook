@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sooBook_background">
+    android:background="@color/sooBook_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,15 +25,15 @@
                 android:paddingRight="30dp"
                 android:paddingLeft="30dp"
                 android:hint="지역명을 입력해주세요."
-                android:textColorHint="@color/more_light_grey">
+                android:textColorHint="@color/light_grey">
             </EditText>
 
             <ImageButton
                 android:id="@+id/search_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/sc_white" />
+                android:background="@drawable/search" />
         </LinearLayout>
 
         <fragment
@@ -59,46 +59,52 @@
         android:layout_marginHorizontal="50dp"
         android:visibility="invisible">
 
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:background="@drawable/box"
+        android:gravity="center"
+        android:foregroundGravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/light_grey"
+            />
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/book" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"/>
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/black"
-                android:layout_weight="3" />
-
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/black"
-                android:layout_weight="7" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text=""
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            />
 
-            <TextView
-                android:id="@+id/number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/black"
-                android:layout_weight="3" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/detail"
-                android:layout_weight="7" />
+
+
+
         </LinearLayout>
     </LinearLayout>
 

@@ -3,9 +3,11 @@ package com.example.soobook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +24,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.view.View.VISIBLE;
+
 
 public class Add_frnd extends AppCompatActivity {
 
     private DatabaseReference mPostReference;
 
-    private ImageButton make_frnd;
+    private Button make_frnd;
     private Button search_frnd;
     private EditText email_frnd;
     private String user_email, user_UID;
@@ -66,25 +70,24 @@ public class Add_frnd extends AppCompatActivity {
                             frnd_email = user.getEmail();
                             frnd_uid = user.getUid();
                             arrayList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-                            make_frnd.setOnClickListener(v -> {
-                                //db추가
-                                mPostReference = FirebaseDatabase.getInstance().getReference();
-                                Map<String, Object> childUpdates = new HashMap<>();
-                                Map<String, Object> postValues = null;
-                                if(true){
-                                    FirebasefriendPost post = new FirebasefriendPost(user_UID,frnd_email, frnd_uid);
-                                    postValues = post.toMap();}
-                                String root ="/Friend/"+user_UID+"/"+frnd_uid+"/";
-                                childUpdates.put(root, postValues);
-                                mPostReference.updateChildren(childUpdates);
-                                Intent intent = new Intent(Add_frnd.this, MyPageFragment.class);
-                                intent.putExtra("user_email", user_email);
-                                intent.putExtra("user_UID", user_UID);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
+                                     make_frnd.setVisibility(VISIBLE);
+                                     make_frnd.setOnClickListener(v -> {
+                                         mPostReference = FirebaseDatabase.getInstance().getReference();
+                                        Map<String, Object> childUpdates = new HashMap<>();
+                                        Map<String, Object> postValues = null;
+                                        if(true){
+                                            FirebasefriendPost post = new FirebasefriendPost(user_UID,frnd_email, frnd_uid);
+                                            postValues = post.toMap();}
+                                        String root ="/Friend/"+user_UID+"/"+frnd_uid+"/";
+                                        childUpdates.put(root, postValues);
+                                        mPostReference.updateChildren(childUpdates);
+                                        Intent intent = new Intent(Add_frnd.this, AdminFrnd.class);
+                                        intent.putExtra("user_email", user_email);
+                                        intent.putExtra("user_UID", user_UID);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
                             });
-
                         }
                         adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
 

@@ -7,46 +7,23 @@
     android:background="@color/sooBook_bg"
     tools:context=".Login">
 
-    <ImageView
-        android:id="@+id/soo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.17"
-        app:layout_constraintHorizontal_bias="0.3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:srcCompat="@drawable/soo" />
-
-    <ImageView
-        android:id="@+id/book"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.17"
-        app:layout_constraintHorizontal_bias="0.7"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:srcCompat="@drawable/boogie" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/soo"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:ignore="NotSibling">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:gravity="center"
-            android:text="수북_도서공유 혁신앱"
+            android:text="수북: 독서 기록 공유"
             android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="22sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,20 +36,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
-                android:text="이멜"
+                android:text="이메일"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:hint="이멜요"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textColorHint="#888888"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,20 +63,30 @@
                 android:layout_height="wrap_content"
                 android:text="비밀번호"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_weight="8"/>
 
             <EditText
                 android:id="@+id/et_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="비밀번호 쳐!!!"
                 android:inputType="textPassword"
                 android:textColorHint="#888888"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_weight="3"/>
         </LinearLayout>
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:textSize="20sp"
+            android:layout_gravity="center" />
+
 
         <TextView
             android:id="@+id/find_email_pwd"
@@ -109,8 +95,8 @@
             android:layout_marginTop="40dp"
             android:gravity="center"
             android:text="비밀번호 재설정"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textColor="@color/light_grey"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/sign_up"
@@ -118,24 +104,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="회온가입"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:text="회원가입"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"
             android:layout_marginBottom="30dp"/>
 
 
 
-
-            <Button
-                android:id="@+id/login_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="로그인!!"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_gravity="center" />
 
 
 

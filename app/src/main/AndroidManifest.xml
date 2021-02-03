@@ -43,7 +43,7 @@
         <activity android:name=".My_lib_add" />
         <activity android:name=".FindPw" />
         <activity android:name=".Add_frnd" />
-        <activity android:name=".AdminFrnd" />
+        <activity android:name=".AdminFrnd"/>
         <activity android:name=".BookDetailView" />
         <activity android:name=".MyBookDetailView" />
         <activity

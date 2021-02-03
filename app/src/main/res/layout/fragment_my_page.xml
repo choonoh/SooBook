@@ -5,60 +5,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#55C78E">
+    android:background="@color/sooBook_bg">
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    android:orientation="vertical"
-        android:layout_gravity="end">
-    <Button
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마이페이지"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_weight="8"
+            android:layout_margin="20dp"/>
+
+        <ImageButton
             android:id="@+id/logout_btn"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:background="@drawable/button_box"
-            android:text="로그아웃"
-            android:layout_margin="10dp"
-            android:textColor="@color/light_grey"
-            android:src="@drawable/logout" />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:cropToPadding="true"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@drawable/logout"
+            />
 
     </LinearLayout>
-    <Button
-        android:id="@+id/add_frnd"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="end"
-        android:adjustViewBounds="true"
-        android:layout_marginRight="20dp"
-        android:textColor="@color/soobook_black"
-        android:background="@drawable/add_frnd"/>
-
-    <TextView
-        android:id="@+id/add_frnd_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="13dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="end"
-        android:adjustViewBounds="true"
-        android:text="친구추가"
-        android:textColor="@color/white"
-        android:textSize="11sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:adjustViewBounds="true"
-        android:text="친구 목록"
-        android:layout_marginBottom="10dp"
+        android:text=""
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구추가"
+        android:layout_marginLeft="20dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@drawable/button_box"/>
+        <TextView
+            android:id="@+id/admin_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="친구목록"
+            android:layout_marginLeft="20dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@drawable/button_box"
+            />
+
+
+    <TextView
+        android:id="@+id/changpw_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/button_box"
+        android:gravity="center"
+        android:text="비밀번호변경"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/logout_txt_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"
+        android:layout_marginLeft="20dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@drawable/button_box"
+        />
 </LinearLayout>
+
