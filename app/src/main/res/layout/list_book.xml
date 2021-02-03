@@ -67,9 +67,5 @@
             android:text="저어자"
             android:textColor="@color/light_grey"
             android:textSize="12dp" />
-
     </LinearLayout>
-
-
-
-        </LinearLayout>
+</LinearLayout>

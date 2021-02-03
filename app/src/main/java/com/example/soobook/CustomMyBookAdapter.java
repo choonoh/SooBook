@@ -11,14 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapter.CustomViewHolder> {
-    FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-    private ArrayList<Book> arrayList;
-    private Context context;
+public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapter.CustomViewHolder>
+            implements ItemTouchHelperListener {
+
+    ArrayList<Book> arrayList;
+    Context context;
 
     public CustomMyBookAdapter(ArrayList<Book> arrayList, Context context) {
         this.arrayList = arrayList;
@@ -29,13 +31,8 @@ public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapte
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_book, parent, false);
-        CustomViewHolder holder = new CustomViewHolder(view);
-        return holder;
-
-
+        return new CustomViewHolder(view);
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
@@ -65,26 +62,47 @@ public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapte
             intent.putExtra("rec",Rec);
             intent.putExtra("pub", Pub);
             intent.putExtra("star",Star);
-            intent.putExtra("owner",Owner.toString());
+            intent.putExtra("owner",Owner);
             intent.putExtra("time",Time);
             context.startActivity(intent);
-
         });
-
-
     }
+
     @Override
     public int getItemCount() {
-        // 삼항 연산자
         return (arrayList != null ? arrayList.size() : 0);
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public boolean onItemMove(int from_position, int to_position) {
+        //이동할 객체 저장
+         Book book = arrayList.get(from_position);
+        // 이동할 객체 삭제 items.remove(from_position);
+        // 이동하고 싶은 position에 추가
+        arrayList.add(to_position, book);
+        // Adapter에 데이터 이동알림
+         notifyItemMoved(from_position,to_position);
+         return true;
+    }
+
+    @Override
+    public void onItemSwipe(int position) {
+        String uid = arrayList.get(position).getUid();
+        String isbn = arrayList.get(position).getIsbn();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+        DatabaseReference data = database.getReference("Book/"+uid+"/"+isbn);
+        data.removeValue();
+
+        arrayList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public static class CustomViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_rec;
         TextView tv_owner;
         TextView tv_auth;
         TextView tv_title;
-
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,8 +110,6 @@ public class CustomMyBookAdapter extends RecyclerView.Adapter<CustomMyBookAdapte
             this.tv_owner = itemView.findViewById(R.id.tv_owner);
             this.tv_auth = itemView.findViewById(R.id.tv_auth);
             this.tv_title = itemView.findViewById(R.id.tv_title);
-
         }
-
     }
 }

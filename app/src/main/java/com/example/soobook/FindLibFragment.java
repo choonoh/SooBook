@@ -85,9 +85,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             mapFragment = MapFragment.newInstance();
             fm.beginTransaction().add(R.id.map, mapFragment).commit();
         }
-
         mapFragment.getMapAsync(this);
-        mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
         lib_name = rootView.findViewById(R.id.name);
         lib_type = rootView.findViewById(R.id.type);
@@ -95,6 +93,8 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
         et_search_text = rootView.findViewById(R.id.search_text);
         search_btn = rootView.findViewById(R.id.search_btn);
         detail_view = rootView.findViewById(R.id.detail_view);
+
+        mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
         search_btn.setOnClickListener(v -> {
             search_location = et_search_text.getText().toString();
@@ -157,6 +157,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
     }
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+        ActivityCompat.requestPermissions(this.getActivity(), PERMISSIONS, PERMISSION_REQUEST_CODE);
         only_zero = 0;
         this.naverMap = naverMap;
         this.naverMap.setLocationSource(mLocationSource);
@@ -182,9 +183,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                 myAsyncTask.execute();
             }
         });
-        ActivityCompat.requestPermissions(this.getActivity(), PERMISSIONS, PERMISSION_REQUEST_CODE);
-        }
-
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -215,8 +214,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                         Log.e(this.getClass().getName(), search_location);
 
                         break;
-                }
-                try {
+                } try {
                 boolean name = false;
                 boolean type = false;
                 boolean closeDay = false;

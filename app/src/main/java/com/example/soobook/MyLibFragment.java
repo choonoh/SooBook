@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,8 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MyLibFragment extends Fragment{
 
-    private RecyclerView.Adapter adapter;
-    private ArrayList<Book> arrayList;
+    CustomMyBookAdapter adapter;
+    ArrayList<Book> arrayList;
+    ItemTouchHelper helper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,8 +88,11 @@ public class MyLibFragment extends Fragment{
         adapter = new CustomMyBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
+        //ItemTouchHelper 생성
+         helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+        // RecyclerView에 ItemTouchHelper 붙이기
+         helper.attachToRecyclerView(recyclerView);
+
         return root;
     }
-
-
 }

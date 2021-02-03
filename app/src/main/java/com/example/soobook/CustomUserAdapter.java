@@ -47,17 +47,15 @@ public class CustomUserAdapter extends RecyclerView.Adapter<CustomUserAdapter.Cu
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
             dialog.setTitle("친구 삭제")
                     .setMessage("정말 이 친구를 친구목록에서 삭제하시겠습니까?")
-                    .setPositiveButton("네", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-                            DatabaseReference data = database.getReference("Friend/"+user_uid+"/"+uid);
-                            data.removeValue();
-                            Intent intent= new Intent(context, AdminFrnd.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            context.startActivity(intent);
-                            Toast.makeText(context, "친구를 삭제하였습니다", Toast.LENGTH_SHORT).show();
-                        }
+                    .setPositiveButton("네", (dialog1, which) -> {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+                        DatabaseReference data = database.getReference("Friend/"+user_uid+"/"+uid);
+                        data.removeValue();
+
+                        Intent intent= new Intent(context, AdminFrnd.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                        Toast.makeText(context, "친구를 삭제하였습니다", Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                         @Override
