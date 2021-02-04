@@ -1,16 +1,20 @@
 package com.example.soobook;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -88,10 +92,41 @@ public class MyLibFragment extends Fragment{
         adapter = new CustomMyBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
-        //ItemTouchHelper 생성
-         helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
-        // RecyclerView에 ItemTouchHelper 붙이기
-         helper.attachToRecyclerView(recyclerView);
+        MySwipeHelper swipeHelper= new MySwipeHelper(getContext(), recyclerView,280) {
+            @Override
+            public void instantiatrMyButton(RecyclerView.ViewHolder viewHolder, List<MyButton> buffer) {
+                buffer.add(new MyButton(getContext(),
+                        "Delete",
+                        20,
+                        R.drawable.ic_baseline_delete_24,
+                        Color.parseColor("#FF3C30"),
+                        pos -> {
+                            Toast.makeText(getContext(), "Delete click", Toast.LENGTH_SHORT).show();
+                            Log.e("TAG",viewHolder.getAdapterPosition()+"");
+                            String uid = arrayList.get(viewHolder.getAdapterPosition()).getUid();
+                            String isbn = arrayList.get(viewHolder.getAdapterPosition()).getIsbn();
+
+                            FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+                            DatabaseReference data = database.getReference("Book/"+uid+"/"+isbn);
+                            data.removeValue();
+                            
+                            arrayList.remove(viewHolder.getAdapterPosition());                // 해당 항목 삭제
+                            adapter.notifyItemRemoved(viewHolder.getAdapterPosition());    // Adapter에 알려주기.
+                        }));
+                buffer.add(new MyButton(getContext(),
+                        "Update",
+                        20,
+                        R.drawable.ic_baseline_create_24,
+                        Color.parseColor("#03DAC5"),
+                        pos -> {
+                            Toast.makeText(getContext(), "edit click", Toast.LENGTH_SHORT).show();
+                            //TODO: 편집할 코드
+                        }));
+            }
+        };// swipeHelper
+
+//         helper = new ItemTouchHelper(new ItemTouchHelperCallback(adapter));
+//         helper.attachToRecyclerView(recyclerView);
 
         return root;
     }
