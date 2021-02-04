@@ -52,10 +52,10 @@ public class Login extends AppCompatActivity{
             final Toast toast;
             Handler handler = new Handler();
             if (user_email.length() <= 0) {
-                toast = Toast.makeText(Login.this, "이메일을 입력하셈유", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Login.this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else if (user_pwd.length() <= 0) {
-                toast = Toast.makeText(Login.this, "비밀번호를 입력하셈유", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Login.this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else {
                 startLogin();
@@ -75,7 +75,7 @@ public class Login extends AppCompatActivity{
                 .addOnCompleteListener(this, task -> {
                     if(task.isSuccessful()){
                         Intent intent = new Intent(Login.this, Home.class);
-                        intent.putExtra("fragment","fri_lib");
+                        intent.putExtra("fragment","my_lib");
                         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                         intent.putExtra("user_email",et_email.getText().toString());
                         intent.putExtra("user_UID",currentUser.getUid());
@@ -83,7 +83,7 @@ public class Login extends AppCompatActivity{
                         startActivity(intent);
                         finish();
                     } else{
-                        Toast toast = Toast.makeText(Login.this, "실패", Toast.LENGTH_SHORT); toast.show();
+                        Toast toast = Toast.makeText(Login.this, "이메일이나 비밀번호가 틀립니다. 다시 시도해주세요.", Toast.LENGTH_SHORT); toast.show();
                         Handler handler = new Handler();
                         handler.postDelayed(toast::cancel, 1000);
                     }
@@ -95,11 +95,11 @@ public class Login extends AppCompatActivity{
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(Login.this, Home.class);
-            intent.putExtra("fragment","fri_lib");
+            intent.putExtra("fragment","my_lib");
             intent.putExtra("user_email",currentUser.getEmail());
             intent.putExtra("user_UID",currentUser.getUid());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            Toast toast = Toast.makeText(Login.this, "자동로그인 성공", Toast.LENGTH_SHORT); toast.show();
+            Toast toast = Toast.makeText(Login.this, "자동로그인 되었습니다.", Toast.LENGTH_SHORT); toast.show();
             Handler handler = new Handler();
             handler.postDelayed(toast::cancel, 1000);
             startActivity(intent);

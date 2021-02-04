@@ -8,235 +8,282 @@
     android:background="@color/sooBook_bg">
 
 
-
-
-    <LinearLayout
-
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="15dp">
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="30dp"
+        android:text="정약용도서관"
+        android:textSize="30sp"
+        android:textColor="#00B400"
+        android:textStyle="bold"/>
 
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기본 정보"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="22sp"
+        android:textColor="@color/soobook_green" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="15dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="경기도 남양주시 다산중앙로 82번안길 "
+        android:textSize="18sp"
+        android:textColor="@color/soobook_black"
+        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/tel"/>
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0315215451"
+        android:textSize="18sp"
+        android:textColor="#1966FF"
+        android:layout_gravity="center"
+        android:clickable="true"/>
+    </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/link"/>
+        <TextView
+            android:id="@+id/homePageUrl"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이름"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
+            android:text="www.naver.com"
+            android:textSize="18sp"
+            android:textColor="#1966FF"
+            android:layout_gravity="center"
+            android:clickable="true"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="종류"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
-
             <TextView
                 android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
+                android:text="공공도서관"
+                android:textSize="18sp"
                 android:textColor="@color/black"
-                android:layout_weight="4" />
-        </LinearLayout>
+                android:visibility="gone"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="운영정보"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="22sp"
+        android:textColor="@color/soobook_green" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="15dp"
+        android:background="?android:attr/listDivider" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="휴무일"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/light_grey" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="닫는날"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
-
-            <TextView
-                android:id="@+id/closeDay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/closeDay"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="매월 무슨요일df"
+            android:textSize="18sp"
+            android:textColor="@color/soobook_black"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주중 open"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="7" />
+                android:text=" 평 일"
+                android:textSize="18sp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/light_grey"/>
 
             <TextView
                 android:id="@+id/weekOpenTime"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:text="08:00"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주중 close"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="7" />
-
+                android:text="~"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
             <TextView
                 android:id="@+id/weekCloseTime"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="3" />
+                android:text="22:00"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black"/>
+
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="토요일 open"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
+                android:text="토요일"
+                android:layout_marginRight="10dp"
+                android:textSize="18sp"
+                android:textColor="#5B92FF"/>
 
             <TextView
                 android:id="@+id/satOpenTime"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+                android:text="08:00"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="토요일 close"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
+                android:text="~"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
 
             <TextView
                 android:id="@+id/satCloseTime"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
+                android:text="22:00"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="공휴일 open"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="7" />
+                android:text="공휴일"
+                android:textSize="18sp"
+                android:layout_marginRight="10dp"
+                android:textColor="#FF5B5B" />
+
 
             <TextView
                 android:id="@+id/holidayOpenTime"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+                android:text="0800"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="공휴일 close"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="7" />
+                android:text="~"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black"  />
 
             <TextView
                 android:id="@+id/holidayCloseTime"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="3" />
+                android:text="2180"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
         </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="대여정보"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="22sp"
+        android:textColor="@color/soobook_green"  />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="15dp"
+        android:background="?android:attr/listDivider" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="책 num"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="6" />
 
@@ -244,138 +291,85 @@
                 android:id="@+id/bookNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
+                android:text="200000"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="4" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="대여 가능 num"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
+                android:text="최대 권수"
+                android:textSize="18sp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/light_grey"/>
 
             <TextView
                 android:id="@+id/borPosNum"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
+                android:text="20"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="권"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="대여가능 day"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="7" />
-
+                android:text="대여 기간"
+                android:layout_marginRight="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/light_grey" />
             <TextView
                 android:id="@+id/borPosDay"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="3" />
+                android:text="14"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일"
+                android:textSize="18sp"
+                android:textColor="@color/soobook_black" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="주소"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="7" />
 
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="3" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="도서관 번호"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
-
-            <TextView
-                android:id="@+id/number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="homePageUrl"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="6" />
-
-            <TextView
-                android:id="@+id/homePageUrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_weight="4" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="갱신 날짜"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="7" />
 
@@ -384,10 +378,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_weight="3" />
         </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>

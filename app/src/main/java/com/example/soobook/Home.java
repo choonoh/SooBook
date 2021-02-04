@@ -43,13 +43,13 @@ public class Home extends AppCompatActivity {
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         switch (bottom_frag) {
-            case "my_lib":
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, myLibFragment).commit();
-                Bundle toMyLibFrag = new Bundle();
-                toMyLibFrag.putString("user_email", user_email);
-                toMyLibFrag.putString("user_UID", user_UID);
-                myLibFragment.setArguments(toMyLibFrag);
-                bottomNavigationView.setSelectedItemId(R.id.my_lib);
+            case "fri_lib":
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
+                Bundle toFriendLibFrag = new Bundle();
+                toFriendLibFrag.putString("user_email", user_email);
+                toFriendLibFrag.putString("user_UID", user_UID);
+                friLibFragment.setArguments(toFriendLibFrag);
+                bottomNavigationView.setSelectedItemId(R.id.fri_lib);
                 break;
             case "find_lib":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
@@ -68,13 +68,13 @@ public class Home extends AppCompatActivity {
                 bottomNavigationView.setSelectedItemId(R.id.my_page);
                 break;
             default:
-            case "fri_lib":
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
-                Bundle toFriendLibFrag = new Bundle();
-                toFriendLibFrag.putString("user_email", user_email);
-                toFriendLibFrag.putString("user_UID", user_UID);
-                friLibFragment.setArguments(toFriendLibFrag);
-                bottomNavigationView.setSelectedItemId(R.id.fri_lib);
+            case "my_lib":
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, myLibFragment).commit();
+                Bundle toMyLibFrag = new Bundle();
+                toMyLibFrag.putString("user_email", user_email);
+                toMyLibFrag.putString("user_UID", user_UID);
+                myLibFragment.setArguments(toMyLibFrag);
+                bottomNavigationView.setSelectedItemId(R.id.my_lib);
                 break;
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -117,7 +117,6 @@ public class Home extends AppCompatActivity {
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
-
             toast = Toast.makeText(Home.this, "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT); toast.show();
             handler.postDelayed(toast::cancel, 1000);
             return;

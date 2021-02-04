@@ -2,6 +2,8 @@ package com.example.soobook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -43,6 +45,26 @@ public class DetailView extends AppCompatActivity {
         tv_number = findViewById(R.id.number);
         tv_homePageUrl = findViewById(R.id.homePageUrl);
         tv_dataTime = findViewById(R.id.dataTime);
+
+
+        tv_number.setOnClickListener(v -> {
+
+            String tel = tv_number.getText().toString();
+
+            Uri dialing = Uri.parse("tel:" + tel);
+            Intent dialingIntent = new Intent(Intent.ACTION_DIAL, dialing);
+         startActivity(dialingIntent);
+
+
+        });
+        tv_homePageUrl.setOnClickListener(v -> {
+                String url = tv_homePageUrl.getText().toString();
+                Uri uri = Uri.parse(url);   // "http:"을 알아서 분석해서 웹으로 인식.
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+
+            });
+
     }
     public void getIntentString() {
         name = getIntent().getStringExtra("name");
