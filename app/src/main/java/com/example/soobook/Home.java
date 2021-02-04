@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,7 +16,8 @@ public class Home extends AppCompatActivity {
 
     FriLibFragment friLibFragment;
     MyLibFragment myLibFragment;
-    FindLibFragment findLibFragment;
+    BeforeFindLibFragment beforeFindLibFragment;
+//    FindLibFragment findLibFragment;
     MyPageFragment myPageFragment;
 
     String user_email, user_UID;
@@ -38,11 +40,13 @@ public class Home extends AppCompatActivity {
 
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
-        findLibFragment = new FindLibFragment();
+//        findLibFragment = new FindLibFragment();
+        beforeFindLibFragment = new BeforeFindLibFragment();
         myPageFragment = new MyPageFragment();
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         switch (bottom_frag) {
+            default:
             case "my_lib":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, myLibFragment).commit();
                 Bundle toMyLibFrag = new Bundle();
@@ -52,11 +56,11 @@ public class Home extends AppCompatActivity {
                 bottomNavigationView.setSelectedItemId(R.id.my_lib);
                 break;
             case "find_lib":
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, beforeFindLibFragment).commit();
                 Bundle findLibFrag = new Bundle();
                 findLibFrag.putString("user_email", user_email);
                 findLibFrag.putString("user_UID", user_UID);
-                findLibFragment.setArguments(findLibFrag);
+                beforeFindLibFragment.setArguments(findLibFrag);
                 bottomNavigationView.setSelectedItemId(R.id.find_lib);
                 break;
             case "myPage":
@@ -64,10 +68,9 @@ public class Home extends AppCompatActivity {
                 Bundle myPage = new Bundle();
                 myPage.putString("user_email", user_email);
                 myPage.putString("user_UID", user_UID);
-                findLibFragment.setArguments(myPage);
+                myPageFragment.setArguments(myPage);
                 bottomNavigationView.setSelectedItemId(R.id.my_page);
                 break;
-            default:
             case "fri_lib":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
                 Bundle toFriendLibFrag = new Bundle();
@@ -95,11 +98,11 @@ public class Home extends AppCompatActivity {
                             myLibFragment.setArguments(toFriendLibFrag);
                             return true;
                         case R.id.find_lib:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, beforeFindLibFragment).commit();
                             Bundle toFindLibFrag = new Bundle();
                             toFindLibFrag.putString("user_email", user_email);
                             toFindLibFrag.putString("user_UID", user_UID);
-                            findLibFragment.setArguments(toFindLibFrag);
+                            beforeFindLibFragment.setArguments(toFindLibFrag);
                             return true;
                         case R.id.my_page:
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();
@@ -112,6 +115,13 @@ public class Home extends AppCompatActivity {
                     return false;
                 }
         );
+    }
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("user_email", user_email);
+        bundle.putString("user_UID", user_UID);
+        fragment.setArguments(bundle);
     }
     @Override
     public void onBackPressed() {

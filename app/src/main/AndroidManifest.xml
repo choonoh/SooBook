@@ -28,7 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SOOBOOK.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UpdateMyBook"></activity>
+        <activity android:name=".UpdateMyBook" />
         <activity android:name=".Home" />
         <activity android:name=".DetailView" />
         <activity android:name=".Sign_up" />
