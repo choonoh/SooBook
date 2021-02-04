@@ -18,9 +18,9 @@ import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 
-public class BeforeFindLibFragment extends Fragment implements OnMapReadyCallback {
+public class BeforeFindLibFragment extends Fragment {
 
-    boolean go_to_map = false;
+    boolean go_to_map = true;
     String user_email, user_UID;
 
     FindLibFragment findLibFragment;
@@ -38,6 +38,8 @@ public class BeforeFindLibFragment extends Fragment implements OnMapReadyCallbac
                              Bundle savedInstanceState) {
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_before_find_lib, container, false);
 
+        ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, PERMISSION_REQUEST_CODE);
+
         user_email = getArguments().getString("user_email");
         user_UID = getArguments().getString("user_UID");
 
@@ -50,17 +52,12 @@ public class BeforeFindLibFragment extends Fragment implements OnMapReadyCallbac
         }
         map_btn.setOnClickListener(v -> {
             if(go_to_map) {
-//                ((Home)getActivity()).replaceFragment(FindLibFragment.newInstance());
+                ((Home)getActivity()).replaceFragment(FindLibFragment.newInstance());
             }
         });
 
 
         return rootView;
-    }
-
-    @Override
-    public void onMapReady(@NonNull NaverMap naverMap) {
-        ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, PERMISSION_REQUEST_CODE);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

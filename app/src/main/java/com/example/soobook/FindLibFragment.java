@@ -71,6 +71,10 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
+    public static FindLibFragment newInstance() {
+        return new FindLibFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
