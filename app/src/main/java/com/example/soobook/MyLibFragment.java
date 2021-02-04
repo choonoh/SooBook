@@ -109,7 +109,7 @@ public class MyLibFragment extends Fragment{
                             FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
                             DatabaseReference data = database.getReference("Book/"+uid+"/"+isbn);
                             data.removeValue();
-                            
+
                             arrayList.remove(viewHolder.getAdapterPosition());                // 해당 항목 삭제
                             adapter.notifyItemRemoved(viewHolder.getAdapterPosition());    // Adapter에 알려주기.
                         }));
@@ -120,7 +120,17 @@ public class MyLibFragment extends Fragment{
                         Color.parseColor("#03DAC5"),
                         pos -> {
                             Toast.makeText(getContext(), "edit click", Toast.LENGTH_SHORT).show();
-                            //TODO: 편집할 코드
+                            Intent intent = new Intent(getActivity(), UpdateMyBook.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("title", arrayList.get(viewHolder.getAdapterPosition()).gettitle());
+                            intent.putExtra("auth", arrayList.get(viewHolder.getAdapterPosition()).getAuth());
+                            intent.putExtra("pub", arrayList.get(viewHolder.getAdapterPosition()).getPub());
+                            intent.putExtra("star", arrayList.get(viewHolder.getAdapterPosition()).getStar());
+                            intent.putExtra("rec", arrayList.get(viewHolder.getAdapterPosition()).getRec());
+                            intent.putExtra("uid", arrayList.get(viewHolder.getAdapterPosition()).getUid());
+                            intent.putExtra("isbn", arrayList.get(viewHolder.getAdapterPosition()).getIsbn());
+                            intent.putExtra("user_email", user_email);
+                            startActivity(intent);
                         }));
             }
         };// swipeHelper
