@@ -16,7 +16,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/sooBook_background"
+        android:background="@color/sooBook_bg"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/Theme.SOOBOOK.PopupOverlay">
@@ -28,7 +28,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="ISBN 바코드를 인식시켜주세요."
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -37,9 +37,9 @@
         android:id="@+id/btn_skip_qr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/sooBook_background"
+        android:backgroundTint="@color/sooBook_bg"
         android:text="직접입력하기"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

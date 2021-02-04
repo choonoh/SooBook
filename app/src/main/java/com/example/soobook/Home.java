@@ -54,6 +54,13 @@ public class Home extends AppCompatActivity {
                 toMyLibFrag.putString("user_UID", user_UID);
                 myLibFragment.setArguments(toMyLibFrag);
                 bottomNavigationView.setSelectedItemId(R.id.my_lib);
+            case "fri_lib":
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
+                Bundle toFriendLibFrag = new Bundle();
+                toFriendLibFrag.putString("user_email", user_email);
+                toFriendLibFrag.putString("user_UID", user_UID);
+                friLibFragment.setArguments(toFriendLibFrag);
+                bottomNavigationView.setSelectedItemId(R.id.fri_lib);
                 break;
             case "find_lib":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, beforeFindLibFragment).commit();
@@ -70,14 +77,6 @@ public class Home extends AppCompatActivity {
                 myPage.putString("user_UID", user_UID);
                 myPageFragment.setArguments(myPage);
                 bottomNavigationView.setSelectedItemId(R.id.my_page);
-                break;
-            case "fri_lib":
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
-                Bundle toFriendLibFrag = new Bundle();
-                toFriendLibFrag.putString("user_email", user_email);
-                toFriendLibFrag.putString("user_UID", user_UID);
-                friLibFragment.setArguments(toFriendLibFrag);
-                bottomNavigationView.setSelectedItemId(R.id.fri_lib);
                 break;
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -127,7 +126,6 @@ public class Home extends AppCompatActivity {
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
-
             toast = Toast.makeText(Home.this, "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT); toast.show();
             handler.postDelayed(toast::cancel, 1000);
             return;

@@ -4,15 +4,16 @@
     <item
         android:id="@+id/my_lib"
         app:showAsAction="always"
-        android:icon="@drawable/m_icon"
-        android:title="" />
+        android:icon="@drawable/home"
+        android:title="내서재"
+        />
 
 
     <item
         android:id="@+id/fri_lib"
         app:showAsAction="always"
-        android:icon="@drawable/f_icon"
-        android:title=""
+        android:icon="@drawable/heart"
+        android:title="친구서재"
          />
     <!--
     android:title="▬▬▬"
@@ -21,12 +22,12 @@
     <item
         android:id="@+id/find_lib"
         app:showAsAction="always"
-        android:icon="@drawable/find_icon"
-        android:title="" />
+        android:icon="@drawable/location"
+        android:title="주위도서관" />
 
     <item
         android:id="@+id/my_page"
         app:showAsAction="always"
-        android:icon="@drawable/my_icon"
-        android:title="" />
+        android:icon="@drawable/setting"
+        android:title="마이페이지" />
 </menu>

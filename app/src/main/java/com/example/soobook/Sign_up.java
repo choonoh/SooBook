@@ -45,13 +45,13 @@ public class Sign_up extends AppCompatActivity {
             Toast toast;
             Handler handler = new Handler();
             if (et_email.getText().toString().length() <= 0) {
-                toast = Toast.makeText(Sign_up.this, "이메일 입력 ㅡㅡ", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Sign_up.this, "이메일을 입력하세요.", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else if (et_pwd.getText().toString().length() <= 0 || et_pwd_check.getText().toString().length() <= 0) {
-                toast = Toast.makeText(Sign_up.this, "비밀번호 입력 ㅡㅡ", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Sign_up.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             } else if(!et_pwd.getText().toString().equals(et_pwd_check.getText().toString())) {
-                toast = Toast.makeText(Sign_up.this, "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Sign_up.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             }else {
                 startSignUp();
@@ -89,11 +89,11 @@ public class Sign_up extends AppCompatActivity {
                 Intent intent = new Intent(Sign_up.this, Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
-                toast = Toast.makeText(Sign_up.this, "회원가입 성공!", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Sign_up.this, "수북의 회원이 되신 것을 환영합니다!", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
                 finish();
             } else {
-                toast = Toast.makeText(Sign_up.this, "잉 이미 있는 이메일이여", Toast.LENGTH_SHORT); toast.show();
+                toast = Toast.makeText(Sign_up.this, "중복 이메일이 존재합니다. 다른 이메일을 사용해주세요.", Toast.LENGTH_SHORT); toast.show();
                 handler.postDelayed(toast::cancel, 1000);
             }
         });
