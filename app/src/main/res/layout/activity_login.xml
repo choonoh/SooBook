@@ -110,7 +110,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="회원가입"
-            android:textColor="@color/black"
+            android:textColor="@color/light_grey"
             android:textSize="18sp"/>
 
         <TextView
@@ -120,7 +120,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="비밀번호 재설정"
-            android:textColor="@color/black"
+            android:textColor="@color/light_grey"
             android:textSize="18sp" />
 
 
