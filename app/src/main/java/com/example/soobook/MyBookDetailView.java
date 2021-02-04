@@ -15,27 +15,13 @@ public class MyBookDetailView extends AppCompatActivity {
 
     TextView isbn, title, auth, pub, star, rec, owner, time;
     String isbn_txt, title_txt, auth_txt, pub_txt, star_txt, rec_txt, owner_txt, uid, time_txt;
-    ImageButton del_btn;
     private FirebaseAuth firebaseAuth;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybook_detail_view);
-       del_btn = findViewById(R.id.del_btn);
-        del_btn.setOnClickListener(v -> {
-            FirebaseDatabase database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-                    DatabaseReference data = database.getReference("Book/"+uid+"/"+isbn_txt);
-                    data.removeValue();
 
-            Intent intent = new Intent(MyBookDetailView.this,Home.class);
-            intent.putExtra("user_email", owner_txt);
-            intent.putExtra("user_UID", uid);
-            intent.putExtra("fragment", "my_lib");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-                });
 
    setDetailView();
    getIntentString();

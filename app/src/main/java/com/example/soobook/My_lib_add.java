@@ -142,7 +142,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                                     author.setText(Author);
                                     pub.setText(Pub);
                                 } else {
-                                    Toast toast = Toast.makeText(My_lib_add.this, "책이 없슴요 ㅜ.ㅜ", Toast.LENGTH_SHORT); toast.show();
+                                    Toast toast = Toast.makeText(My_lib_add.this, "책이 검색되지 않습니다.", Toast.LENGTH_SHORT); toast.show();
                                     Handler handler = new Handler();
                                     handler.postDelayed(toast::cancel, 1000);
                                 }
@@ -161,7 +161,8 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
     public void postFirebaseDatabase(boolean add){
         SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월dd일 HH시mm분", Locale.KOREA);
 
-        Date time = new Date();
+        long now = System.currentTimeMillis();
+        Date time = new Date(now);
         String time2 = format.format(time);
 
 
@@ -204,7 +205,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                         startActivity(intent);
                         finish();
                     }else{
-                        Toast toast = Toast.makeText(My_lib_add.this, "어디서 이미 등록한 책을!!", Toast.LENGTH_SHORT); toast.show();
+                        Toast toast = Toast.makeText(My_lib_add.this, "이미 등록한 책입니다.", Toast.LENGTH_SHORT); toast.show();
                         Handler handler = new Handler();
                         handler.postDelayed(toast::cancel, 1000);
                     }
@@ -212,19 +213,19 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                     edit_isbn.setCursorVisible(true);
                     break;
                 } else {
-                    Toast toast = Toast.makeText(My_lib_add.this, "저기여 바코드로 isbn 입력하세여 ㅡ.ㅡ", Toast.LENGTH_SHORT); toast.show();
+                    Toast toast = Toast.makeText(My_lib_add.this, "ISBN을 올바르게 입력해주세요.", Toast.LENGTH_SHORT); toast.show();
                     Handler handler = new Handler();
                     handler.postDelayed(toast::cancel, 1000);
                 }
             case R.id.check_good:
                 check_bad.setChecked(false);
                 rec = "추천";
-                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/good.png?alt=media&token=b76c8629-7912-4bdd-b24d-8366ca046498";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/like.png?alt=media&token=6b12539a-b30f-4254-a3fa-f06dd15a9f73";
                 break;
             case R.id.check_bad:
                 check_good.setChecked(false);
                 rec = "비추천";
-                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/bad.png?alt=media&token=d59075c0-39dd-4325-99b4-7d633fe64deb";
+                recImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/unlike.png?alt=media&token=cdb9925c-0b07-4b72-9fbe-2ad3bda4ade9";
                 break;
         }
     }
@@ -240,7 +241,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
             Log.e("onActivityResult", "onActivityResult: ." + re);
             try {
                 if(re.equals("null")) {
-                    Toast toast = Toast.makeText(My_lib_add.this, "그 바코드가 안먹네요.. 나갔다 들어와서 해주세용 ^_^", Toast.LENGTH_SHORT); toast.show();
+                    Toast toast = Toast.makeText(My_lib_add.this, "ISBN 검색을 다시 시도해주세요.", Toast.LENGTH_SHORT); toast.show();
                     Handler handler = new Handler();
                     handler.postDelayed(toast::cancel, 1000);
                 } else {
@@ -249,7 +250,7 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                     handler.postDelayed(toast::cancel, 1000);
                 }
             } catch (Exception e) {
-                Toast toast = Toast.makeText(My_lib_add.this, "그 바코드가 안먹네요.. 나갔다 들어와서 해주세용 ^_^", Toast.LENGTH_SHORT); toast.show();
+                Toast toast = Toast.makeText(My_lib_add.this, "ISBN 검색을 다시 시도해주세요.", Toast.LENGTH_SHORT); toast.show();
                 Handler handler = new Handler();
                 handler.postDelayed(toast::cancel, 1000);
             }

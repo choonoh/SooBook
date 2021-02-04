@@ -60,19 +60,24 @@ public class UpdateMyBook extends AppCompatActivity {
 
         if(rec.equals("추천")) {
             check_good.setChecked(true);
+            changedRec = "추천";
+            changedRecImage ="https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/like.png?alt=media&token=6b12539a-b30f-4254-a3fa-f06dd15a9f73";
         } else if(rec.equals("비추천")) {
             check_bad.setChecked(true);
+            changedRec = "비추천";
+            changedRecImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/unlike.png?alt=media&token=cdb9925c-0b07-4b72-9fbe-2ad3bda4ade9";
+
         }
 
         check_good.setOnClickListener(v -> {
             changedRec = "추천";
-            changedRecImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/good.png?alt=media&token=b76c8629-7912-4bdd-b24d-8366ca046498";
+            changedRecImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/like.png?alt=media&token=6b12539a-b30f-4254-a3fa-f06dd15a9f73";
             check_bad.setChecked(false);
         });
 
         check_bad.setOnClickListener(v -> {
             changedRec = "비추천";
-            changedRecImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/bad.png?alt=media&token=d59075c0-39dd-4325-99b4-7d633fe64deb";
+            changedRecImage = "https://firebasestorage.googleapis.com/v0/b/soobook-971fa.appspot.com/o/unlike.png?alt=media&token=cdb9925c-0b07-4b72-9fbe-2ad3bda4ade9";
             check_good.setChecked(false);
         });
 
@@ -92,7 +97,7 @@ public class UpdateMyBook extends AppCompatActivity {
             childUpdates.put("/Book/" + uid + "/" + isbn + "/time", finalTime);
             mPostReference.updateChildren(childUpdates);
 
-            Toast toast = Toast.makeText(UpdateMyBook.this, "수정 왕료 ㅋ", Toast.LENGTH_SHORT); toast.show();
+            Toast toast = Toast.makeText(UpdateMyBook.this, "수정되었습니다.", Toast.LENGTH_SHORT); toast.show();
             Handler handler = new Handler();
             handler.postDelayed(toast::cancel, 1000);
 

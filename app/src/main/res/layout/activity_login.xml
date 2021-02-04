@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sooBook_bg"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Login">
 
@@ -20,17 +20,31 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:gravity="center"
-            android:text="수북: 독서 기록 공유"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:layout_marginTop="30dp"
+            android:text="수 북"
+            android:textColor="@color/soobook_green"
+            android:textSize="36sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="공유하는 간편 독서 기록 다이어리"
+            android:textColor="@color/light_grey"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/sooboo_icon"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="25dp">
 
             <TextView
@@ -56,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="25dp">
 
             <TextView
@@ -84,7 +98,7 @@
             android:text="로그인"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/more_light_grey"
             android:textSize="20sp"
             android:layout_gravity="center" />
 
@@ -93,20 +107,20 @@
             android:id="@+id/sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="회원가입"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/black"
             android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/find_email_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="비밀번호 재설정"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
 

@@ -92,16 +92,16 @@ public class MyLibFragment extends Fragment{
         adapter = new CustomMyBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
-        MySwipeHelper swipeHelper= new MySwipeHelper(getContext(), recyclerView,280) {
+        MySwipeHelper swipeHelper= new MySwipeHelper(getContext(), recyclerView,200) {
             @Override
             public void instantiatrMyButton(RecyclerView.ViewHolder viewHolder, List<MyButton> buffer) {
                 buffer.add(new MyButton(getContext(),
-                        "Delete",
+                        "삭제",
                         20,
                         R.drawable.ic_baseline_delete_24,
                         Color.parseColor("#FF3C30"),
                         pos -> {
-                            Toast.makeText(getContext(), "Delete click", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                             Log.e("TAG",viewHolder.getAdapterPosition()+"");
                             String uid = arrayList.get(viewHolder.getAdapterPosition()).getUid();
                             String isbn = arrayList.get(viewHolder.getAdapterPosition()).getIsbn();
@@ -114,12 +114,12 @@ public class MyLibFragment extends Fragment{
                             adapter.notifyItemRemoved(viewHolder.getAdapterPosition());    // Adapter에 알려주기.
                         }));
                 buffer.add(new MyButton(getContext(),
-                        "Update",
+                        "수정",
                         20,
                         R.drawable.ic_baseline_create_24,
                         Color.parseColor("#03DAC5"),
                         pos -> {
-                            Toast.makeText(getContext(), "edit click", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getContext(), "edit click", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getActivity(), UpdateMyBook.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("title", arrayList.get(viewHolder.getAdapterPosition()).gettitle());

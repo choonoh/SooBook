@@ -9,14 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -69,6 +72,7 @@ public class FriLibFragment extends Fragment {
 
                     String frnd = user.getUid();
                     databaseReference = bookdatabase.getReference("Book/" + frnd+ "/");
+
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,6 +92,7 @@ public class FriLibFragment extends Fragment {
                     });
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+
             }
 
             @Override
@@ -96,8 +101,11 @@ public class FriLibFragment extends Fragment {
                 Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
+
         adapter = new CustomBookAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
+
+
         return root;
     }
 }

@@ -91,10 +91,10 @@ public class Home extends AppCompatActivity {
                             return true;
                         case R.id.my_lib:
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, myLibFragment).commit();
-                            Bundle toFriendLibFrag = new Bundle();
-                            toFriendLibFrag.putString("user_email", user_email);
-                            toFriendLibFrag.putString("user_UID", user_UID);
-                            myLibFragment.setArguments(toFriendLibFrag);
+                            Bundle toMyLibFrag = new Bundle();
+                            toMyLibFrag.putString("user_email", user_email);
+                            toMyLibFrag.putString("user_UID", user_UID);
+                            myLibFragment.setArguments(toMyLibFrag);
                             return true;
                         case R.id.find_lib:
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, beforeFindLibFragment).commit();

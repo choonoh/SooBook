@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_name"
                     android:layout_alignLeft="@+id/text_name"
-                    android:text="책소개 "
+                    android:text="나의 기록 "
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:visibility="gone"/>

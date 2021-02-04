@@ -38,7 +38,6 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_book, parent, false);
         CustomViewHolder holder = new CustomViewHolder(view);
 
-
         return holder;
 
 
@@ -64,6 +63,7 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
             String Pub = arrayList.get(position).getPub();
             String Star = arrayList.get(position).getStar();
             String Owner = arrayList.get(position).getOwner();
+            String Time = arrayList.get(position).getTime();
             Intent intent = new Intent(context,BookDetailView.class);
             intent.putExtra("title", title);
             intent.putExtra("isbn",Isbn);
@@ -72,6 +72,7 @@ public class CustomBookAdapter extends RecyclerView.Adapter<CustomBookAdapter.Cu
             intent.putExtra("pub", Pub);
             intent.putExtra("star",Star);
             intent.putExtra("owner",Owner.toString());
+            intent.putExtra("time",Time);
             context.startActivity(intent);
 
         });
