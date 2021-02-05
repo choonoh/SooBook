@@ -62,6 +62,7 @@ public class Login extends AppCompatActivity{
             }
         });
     }
+
     public void setLogin() {
         et_email = findViewById(R.id.et_email);
         et_pwd = findViewById(R.id.et_pwd);
@@ -70,6 +71,7 @@ public class Login extends AppCompatActivity{
         find_email_pwd = findViewById(R.id.find_email_pwd);
         firebaseAuth = FirebaseAuth.getInstance();
     }
+
     public void startLogin(){
         firebaseAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_pwd.getText().toString())
                 .addOnCompleteListener(this, task -> {
@@ -89,6 +91,7 @@ public class Login extends AppCompatActivity{
                     }
                 });
     }
+
     @Override
     public void onStart() {
         super.onStart();

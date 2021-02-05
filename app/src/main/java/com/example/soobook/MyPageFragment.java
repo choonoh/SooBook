@@ -115,7 +115,6 @@ public class MyPageFragment extends Fragment {
                     .show();
         });
 
-
         logout_txt_btn.setOnClickListener(v -> {
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signOut();
@@ -123,7 +122,7 @@ public class MyPageFragment extends Fragment {
             Intent intent = new Intent(getActivity(), Login.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-
+            getActivity().finish();
         });
 
         return root;

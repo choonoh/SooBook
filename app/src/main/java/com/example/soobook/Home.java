@@ -21,7 +21,7 @@ public class Home extends AppCompatActivity {
     MyPageFragment myPageFragment;
 
     String user_email, user_UID;
-    String bottom_frag = "fri_lib";
+    String bottom_frag = "my_lib";
 
     private long backKeyPressedTime = 0;
     private Toast toast;
@@ -54,6 +54,7 @@ public class Home extends AppCompatActivity {
                 toMyLibFrag.putString("user_UID", user_UID);
                 myLibFragment.setArguments(toMyLibFrag);
                 bottomNavigationView.setSelectedItemId(R.id.my_lib);
+                break;
             case "fri_lib":
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, friLibFragment).commit();
                 Bundle toFriendLibFrag = new Bundle();
