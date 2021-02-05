@@ -407,11 +407,15 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                     });
                 }
                 Log.e(this.getClass().getName(), "파싱 후 카메라 옮기기 전 lat, long : " + latitude_marker + ", " + longitude_marker);
-                CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(latitude_marker, longitude_marker));
-                naverMap.moveCamera(cameraUpdate);
-                Toast toast = Toast.makeText(getContext(), "총" + marker_len + "개의 도서관을 찾았어요.", Toast.LENGTH_SHORT); toast.show();
-                Handler handler = new Handler();
-                handler.postDelayed(toast::cancel, 1500);
+                try {
+                    CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(latitude_marker, longitude_marker));
+                    naverMap.moveCamera(cameraUpdate);
+                    Toast toast = Toast.makeText(getContext(), "총" + marker_len + "개의 도서관을 찾았어요.", Toast.LENGTH_SHORT); toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(toast::cancel, 1500);
+                } catch (Exception e) {
+                    Log.e(this.getClass().getName(), "검색 구냥 넘어가기");
+                }
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage("주변 도서관이 검색되지 않습니다.");
