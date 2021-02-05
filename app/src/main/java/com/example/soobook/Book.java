@@ -1,7 +1,5 @@
 package com.example.soobook;
 
-import android.widget.Toast;
-
 public class Book {
     private String uid;
     private String isbn;
@@ -13,8 +11,17 @@ public class Book {
     private String star;
     private String recImage;
     private String time;
+    private  String nickname;
 
     public Book(){}
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getAuth() {
         return auth;
