@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="start"
-                    android:hint="1000자 이하로 입력해주세요."
+                    android:hint="1000자 이내로 기록해주세요."
                     android:lines="16"
                     android:maxLength="1000"
                     android:padding="10dp"

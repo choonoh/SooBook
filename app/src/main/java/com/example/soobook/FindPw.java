@@ -21,7 +21,6 @@ public class FindPw extends AppCompatActivity{
     private EditText targetEmail; //이메일 입력 EditText
     private Button sendButton; //클릭시, 해당 이메일로 패스워드 재설정 페이지링크를 보냄
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +35,7 @@ public class FindPw extends AppCompatActivity{
     public void Email(){
         firebaseAuth = FirebaseAuth.getInstance();
         targetEmail = (EditText) findViewById(R.id.et_email);
+        if(!targetEmail.getText().toString().equals("")){
         firebaseAuth.sendPasswordResetEmail(targetEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() { //해당 이메일 주소로 비밀번호 재설정
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -46,7 +46,10 @@ public class FindPw extends AppCompatActivity{
                     startActivity(intent);
                 }
             }
-        });
+        });}else{
+            Toast.makeText(FindPw.this, "이메일을 올바르게 입력해주세요",Toast.LENGTH_SHORT);
+            return;
+        }
     }
 
 

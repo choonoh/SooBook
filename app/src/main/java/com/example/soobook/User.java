@@ -29,4 +29,6 @@ public class User {
     public void setUser_uid(String user_uid) {
         this.user_uid = user_uid;
     }
+
+
 }

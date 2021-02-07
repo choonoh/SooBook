@@ -16,8 +16,8 @@ public class Home extends AppCompatActivity {
 
     FriLibFragment friLibFragment;
     MyLibFragment myLibFragment;
-    BeforeFindLibFragment beforeFindLibFragment;
-//    FindLibFragment findLibFragment;
+  //  BeforeFindLibFragment beforeFindLibFragment;
+    FindLibFragment findLibFragment;
     MyPageFragment myPageFragment;
 
     String user_email, user_UID;
@@ -40,8 +40,8 @@ public class Home extends AppCompatActivity {
 
         friLibFragment = new FriLibFragment();
         myLibFragment = new MyLibFragment();
-//        findLibFragment = new FindLibFragment();
-        beforeFindLibFragment = new BeforeFindLibFragment();
+       findLibFragment = new FindLibFragment();
+    //    beforeFindLibFragment = new BeforeFindLibFragment();
         myPageFragment = new MyPageFragment();
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -64,11 +64,11 @@ public class Home extends AppCompatActivity {
                 bottomNavigationView.setSelectedItemId(R.id.fri_lib);
                 break;
             case "find_lib":
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, beforeFindLibFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
                 Bundle findLibFrag = new Bundle();
                 findLibFrag.putString("user_email", user_email);
                 findLibFrag.putString("user_UID", user_UID);
-                beforeFindLibFragment.setArguments(findLibFrag);
+                findLibFragment.setArguments(findLibFrag);
                 bottomNavigationView.setSelectedItemId(R.id.find_lib);
                 break;
             case "myPage":
@@ -98,11 +98,11 @@ public class Home extends AppCompatActivity {
                             myLibFragment.setArguments(toMyLibFrag);
                             return true;
                         case R.id.find_lib:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.container, beforeFindLibFragment).commit();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, findLibFragment).commit();
                             Bundle toFindLibFrag = new Bundle();
                             toFindLibFrag.putString("user_email", user_email);
                             toFindLibFrag.putString("user_UID", user_UID);
-                            beforeFindLibFragment.setArguments(toFindLibFrag);
+                             findLibFragment.setArguments(toFindLibFrag);
                             return true;
                         case R.id.my_page:
                             getSupportFragmentManager().beginTransaction().replace(R.id.container, myPageFragment).commit();

@@ -8,17 +8,16 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class FirebasefriendPost {
-    public String user_uid, email, uid, nickname;
+    public String user_uid, email, uid;
 
     public FirebasefriendPost(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
 
-    public FirebasefriendPost(String user_uid, String email, String uid, String nickname) {
+    public FirebasefriendPost(String user_uid, String email, String uid) {
         this.user_uid = user_uid;
         this.email = email;
         this.uid = uid;
-        this.nickname = nickname;
     }
 
     @Exclude
@@ -27,7 +26,6 @@ public class FirebasefriendPost {
         result.put("user_uid", user_uid);
         result.put("email", email);
         result.put("uid", uid);
-        result.put("nickname", nickname);
 
         return result;
     }

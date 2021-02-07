@@ -32,10 +32,10 @@
 
             <ImageButton
                 android:id="@+id/search_btn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/search" />
+                android:background="@drawable/marker" />
         </LinearLayout>
 
         <fragment

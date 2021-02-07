@@ -19,10 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +43,7 @@ public class MyPageFragment extends Fragment {
     ImageButton logout_btn;
     TextView admin_btn, add_btn, changepw_btn, logout_txt_btn, del_id_btn;
     private FirebaseAuth mAuth;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,12 +80,44 @@ public class MyPageFragment extends Fragment {
         });
 
         changepw_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), FindPw.class);
+     /*       Intent intent = new Intent(getActivity(), FindPw.class);
+            intent.putExtra("user_email", user_email);
+            intent.putExtra("user_UID", user_UID);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        });
+*/          AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setTitle("비밀번호 변경")
+                    .setMessage("가입하신 이메일로 비밀번호 재설정 링크를 보내드립니다. 계속 진행하시겠습니까?")
+                    .setPositiveButton("네", (dialog1, which) -> {
+                        mAuth = FirebaseAuth.getInstance();
+                        mAuth.sendPasswordResetEmail(user_email).addOnCompleteListener(new OnCompleteListener<Void>() { //해당 이메일 주소로 비밀번호 재설정
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "해당 이메일로 비밀번호 재설정 링크를 보냈습니다.", Toast.LENGTH_SHORT).show();
+                                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                                    firebaseAuth.signOut();
+                                    Intent intent = new Intent(getActivity(), Login.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            }
+
+                        });
+                    })
+                    .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create()
+                    .show();
 
 
+
+                });
         del_id_btn.setOnClickListener(v -> {
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
@@ -107,7 +143,6 @@ public class MyPageFragment extends Fragment {
                     .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), "계정 탈퇴를 취소했습니다.", Toast.LENGTH_SHORT).show();
 
                         }
                     })
@@ -118,7 +153,6 @@ public class MyPageFragment extends Fragment {
         logout_txt_btn.setOnClickListener(v -> {
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signOut();
-
             Intent intent = new Intent(getActivity(), Login.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

@@ -24,7 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="start"
-                android:layout_margin="20dp">
+                android:layout_margin="10dp">
 
 
                 <CheckBox
@@ -209,7 +209,7 @@
                 android:id="@+id/btn_insert"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/add"
                 android:clickable="true"
                 android:gravity="bottom"

@@ -32,7 +32,7 @@ public class Add_frnd extends AppCompatActivity {
     private DatabaseReference mPostReference;
 
     Button make_frnd_btn, search_frnd_btn;
-    EditText et_email_frnd, et_nickname_frnd;
+    EditText et_email_frnd;
     LinearLayout frnd_add_layout;
     String user_email, user_UID;
     ArrayList<User> arrayList;
@@ -46,7 +46,6 @@ public class Add_frnd extends AppCompatActivity {
         setContentView(R.layout.activity_add_frnd);
 
         et_email_frnd = findViewById(R.id.email_frnd);
-        et_nickname_frnd = findViewById(R.id.nickname_frnd);
         make_frnd_btn = findViewById(R.id.make_frnd_btn);
         frnd_add_layout = findViewById(R.id.frnd_add_layout);
         search_frnd_btn = findViewById(R.id.seach_frnd);
@@ -76,13 +75,11 @@ public class Add_frnd extends AppCompatActivity {
                             arrayList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                             frnd_add_layout.setVisibility(VISIBLE);
                             make_frnd_btn.setOnClickListener(v -> {
-                                if(!et_nickname_frnd.getText().toString().equals("")) {
                                     mPostReference = FirebaseDatabase.getInstance().getReference();
                                     Map<String, Object> childUpdates = new HashMap<>();
                                     Map<String, Object> postValues;
-                                    String frnd_nickname = et_nickname_frnd.getText().toString();
 
-                                    FirebasefriendPost post = new FirebasefriendPost(user_UID, frnd_email, frnd_uid, frnd_nickname);
+                                    FirebasefriendPost post = new FirebasefriendPost(user_UID, frnd_email, frnd_uid);
                                     postValues = post.toMap();
 
                                     String root ="/Friend/"+user_UID+"/"+frnd_uid+"/";
@@ -95,11 +92,7 @@ public class Add_frnd extends AppCompatActivity {
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finish();
-                                } else if (et_nickname_frnd.getText().toString().equals("")) {
-                                    Toast toast = Toast.makeText(Add_frnd.this, "친구 닉네임을 입력해주세요.", Toast.LENGTH_SHORT); toast.show();
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(toast::cancel, 1000);
-                                }
+
                             });
                         }
                         adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
