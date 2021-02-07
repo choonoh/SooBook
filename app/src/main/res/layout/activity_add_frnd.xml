@@ -9,7 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp" >
 
         <TextView
             android:id="@+id/textView"
@@ -18,10 +19,19 @@
             android:text="친구 추가"
             android:gravity="center"
             android:textColor="@color/soobook_green"
-            android:textSize="28sp"
-            android:layout_margin="30dp" />
-    </LinearLayout>
+            android:textSize="28sp"/>
 
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="5dp"
+        android:text="개인정보 보안을 위해 이메일을 정확히 입력해야 검색됩니다."
+        android:textColor="@color/light_grey"
+        android:textSize="13sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,8 +50,8 @@
             android:id="@+id/email_frnd"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:hint="이메일 입력"
             android:textColorHint="@color/light_grey"
+            android:padding="10dp"
             android:textColor="@color/black"
             android:inputType="textEmailAddress"/>
         <Button

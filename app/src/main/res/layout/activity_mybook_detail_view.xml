@@ -40,31 +40,35 @@
             android:id="@+id/book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dddd"
+            android:text=""
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textColor="@color/soobook_black" />
+
         <TextView
             android:id="@+id/book_auth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dddd"
+            android:text=""
             android:layout_gravity="center"
-            android:textSize="16sp"
+            android:gravity="center"
+            android:textSize="14sp"
             android:textColor="@color/light_grey"/>
 
         <TextView
             android:id="@+id/book_pub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dddd"
+            android:text=""
+            android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginBottom="50dp"
-            android:textColor="@color/light_grey" />
+            android:textColor="@color/light_grey"
+           />
 
 
         <TextView
@@ -74,7 +78,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:textColor="@color/soobook_black"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/book_star"
@@ -82,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textSize="16dp"
+            android:textSize="15dp"
             android:padding="15dp"
             android:minHeight="100dp"
             android:background="@color/white"
@@ -102,7 +106,7 @@
             android:maxLength="12"
             android:ellipsize="none"
             android:textColor="@color/light_grey"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
 
 </LinearLayout>
 
