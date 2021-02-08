@@ -12,37 +12,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="20dp"
-        android:layout_gravity="end"
-        android:gravity="end"
-        >
-
+        android:gravity="end">
 
         <ImageButton
             android:id="@+id/add_btn"
             android:layout_width="35dp"
             android:layout_height="22dp"
             android:adjustViewBounds="true"
-            android:background="@drawable/add_book"
-            />
+            android:background="@drawable/add_book" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="책등록"
             android:textSize="14sp"
-            android:textColor="@color/soobook_black"/>
-
+            android:textColor="@color/soobook_black" />
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        />
-
-
-    </LinearLayout>
-
-
-
+        android:layout_marginBottom="60dp" />
+</LinearLayout>
