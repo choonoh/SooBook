@@ -43,7 +43,9 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:paddingRight="5dp"/>
+                    android:paddingRight="5dp"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/black"/>
 
                 <ImageButton
                     android:id="@+id/isbn_sc"

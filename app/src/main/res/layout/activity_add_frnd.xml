@@ -53,7 +53,8 @@
             android:textColorHint="@color/light_grey"
             android:padding="10dp"
             android:textColor="@color/black"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:backgroundTint="@color/black"/>
         <Button
             android:id="@+id/seach_frnd"
             android:layout_width="25dp"
@@ -61,7 +62,6 @@
             android:background="@drawable/search"
             android:textColor="@color/black" />
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

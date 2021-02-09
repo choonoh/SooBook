@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class AdminFrnd extends AppCompatActivity {
 
     private DatabaseReference mPostReference;
-    private Button add_frnd;
+    private ImageButton add_frnd;
     private Button del_frnd;
     private ArrayList<User> arrayList;
     static ArrayList<String> arrayIndex = new ArrayList<String>();
