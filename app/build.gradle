@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.soobook"
+        applicationId "com.choonoh.soobook"
         minSdkVersion 23
         targetSdkVersion 30
         multiDexEnabled true

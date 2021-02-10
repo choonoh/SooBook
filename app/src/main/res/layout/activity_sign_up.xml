@@ -69,7 +69,8 @@
                     android:textColor="@color/black"
                     android:maxLines="1"
                     android:hint="실제 사용하는 이메일을 입력해주세요."
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:backgroundTint="@color/black"/>
 
             </LinearLayout>
 
@@ -97,7 +98,8 @@
                     android:maxLength="20"
                     android:inputType="textPassword"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:backgroundTint="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -124,7 +126,8 @@
                     android:inputType="textPassword"
                     android:textColor="@color/black"
                     android:textColorHint="#888888"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:backgroundTint="@color/black"/>
             </LinearLayout>
 
 
