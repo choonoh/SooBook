@@ -61,8 +61,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/link" />
@@ -86,8 +86,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/tel" />
@@ -117,9 +117,10 @@
                 android:layout_height="2dp"
                 android:layout_margin="15dp"
                 android:background="?android:attr/listDivider" />
+
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:text="휴무일"
@@ -133,6 +134,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/soobook_black"
                 android:textSize="18sp" />
