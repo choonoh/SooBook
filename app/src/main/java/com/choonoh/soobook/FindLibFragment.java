@@ -216,7 +216,9 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
                         break;
                     case 1:
                         Log.e(this.getClass().getName(), search_location);
-
+                        requestUrl = "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api"
+                                + "?serviceKey=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D"
+                                + "&pageNo=0&numOfRows=100&type=xml" + "&signguNm=" + search_location;
                         break;
                 } try {
                 boolean name = false;
@@ -419,7 +421,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage("주변 도서관이 검색되지 않습니다.");
-                builder.setPositiveButton("ㅇㅋ", null);
+                builder.setPositiveButton("확인", null);
                 dialog = builder.create();
                 dialog.show();
             }
