@@ -45,15 +45,17 @@ import java.util.ArrayList;
 public class FindLibFragment extends Fragment implements OnMapReadyCallback {
 
     TextView lib_name, lib_type, lib_number;
-    EditText et_search_text;
-    ImageButton search_btn;
+//    EditText et_search_text;
+//    ImageButton search_btn;
     LinearLayout detail_view;
 
     boolean marker_exist = false;
     int only_zero;
-    int cur_or_se, marker_len, final_marker;
+    int marker_len, final_marker;
+//    int cur_or_se;
     double latitude, longitude;
-    String search_location, current_location_si, current_location_dong;
+    String current_location_si, current_location_dong;
+//    String  search_location;
 
     ArrayList<Library> list;
     Marker[] markers;
@@ -94,45 +96,45 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
         lib_name = rootView.findViewById(R.id.name);
         lib_type = rootView.findViewById(R.id.type);
         lib_number = rootView.findViewById(R.id.number);
-        et_search_text = rootView.findViewById(R.id.search_text);
-        search_btn = rootView.findViewById(R.id.search_btn);
+//        et_search_text = rootView.findViewById(R.id.search_text);
+//        search_btn = rootView.findViewById(R.id.search_btn);
         detail_view = rootView.findViewById(R.id.detail_view);
 
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
-        search_btn.setOnClickListener(v -> {
-            search_location = et_search_text.getText().toString();
-            cur_or_se = 1;
-            Log.e(this.getClass().getName(), search_location);
-            if(search_location.equals("")) {
-                cur_or_se = 0;
-                GeoCoding geoCoding = new GeoCoding();
-                geoCoding.execute();
-                if(marker_exist) {
-                    marker_exist = false;
-                    for(int i = 0; i < markers.length; i++) {
-                        markers[i].setMap(null);
-                        markers[i] = null;
-                    }
-                }
-                marker_len = 0;
-                list = new ArrayList<>();
-                MyAsyncTask myAsyncTask = new MyAsyncTask();
-                myAsyncTask.execute();
-            } else {
-                if(marker_exist) {
-                    marker_exist = false;
-                    for(int i = 0; i < markers.length; i++) {
-                        markers[i].setMap(null);
-                        markers[i] = null;
-                    }
-                }
-                marker_len = 0;
-                list = new ArrayList<>();
-                MyAsyncTask myAsyncTask = new MyAsyncTask();
-                myAsyncTask.execute();
-            }
-        });
+//        search_btn.setOnClickListener(v -> {
+////            search_location = et_search_text.getText().toString();
+////            cur_or_se = 1;
+////            Log.e(this.getClass().getName(), search_location);
+////            if(search_location.equals("")) {
+////                cur_or_se = 0;
+//                GeoCoding geoCoding = new GeoCoding();
+//                geoCoding.execute();
+//                if(marker_exist) {
+//                    marker_exist = false;
+//                    for(int i = 0; i < markers.length; i++) {
+//                        markers[i].setMap(null);
+//                        markers[i] = null;
+//                    }
+//                }
+//                marker_len = 0;
+//                list = new ArrayList<>();
+//                MyAsyncTask myAsyncTask = new MyAsyncTask();
+//                myAsyncTask.execute();
+////            } else {
+////                if(marker_exist) {
+////                    marker_exist = false;
+////                    for(int i = 0; i < markers.length; i++) {
+////                        markers[i].setMap(null);
+////                        markers[i] = null;
+////                    }
+////                }
+////                marker_len = 0;
+////                list = new ArrayList<>();
+////                MyAsyncTask myAsyncTask = new MyAsyncTask();
+////                myAsyncTask.execute();
+////            }
+//        });
         detail_view.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), DetailView.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -171,7 +173,7 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             longitude = location.getLongitude();
             if(only_zero == 0) {
                 only_zero++;
-                cur_or_se = 0;
+//                cur_or_se = 0;
                 GeoCoding geoCoding = new GeoCoding();
                 geoCoding.execute();
                 if(marker_exist) {
@@ -205,22 +207,26 @@ public class FindLibFragment extends Fragment implements OnMapReadyCallback {
             Log.e(this.getClass().getName(), String.valueOf(latitude));
             Log.e(this.getClass().getName(), String.valueOf(longitude));
 
-            Log.e(this.getClass().getName(), "0 or 1 : " + cur_or_se);
+//            Log.e(this.getClass().getName(), "0 or 1 : " + cur_or_se);
             String requestUrl = "";
-                switch (cur_or_se) {
-                    case 0:
-                        Log.e(this.getClass().getName(), current_location_si + " " + current_location_dong);
-                        requestUrl = "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api"
-                                + "?serviceKey=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D"
-                                + "&pageNo=0&numOfRows=100&type=xml" + "&ctprvnNm=" + current_location_si + "&signguNm=" + current_location_dong;
-                        break;
-                    case 1:
-                        Log.e(this.getClass().getName(), search_location);
-                        requestUrl = "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api"
-                                + "?serviceKey=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D"
-                                + "&pageNo=0&numOfRows=100&type=xml" + "&signguNm=" + search_location;
-                        break;
-                } try {
+            requestUrl = "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api"
+                    + "?serviceKey=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D"
+                    + "&pageNo=0&numOfRows=100&type=xml" + "&ctprvnNm=" + current_location_si + "&signguNm=" + current_location_dong;
+//                switch (cur_or_se) {
+//                    case 0:
+//                        Log.e(this.getClass().getName(), current_location_si + " " + current_location_dong);
+//                        requestUrl = "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api"
+//                                + "?serviceKey=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D"
+//                                + "&pageNo=0&numOfRows=100&type=xml" + "&ctprvnNm=" + current_location_si + "&signguNm=" + current_location_dong;
+//                        break;
+//                    case 1:
+//                        Log.e(this.getClass().getName(), search_location);
+//                        requestUrl = "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api"
+//                                + "?serviceKey=bCJdW6RD4qr5ygWtvTicA5sgPMvnvcpfzA3vXZj2k8HZ66cnR7OpoV24WdJgJMv7e3x2gu2swtG%2Bv84490FuAw%3D%3D"
+//                                + "&pageNo=0&numOfRows=100&type=xml" + "&signguNm=" + search_location;
+//                        break;
+//                }
+                try {
                 boolean name = false;
                 boolean type = false;
                 boolean closeDay = false;
