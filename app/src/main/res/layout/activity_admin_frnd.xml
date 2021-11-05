@@ -41,7 +41,11 @@
         android:layout_marginBottom="20dp"
         android:text="이메일을 선택하면 친구 삭제가 가능합니다"
         android:textColor="@color/light_grey"
+<<<<<<< HEAD
         android:textSize="13sp"/>
+=======
+        android:textSize="13sp" />
+>>>>>>> 5e45751a635ced566d133b83cd183f4613480ca5
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
