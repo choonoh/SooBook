@@ -103,10 +103,12 @@ public class My_lib_add  extends AppCompatActivity implements View.OnClickListen
                 parser.setInput(url.openStream(), null);
 
                 int parserEvent = parser.getEventType();
+
                 Log.e(this.getClass().getName(), "start parsing");
 
                 while (parserEvent != XmlPullParser.END_DOCUMENT) {
                     switch (parserEvent) {
+
                         case XmlPullParser.START_TAG://parser가 시작 태그를 만나면 실행
                             if (parser.getName().equals("TITLE")) { //title 만나면 내용을 받을수 있게 하자
                                 inTitle = true;
